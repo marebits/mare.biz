@@ -7,6 +7,9 @@ doesFileExist=false;
 oldChecksum="";
 oldCid="";
 
+git commit -a;
+git push origin master;
+
 if [ -f "${cidFile}" ]; then
 	doesFileExist=true;
 	cidContents=`cat "${cidFile}"`;
