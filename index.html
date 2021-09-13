@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#" 🦄 🐎🐱>
+	<head>
+		<meta charset="utf-8">
+		<meta content="width=device-width, initial-scale=1" name="viewport">
+		<!-- <base href="https://mare.biz/"> -->
+		<link href="https://mare.biz/" rel="canonical" type="text/html">
+		<link as="font" crossorigin="anonymous" rel="preload" href="WoodrowW00-Reg.woff2" importance="high" type="font/woff2">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link crossorigin rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://mare.biz/" rel="home index" type="text/html">
+		<!-- <link href="/manifest.jsonmanifest" rel="manifest" type="application/manifest+json"> -->
+		<!-- <link href="/sitemap.xml" rel="sitemap" type="text/xml"> -->
+		<!-- <meta content="/browserconfig.xml" name="msapplication-config"> -->
+		<meta content="Mare Bits — For those who love mares" name="title" property="og:title">
+		<meta content="$MARE: An Ethereum token for all the oppressed bronies, horsefuckers, and nor/mlp/eople out there. These bits are bringing mares to the world of blockchain. It may be a meme token, but with your support we can show the furry tokens that hoofs always beat paws. /)" property="og:description">
+		<meta content="mare, mare bits, ethereum, erc20, bitcoin, crypto, money, pony, lauren faust, nft" name="keywords">
+		<meta content="https://mare.biz/marebits/marebits.png" property="og:image">
+		<meta content="350" property="og:image:width">
+		<meta content="350" property="og:image:height">
+		<meta content="image/png" property="og:image:type">
+		<meta content="website" property="og:type">
+		<meta content="https://mare.biz/" property="og:url">
+		<meta content="summary" name="twitter:card">
+		<meta content="@MareBits" name="twitter:site">
+		<link href="//iwtcits.com" importance="high" rel="bestpony" type="text/html">
+		<link href="//donutsteal.pl" rel="code-license content-license license" type="text/html">
+		<script type="application/ld+json">
+			{
+				"@context": {
+					"@base": "https://mare.biz/",
+					"@version": 1.1,
+					"@vocab": "https://schema.org"
+				},
+				"@graph": [
+					{
+						"@id": "",
+						"@type": "WebPage",
+						"audience": {
+							"@type": "Audience",
+							"audienceType": "horsefuckers",
+							"alternateName": "pony fags",
+							"description": "Anonymous nor/mlp/eople who frequent the /mlp/ board on 4chan.",
+							"image": "https://cdn.twibooru.org/img/view/2020/7/20/1858730.png",
+							"name": "horsefuckers"
+						}, 
+						"author": {
+							"@type": "Person",
+							"additionalName": "Corpulent Brony",
+							"address": {
+								"@type": "PostalAddress",
+								"addressCountry": "US",
+								"addressLocality": "Orlando",
+								"addressRegion": "FL",
+								"postOfficeBoxNumber": "621622",
+								"postalCode": "32862-1622"
+							},
+							"email": "iwtcits@mare.biz",
+							"gender": "horsefucker",
+							"givenName": "Twifag",
+							"honorificPrefix": "Mr.",
+							"nationality": "US",
+							"telephone": "+1 (844) 4TWI-FAG",
+							"name": "Twifag",
+							"url": "https://twitter.com/MareBits"
+						},
+						"description": "$MARE: An Ethereum token for all the oppressed bronies, horsefuckers, and nor/mlp/eople out there. These bits are bringing mares to the world of blockchain. It may be a meme token, but with your support we can show the furry tokens that hoofs always beat paws. /)",
+						"encoding": {
+							"@type": "MediaObject",
+							"contentUrl": "https://mare.biz/",
+							"encodingFormat": "html"
+						},
+						"encodingFormat": "text/html",
+						"isAccessibleForFree": true,
+						"keywords": "mare, mare bits, ethereum, erc20, bitcoin, crypto, money, pony, lauren faust, nft",
+						"license": "https://donutsteal.pl/",
+						"mainContentOfPage": {
+							"@type": "WebPageElement",
+							"cssSelector": "main"
+						},
+						"material": "bits",
+						"name": "Mare Bits — For those who love mares",
+						"primaryImageOfPage": "https://mare.biz/marebits/marebits.png", 
+						"timeRequired": "P15M",
+						"typicalAgeRange": "18-",
+						"url": "https://mare.biz/"
+					}
+				]
+			}
+		</script>
+		<link href="favicon.svg" rel="icon shortcut" sizes="any" type="image/svg+xml">
+		<link href="favicon.ico" rel="alternate icon shortcut" sizes="256x256 192x192 128x128 96x96 64x64 48x48 40x40 32x32 24x24 16x16" type="image/vnd.microsoft.icon">
+		<title>Mare Bits — For those who love mares</title>
+		<!-- <link href="/css/common.css" rel="stylesheet"> -->
+		<script>
+			"use strict";
+
+			(function() {
+				const colorMasks = [0xff0000, 0xffff00, 0xff];
+				const screenMeasure = {
+					get maxHeight() {
+						const maxHeight = self.Math.max(
+								self.screen.height, self.document.body.scrollHeight, self.document.body.offsetHeight, self.document.documentElement.clientHeight, 
+								self.document.documentElement.scrollHeight, self.document.documentElement.offsetHeight
+							);
+						delete this.maxHeight;
+						self.Object.defineProperty(this, "maxHeight", { value: maxHeight });
+						return maxHeight;
+					}, 
+					get maxWidth() {
+						const maxWidth = self.screen.width;
+						delete this.maxWidth;
+						self.Object.defineProperty(this, "maxWidth", { value: maxWidth });
+						return maxWidth;
+					}
+				};
+				const templateStar = self.document.createElement("div");
+
+				class StarContainer {
+					element = undefined;
+					maxHeight = undefined;
+					numberStars = 0;
+					scrollSpeed = 1;
+					size = 5;
+					stars = undefined;
+
+					constructor(elementId, density, size, scrollSpeed) {
+						this.element = self.document.getElementById(elementId);
+						this.scrollSpeed = scrollSpeed;
+						this.maxHeight = screenMeasure.maxHeight; //self.Math.floor(screenMeasure.maxHeight * (1 + this.scrollSpeed * 0.6));
+						this.numberStars = self.Math.floor(screenMeasure.maxWidth / 1000 * this.maxHeight / 1000 * density);
+						this.size = size;
+						this.stars = self.document.createDocumentFragment();
+						this.element.style.setProperty("--scroll-speed", `-${this.scrollSpeed}px`);
+						this.generateStars();
+					}
+					generateStars() {
+						for (let i = 0; i < this.numberStars; i++) {
+							const star = templateStar.cloneNode();
+							const red = getRandomInt(200, 255) * 0x10000;
+							const green = getRandomInt(200, 255) * 0x100;
+							const blue = getRandomInt(200, 255) + 200;
+							const colorMask = colorMasks[getRandomInt(0, 2)];
+							star.style.setProperty("--star-blur-offset", `${getRandomInt(-50, 50) / 100}px`);
+							star.style.setProperty("--star-color", `#${((red + green + blue) | colorMask).toString(16)}`);
+							star.style.setProperty("--star-pos-x", `${getRandomInt(0, screenMeasure.maxWidth)}px`);
+							star.style.setProperty("--star-pos-y", `${getRandomInt(0, this.maxHeight)}px`);
+							star.style.setProperty("--star-size-base", `${this.size}px`);
+							star.style.setProperty("--star-size-offset", `${getRandomInt(-50, 50) / 100}px`);
+							star.style.setProperty("--star-twinkle-offset", `${getRandomInt(-30, 30) / 100}s`)
+							this.stars.appendChild(star);
+						}
+						this.element.appendChild(this.stars);
+					}
+				}
+				
+				// function getWeb3() {
+				// 	let handled = false;
+				// 	return new Promise(function(resolve, reject) {
+				// 		let timeout;
+
+				// 		function handleEthereum() {
+				// 			if (handled)
+				// 				return;
+				// 			handled = true;
+				// 			self.removeEventListener("ethereum#initialized", handleEthereum, { once: true, passive: true });
+				// 			self.clearTimeout(timeout);
+				// 			const { ethereum } = self;
+
+				// 			if (ethereum)
+				// 				resolve(ethereum);
+				// 			reject("Error detecting web3 provider");
+				// 		}
+
+				// 		if (self.ethereum)
+				// 			handleEthereum();
+				// 		else {
+				// 			self.addEventListener("ethereum#initialized", handleEthereum, { once: true, passive: true });
+				// 			timeout = self.setTimeout(handleEthereum, 3000);
+				// 		}
+				// 	});
+				// }
+				function getRandomInt(min, max) { return self.Math.floor(self.Math.random() * (max - min + 1)) + min; }
+				// async function initializeWeb3() {
+				// 	const web3 = await getWeb3();
+				// 	web3.on("chainChanged", function() { self.location.reload(); });
+
+				// }
+				function onBodyLoad() {
+					let frame = false;
+
+					function onWindowScroll() {
+						if (frame)
+							self.cancelAnimationFrame(frame);
+						frame = self.requestAnimationFrame(function() {
+							self.document.documentElement.style.setProperty("--scroll-y", self.scrollY);
+							frame = false;
+						});
+					}
+
+					templateStar.classList.add("star");
+					templateStar.setAttribute("role", "presentation");
+					self.requestAnimationFrame(function() { new StarContainer("stars-front", 35, 5, 0.05); });
+					self.requestAnimationFrame(function() { new StarContainer("stars-middle", 70, 3, 0.03); });
+					self.requestAnimationFrame(function() { new StarContainer("stars-back", 100, 1.25, 0.01); });
+					self.addEventListener("scroll", onWindowScroll, { passive: true });
+					// initializeWeb3().catch(console.error);
+				};
+
+				if (self.document.readyState === "loading")
+					self.document.addEventListener("DOMContentLoaded", onBodyLoad, { once: true, passive: true });
+				else
+					onBodyLoad();
+			})();
+		</script>
+		<style>
+			@import url("//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400");
+			@font-face {
+				font-family: WoodrowW00-Reg;
+				font-style: normal;
+				font-weight: normal;
+				src: local(WoodrowWW00 Reg), local(WoodrowW00Reg), local(WoodrowW00-Reg), 
+					url(WoodrowW00-Reg.woff2) format("woff2"), url(WoodrowW00-Reg.woff) format("woff");
+			}
+			:root {
+				--big-header-flare-size: 5rem;
+				--black: #000002;
+				--moon-width: 25vw;
+				--scroll-speed: -1px;
+				--scroll-y: 0;
+				--social-button-size: 4rem;
+				--star-blur-offset: 0;
+				--star-color: #fff;
+				--star-pos-x: 0;
+				--star-pos-y: 0;
+				--star-size-base: 5px;
+				--star-size-offset: 0;
+				--star-twinkle-offset: 0;
+				--twilight-blue: #263773;
+				--twilight-orange: #f47735;
+				--twilight-pink: #ed438a;
+				--twilight-pink-transparent: rgba(237, 67, 138, 0.5);
+				--twilight-red: #a8005b;
+				--twilight-background: #b689c8;
+				--dash-background: #9bdbf5;
+				--flutter-background: #faf5ab;
+				--rarity-background: #eaeef0;
+				--pinkie-background: #f5b7d0;
+				--apple-background: #faba62;
+
+				--card-background-color: var(--twilight-blue);
+			}
+			* {
+				box-sizing: border-box;
+				margin: 0;
+			}
+			a {
+				text-decoration: underline;
+				text-decoration-style: dotted;
+			}
+			a:link { color: var(--twilight-pink); }
+			a:visited { color: var(--twilight-orange); }
+			a:focus, a:hover { background-color: rgba(18, 188, 117, 0.5); }
+			a:active {
+				background-color: var(--twilight-pink-transparent);
+				color: rgba(18, 188, 117);
+			}
+			abbr { text-decoration: none; }
+			body, html {
+				/*min-height: calc(100% + 25vw);*/
+				/*width: 100%;*/
+			}
+			body {
+				background-color: var(--black);
+				background-image: linear-gradient(180deg, var(--black) 0%, rgb(78, 36, 113) 61%, rgb(110, 61, 149) 100%);
+				background-position: 50%;
+				background-size: cover;
+				color: var(--black);
+				font-family: "Open Sans", sans-serif;
+			}
+			body[data-is-js-disabled] { background-image: url(stars.webp); }
+			footer { min-height: 25vw; }
+			footer, header {
+				display: flex;
+				justify-content: center;
+			}
+			header {
+				height: var(--moon-width);
+				margin: 1rem;
+			}
+			html { overflow-x: hidden; }
+			main {
+				align-items: center;
+				display: flex;
+				flex-direction: column;
+			}
+			main > * { width: 65%; }
+			dfn { font-style: normal; }
+			dfn[title="brohoof /)"] {
+				display: block;
+				font-family: monospace;
+				font-size: 2rem;
+				letter-spacing: -0.3rem;
+				text-shadow: 0.3px 0.3px 3px var(--twilight-pink), -0.3px -0.3px 3px var(--twilight-background);
+			}
+			svg[role=presentation] {
+				height: 0;
+				visibility: hidden;
+			}
+			.absolute-container { position: absolute; }
+			.big-header {
+				font-family: WoodrowW00-Reg, cursive;
+				font-weight: normal;
+				text-align: center;
+			}
+			.big-header.detail, .card.header, .card.nav { color: var(--rarity-background); }
+			.big-header.detail {
+				font-size: 3rem;
+				text-shadow: 1px 1px 3px var(--rarity-background);
+			}
+			.big-header.detail::before, .big-header.detail::after {
+				background-repeat: no-repeat;
+				content: "";
+				display: inline-block;
+				height: var(--big-header-flare-size);
+				width: calc(0.6 * var(--big-header-flare-size));
+			}
+			.big-header.detail::before { background-image: url(flare-left.svg); }
+			.big-header.detail::after { background-image: url(flare-right.svg); }
+			.card {
+				background-color: var(--card-background-color);
+				border-radius: 1rem;
+				margin: 1rem;
+				padding: 2rem;
+			}
+			.card.detail.header {
+				align-items: center;
+				display: flex;
+				height: 4rem;
+			}
+			.card.header { font-size: 1.5rem; }
+			.card > nav { margin-top: 1rem; }
+			.card > nav > .social {
+				column-gap: 1rem;
+				display: flex;
+				align-items: center;
+				flex-wrap: wrap;
+				justify-content: center;
+				list-style: none;
+				padding: 0;
+				row-gap: 1rem;
+			}
+			.card > nav > .social > li, .card > nav > .social > li > a { border-radius: 40%; }
+			.card > nav > .social > li {
+				background-color: var(--rarity-background);
+				display: inline-block;
+				height: var(--social-button-size);
+			}
+			.card > nav > .social > li > a {
+				--img-base-filter: invert(50%) sepia(1) hue-rotate(247deg) saturate(114.7%) brightness(98.2%);
+				display: flex;
+				height: 100%;
+				width: var(--social-button-size);
+				justify-content: center;
+			}
+			.card > nav > .social > li > a:focus, .card > nav > .social > li > a:hover { background-color: var(--twilight-pink-transparent); }
+			.card > nav > .social > li > a:active { background-color: var(--twilight-pink); }
+			.card > nav > .social > li > a > img {
+				--shadow-color: var(--black);
+				--shadow-size: 0.5px;
+				--shadow-spread: 2px;
+
+				--shadow-size-neg: calc(-1 * var(--shadow-size));
+				filter: var(--img-base-filter) drop-shadow(var(--shadow-size) var(--shadow-size) var(--shadow-spread) var(--shadow-color));
+				width: calc(var(--social-button-size) / 2);
+			}
+			.card > nav > .social > li > a:active > img {
+				filter: var(--img-base-filter) drop-shadow(var(--shadow-size-neg) var(--shadow-size-neg) var(--shadow-spread) var(--shadow-color));
+			}
+			.card.twilight { --card-background-color: var(--twilight-background); }
+			.card.dash { --card-background-color: var(--dash-background); }
+			.card.flutter { --card-background-color: var(--flutter-background); }
+			.card.rarity { --card-background-color: var(--rarity-background); }
+			.card.pinkie { --card-background-color: var(--pinkie-background); }
+			.card.apple { --card-background-color: var(--apple-background); }
+			.cutie-mark {
+				display: inline-block;
+				margin: 1rem;
+				vertical-align: middle;
+				width: 3.75rem;
+			}
+			.star {
+				--star-blur: blur(calc(2px + var(--star-blur-offset)));
+				--star-size: calc(var(--star-size-base) + var(--star-size-offset));
+				background-color: var(--star-color);
+				border-radius: 50%;
+				filter: var(--star-blur);
+				height: var(--star-size);
+				width: var(--star-size);
+				position: absolute;
+				left: var(--star-pos-x);
+				top: var(--star-pos-y);
+			}
+			.stars {
+				position: relative;
+				z-index: -100;
+			}
+			#briefing-details {
+				display: grid;
+				grid-template-columns: repeat(4, 25%);
+				grid-template-rows: repeat(2, 50%);
+			}
+			#briefing-details > * {
+				align-items: center;
+				border-left-style: solid;
+				border-left-width: 0.3rem;
+				display: flex;
+				max-width: 100%;
+				/*overflow: hidden;*/
+				padding-left: 0.3rem;
+				/*text-overflow: ellipsis;*/
+			}
+			#briefing-details > dd { grid-row-start: 2; }
+			#briefing-details > dt {
+				font-weight: 700;
+				grid-row-start: 1;
+			}
+			#briefing-details > *:nth-child(1), #briefing-details > *:nth-child(2) { border-left-color: var(--twilight-background); }
+			#briefing-details > *:nth-child(3), #briefing-details > *:nth-child(4) { border-left-color: var(--dash-background); }
+			#briefing-details > *:nth-child(5), #briefing-details > *:nth-child(6) { border-left-color: var(--flutter-background); }
+			#briefing-details > *:nth-child(7), #briefing-details > *:nth-child(8) { border-left-color: var(--pinkie-background); }
+			#briefing-details > * > * {
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			#ground { width: 100%; }
+			#mare-covered-in-bits {
+				filter: url(#darken-mare) drop-shadow(1px 4px 3px #000002);
+				width: 50vw;
+			}
+			#marebits {
+				--shadow-color: #223;
+				--shadow-size: 3px;
+				--shadow-spread: 10px;
+
+				--shadow-size-neg: calc(-1 * var(--shadow-size));
+				--m: calc(13 / 15);
+				--mx: calc(var(--m) * var(--moon-width));
+				--b: calc(1vw / 3);
+				filter: drop-shadow(var(--shadow-size) var(--shadow-size) var(--shadow-spread) var(--shadow-color)) 
+					drop-shadow(var(--shadow-size-neg) var(--shadow-size-neg) var(--shadow-spread) var(--shadow-color));
+				width: calc(var(--mx) + var(--b));
+			}
+			#moon {
+				filter: url(#darken-moon);
+				position: relative;
+				width: var(--moon-width);
+				z-index: -1;
+			}
+			#moon-background {
+				background-color: #3e3e5d;
+				border-radius: 50%;
+				filter: blur(20px);
+				height: var(--moon-width);
+				width: var(--moon-width);
+				z-index: -2;
+			}
+			@keyframes moon-glow {
+				from { transform: scale(1.01); }
+				to { transform: scale(1.1); }
+			}
+			@keyframes twinkling-stars {
+				0% { filter: var(--star-blur) brightness(1.8); }
+				22% {
+					filter: var(--star-blur);
+					transform: scale(0.6);
+				}
+				33% {
+					filter: var(--star-blur) brightness(2.1);
+					transform: unset;
+				}
+				82% {
+					filter: var(--star-blur);
+					transform: scale(0.8);
+				}
+				100% { filter: var(--star-blur) brightness(1.8); }
+			}
+			@media screen {
+				#moon-background, .star:nth-child(5n) {
+					animation-direction: alternate;
+					animation-fill-mode: both;
+					animation-iteration-count: infinite;
+				}
+				#moon-background {
+					animation-duration: 10s;
+					animation-name: moon-glow;
+					animation-timing-function: linear;
+				}
+				.star:nth-child(5n) {
+					animation-duration: calc(2s + var(--star-twinkle-offset));
+					animation-name: twinkling-stars;
+					animation-timing-function: ease-out;
+				}
+				.stars {
+					transform: translateY(calc(var(--scroll-y) * var(--scroll-speed)));
+					transition: all 0.2s linear;
+				}
+			}
+			@media (prefers-reduced-motion) {
+				* {
+					animation: none !important;
+					transition: none !important;
+				}
+				.stars { transform: none; }
+			}
+			@media (max-width: 635px) {
+				:root {
+					--big-header-flare-size: 2.5rem;
+					--moon-width: 40vw;
+					--social-button-size: 3rem;
+				}
+				main > * { width: 95%; }
+				.big-header.detail { font-size: 2rem; }
+				.card {
+					margin: 1rem 0.25rem;
+					padding: 1rem;
+				}
+				.card.header { font-size: 1.25rem; }
+				#briefing-details {
+					grid-template-columns: repeat(3, 1fr);
+					grid-template-rows: repeat(4, 1fr);
+				}
+				#briefing-details > * { grid-row-start: auto !important; }
+				#briefing-details > *:nth-child(2n) { border-left: none; }
+				#briefing-details > dd { grid-column-start: span 2; }
+				#briefing-details > dt { grid-column-start: 1; }
+			}
+		</style>
+	</head>
+	<body data-is-js-disabled>
+		<script>delete self.document.body.dataset.isJsDisabled;</script>
+		<svg role="presentation">
+			<defs>
+				<filter id="darken-mare">
+					<feComponentTransfer>
+						<feFuncR type="linear" slope="0.25"></feFuncR>
+						<feFuncG type="linear" slope="0.25"></feFuncG>
+						<feFuncB type="linear" slope="1.25"></feFuncB>
+					</feComponentTransfer>
+					<feColorMatrix type="saturate" values="0.65"></feColorMatrix>
+				</filter>
+				<filter id="darken-moon">
+					<feComponentTransfer result="darken">
+						<feFuncR type="linear" slope="0.4"></feFuncR>
+						<feFuncG type="linear" slope="0.4"></feFuncG>
+						<feFuncB type="linear" slope="1.25"></feFuncB>
+					</feComponentTransfer>
+				</filter>
+			</defs>
+		</svg>
+		<div class="stars" id="stars-front" role="presentation"></div>
+		<div class="stars" id="stars-middle" role="presentation"></div>
+		<div class="stars" id="stars-back" role="presentation"></div>
+		<header>
+			<div class="absolute-container" id="moon-background" role="presentation"></div>
+			<picture class="absolute-container">
+				<source sizes="(max-width: 635px) 40vw, 25vw" srcset="moon/144.avif 144w, moon/180.avif 180w, moon/254.avif 254w, moon/480.avif 480w, moon/720.avif 720w, moon/960.avif 960w, moon/full.avif 1800w" type="image/avif">
+				<img id="moon" role="presentation" sizes="(max-width: 635px) 40vw, 25vw" src="moon/full.webp" srcset="moon/144.webp 144w, moon/180.webp 180w, moon/254.webp 254w, moon/480.webp 480w, moon/720.webp 720w, moon/960.webp 960w, moon/full.webp 1800w" type="image/webp">
+			</picture>
+			<picture class="absolute-container">
+				<source srcset="marebits/marebits.svg" type="image/svg+xml">
+				<source sizes="(max-width: 635px) 35vw, 22vw" srcset="marebits/126.avif 126w, marebits/159.avif 159w, marebits/223.avif 223w, marebits/423.avif 423w, marebits/634.avif 634w, marebits/845.avif 845w, marebits/marebits.webp 1920w" type="image/avif">
+				<img id="marebits" role="presentation" sizes="(max-width: 635px) 35vw, 22vw" src="marebits/marebits.webp" srcset="marebits/126.webp 126w, marebits/159.webp 159w, marebits/223.webp 223w, marebits/423.webp 423w, marebits/634.webp 634w, marebits/845.webp 845w, marebits/marebits.webp 1920w" type="image/webp">
+			</picture>
+		</header>
+		<main>
+			<h1 class="big-header card header">
+				<a href="//etherscan.io/token/0xc5a1973e1f736e2ad991573f3649f4f4a44c3028" rel="external noopener" target="_blank">$MARE</a>: An Ethereum token for the oppressed bronies, horsefuckers, and nor/mlp/eople.  These bits are bringing mares to the world of blockchain.  It may be a meme token, but with your support we can show the furry tokens that hoofs <em>always</em> beat paws.
+				<dfn title="brohoof /)">/)</dfn>
+			</h1>
+			<h2 class="big-header detail"><dfn><abbr title="too long; didn't read">tl;dr</abbr></dfn></h2>
+			<section class="card header">
+				<dl id="briefing-details">
+					<dt>Token Symbol</dt><dd>$MARE</dd>
+					<dt>Max Supply</dt><dd><data value="233666428910.958452213243697852">233,666,428,911.958452213243697852</data></dd>
+					<dt>Presale Starts?</dt><dd><time datetime="2021-09-16T00:00:00Z">September 15, 2021</time></dd>
+					<dt>Contract Address</dt><dd><a href="//etherscan.io/token/0xc5a1973e1f736e2ad991573f3649f4f4a44c3028" rel="external noopener" target="_blank">0xc5a1973e1f736e2ad991573f3649f4f4a44c3028</a></dd>
+				</dl>
+			</section>
+			<h2 class="big-header detail">Details</h2>
+			<section>
+				<h3 class="card detail header">
+					<picture>
+						<source sizes="3.75rem" srcset="cutie_marks/TS-1x.avif 1x, cutie_marks/TS-3x.avif 2x, cutie_marks/TS-3x.avif 3x, cutie_marks/TS.avif" type="image/avif">
+						<source sizes="3.75rem" srcset="cutie_marks/TS-1x.webp 1x, cutie_marks/TS-3x.webp 2x, cutie_marks/TS-3x.webp 3x" type="image/webp">
+						<img class="cutie-mark" loading="lazy" role="presentation" src="cutie_marks/TS.png" type="image/png">
+					</picture>
+					Supply
+				</h3>
+				<div class="card detail twilight">
+					Supply itself is limited to approximately <data value="233666428910.958452213243697852">233,666,428,911</data> tokens. No new tokens will ever be minted, and the contract itself does not support minting.  This means there is a <em>limited supply</em>, making these some <em>hot</em> Mare Bits.
+				</div>
+			</section>
+			<section>
+				<h3 class="card detail header">
+					Liquidity
+					<picture>
+						<source sizes="3.75rem" srcset="cutie_marks/RD-1x.avif 1x, cutie_marks/RD-3x.avif 2x, cutie_marks/RD-3x.avif 3x, cutie_marks/RD.avif" type="image/avif">
+						<img class="cutie-mark" loading="lazy" role="presentation" sizes="3.75rem" src="cutie_marks/RD.webp" srcset="cutie_marks/RD-1x.webp 1x, cutie_marks/RD-3x.webp 2x, cutie_marks/RD-3x.webp 3x" type="image/webp">
+					</picture>
+				</h3>
+				<div class="card detail dash">
+					These Mare Bits are also moister than an oyster!  Our goal is to squirt <data value="210299786019.8626069919193280668">90% of tokens</data> into presale and liquidity provider contracts with various exchanges; the resulting LP tokens will be locked for at least <time datetime="PT4Y">5 years</time>
+				</div>
+			</section>
+			<section>
+				<h3 class="card detail header">
+					<picture>
+						<source sizes="3.75rem" srcset="cutie_marks/FS-1x.avif 1x, cutie_marks/FS-3x.avif 2x, cutie_marks/FS-3x.avif 3x, cutie_marks/FS.avif" type="image/avif">
+						<img class="cutie-mark" loading="lazy" role="presentation" sizes="3.75rem" src="cutie_marks/FS.webp" srcset="cutie_marks/FS-1x.webp 1x, cutie_marks/FS-3x.webp 2x, cutie_marks/FS-3x.webp 3x" type="image/webp">
+					</picture>
+					Developer Tokens
+				</h3>
+				<div class="card detail flutter">
+					Only about <data value="23366642891.0958452213243697852">10% of tokens</data> will initially be held by the dev, and if we can find a suitable vesting platform they will only be released on a certain schedule, helping to guarantee the developer won't pull out early (no mare likes that, details TBD)
+				</div>
+			</section>
+			<section>
+				<h3 class="card detail header">
+					Reducing Arbitrage Risks
+					<picture>
+						<source sizes="3.75rem" srcset="cutie_marks/RY-1x.avif 1x, cutie_marks/RY-3x.avif 2x, cutie_marks/RY-3x.avif 3x, cutie_marks/RY.avif" type="image/avif">
+						<img class="cutie-mark" loading="lazy" role="presentation" sizes="3.75rem" src="cutie_marks/RY.webp" srcset="cutie_marks/RY-1x.webp 1x, cutie_marks/RY-3x.webp 2x, cutie_marks/RY-3x.webp 3x" type="image/webp">
+					</picture>
+				</h3>
+				<div class="card detail rarity">
+					In order to mitigate the risks of <q>impermanent</q> loss due to arbitrage, at least <data value="105149893009.9313034959596640334">50% of the tokens set aside for liquidity</data> will immediately be issued to a single exchange (likely <a href="//uniswap.org/" target="_blank">Uniswap</a>) with the remaining kept aside with periodic releases to allow for the addition of more liquidity providers (this is another situation where they will be locked away if a solution can be found, details TBD)
+				</div>
+			</section>
+			<section>
+				<h3 class="card detail header">
+					<picture>
+						<source sizes="3.75rem" srcset="cutie_marks/PP-1x.avif 1x, cutie_marks/PP-3x.avif 2x, cutie_marks/PP-3x.avif 3x, cutie_marks/PP.avif" type="image/avif">
+						<img class="cutie-mark" loading="lazy" role="presentation" sizes="3.75rem" src="cutie_marks/PP.webp" srcset="cutie_marks/PP-1x.webp 1x, cutie_marks/PP-3x.webp 2x, cutie_marks/PP-3x.webp 3x" type="image/webp">
+					</picture>
+					Airdrops
+				</h3>
+				<div class="card detail pinkie">
+					We may donate some of the <data value="23366642891.0958452213243697852">10% of dev tokens</data> held back for airdrops/giveaways in order to help promote Mare Bits.  We want everyone talking about these juicy bits, so we'll be trying <em>hard</em> to come up with some way to reward shills
+				</div>
+			</section>
+			<section>
+				<h3 class="card detail header">
+					Blockchain Portability
+					<picture>
+						<source sizes="3.75rem" srcset="cutie_marks/AJ-1x.avif 1x, cutie_marks/AJ-3x.avif 2x, cutie_marks/AJ-3x.avif 3x, cutie_marks/AJ.avif" type="image/avif">
+						<img class="cutie-mark" loading="lazy" role="presentation" sizes="3.75rem" src="cutie_marks/AJ.webp" srcset="cutie_marks/AJ-1x.webp 1x, cutie_marks/AJ-3x.webp 2x, cutie_marks/AJ-3x.webp 3x" type="image/webp">
+					</picture>
+				</h3>
+				<div class="card detail apple">
+					<a href="//polygon.technology/" rel="external noopener" target="_blank">Polygon</a> has provided a <a href="//wallet.matic.network/bridge" rel="external noopener" target="_blank">PoS bridge</a> between Mare Bits on Ethereum and the Matic blockchain; this means you can easily move your Mare Bits to and from Matic to take advantage of lower transaction fees.  We will be looking to provide liquidity on Matic as well.  <a href="//polygonscan.com/token/0xb362A97aD06C907c4b575D3503fB9DC474498480" rel="external noopener" target="_blank">See the contract on Polygonscan</a>.
+				</div>
+			</section>
+			<h2 class="big-header detail">Join Us</h2>
+			<section class="card nav">
+				If you also believe in mares and want to make this project a success, please reach out and lend a hoof.
+				<nav>
+					<ul class="social">
+						<li>
+							<a href="//pone.social/@mare" rel="external me noopener" title="Mastodon" target="_blank"><img src="mastodon.svg" type="image/svg+xml"></a>
+						</li>
+						<li>
+							<a href="//goto.mlp.chat/#/#mare-bits:mlp.chat" rel="external noopener" title="Matrix" target="_blank">
+								<img src="matrix.svg" type="image/svg+xml">
+							</a>
+						</li>
+						<li><a href="//t.me/marebits" rel="external noopener" title="Telegram" target="_blank"><img src="telegram.svg" type="image/svg+xml"></a></li>
+						<li>
+							<a href="//twitter.com/MareBits" rel="external me noopener" title="Twitter" target="_blank"><img src="twitter.svg" type="image/svg+xml"></a>
+						</li>
+						<li><a href="mailto:iwtcits@mare.biz" rel="external noopener" title="E-mail" target="_blank"><img src="email.svg" type="image/svg+xml"></a></li>
+					</ul>
+				</nav>
+			</section>
+		</main>
+		<footer>
+			<img id="ground" class="absolute-container" loading="lazy" role="presentation" src="ground.svg" type="image/svg+xml">
+			<picture class="absolute-container">
+				<source sizes="50vw" srcset="mare_covered_in_bits/180.avif 180w, mare_covered_in_bits/318.avif 318w, mare_covered_in_bits/360.avif 360w, mare_covered_in_bits/960.avif 960w, mare_covered_in_bits/1440.avif 1440w, mare_covered_in_bits/1920.avif 1920w, mare_covered_in_bits/full.avif 2405w" type="image/avif">
+				<img id="mare-covered-in-bits" loading="lazy" role="presentation" sizes="50vw" src="mare_covered_in_bits/full.webp" srcset="mare_covered_in_bits/180.webp 180w, mare_covered_in_bits/318.webp 318w, mare_covered_in_bits/360.webp 360w, mare_covered_in_bits/960.webp 960w, mare_covered_in_bits/1440.webp 1440w, mare_covered_in_bits/1920.webp 1920w, mare_covered_in_bits/full.webp 2405w" type="image/webp">
+			</picture>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+#!/bin/bash
+cwd=`pwd`;
+cidFile="${cwd}/.cid";
+ipfsignore="${cwd}/.ipfsignore";
+
+doesFileExist=false;
+oldChecksum="";
+oldCid="";
+
+if [ -f "${cidFile}" ]; then
+	doesFileExist=true;
+	cidContents=`cat "${cidFile}"`;
+	oldChecksum=`echo "${cidContents}" | grep -Po "\"checksum\":[^\"]*\"\\K[^\"]*"`;
+	oldCid=`echo "${cidContents}" | grep -Po "\"cid\":[^\"]*\"\\K[^\"]*"`;
+fi;
+IFS=" " read -r -a checksumOutput < <( tar --exclude-from="${ipfsignore}" -cf - . | sha1sum );
+newChecksum="${checksumOutput[0]}";
+
+if [ "${oldChecksum}" = "${newChecksum}" ]; then
+	echo "Checksums are the same, nothing to do";
+	exit 0;
+fi;
+
+if [ "${doesFileExist}" = true ]; then
+	ipfs pin remote rm --service=pinata --cid="${oldCid}" --force;
+	ipfs pin rm --recursive "/ipfs/${oldCid}"; 
+fi;
+newCid=`ipfs add --recursive --ignore-rules-path="${ipfsignore}" --pin --quieter .`;
+ipfs pin remote add "/ipfs/${newCid}" --service=pinata --name="mare.bits-${newChecksum}";
+echo "{\"checksum\":\"${newChecksum}\",\"cid\":\"${newCid}\"}" > "${cidFile}";
