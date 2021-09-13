@@ -14,7 +14,7 @@
 		<!-- <meta content="/browserconfig.xml" name="msapplication-config"> -->
 		<meta content="Mare Bits — For those who love mares" name="title" property="og:title">
 		<meta content="$MARE: An Ethereum token for all the oppressed bronies, horsefuckers, and nor/mlp/eople out there. These bits are bringing mares to the world of blockchain. It may be a meme token, but with your support we can show the furry tokens that hoofs always beat paws. /)" property="og:description">
-		<meta content="mare, mare bits, ethereum, erc20, bitcoin, crypto, money, pony, lauren faust, nft" name="keywords">
+		<meta content="mare, mare bits, ethereum, erc20, bitcoin, crypto, money, brony, pony, lauren faust, nft" name="keywords">
 		<meta content="https://mare.biz/marebits/marebits.png" property="og:image">
 		<meta content="350" property="og:image:width">
 		<meta content="350" property="og:image:height">
@@ -72,7 +72,7 @@
 						},
 						"encodingFormat": "text/html",
 						"isAccessibleForFree": true,
-						"keywords": "mare, mare bits, ethereum, erc20, bitcoin, crypto, money, pony, lauren faust, nft",
+						"keywords": "mare, mare bits, ethereum, erc20, bitcoin, crypto, money, brony, pony, lauren faust, nft",
 						"license": "https://donutsteal.pl/",
 						"mainContentOfPage": {
 							"@type": "WebPageElement",
@@ -154,6 +154,30 @@
 					}
 				}
 				
+				// async function getCid() {
+				// 	if (self.location.host === "mare.biz") {
+				// 		const headers = new self.Headers({ Accept: "application/dns-json" });
+				// 		const url = new self.URL("https://cloudflare-dns.com/dns-query");
+				// 		url.search = new self.URLSearchParams({ name: "_dnslink.mare.biz", type: "TXT", do: false, cd: false });
+				// 		const request = new self.Request(url, { headers });
+				// 		const response = await self.fetch(request);
+				// 		const responseJson = await response.json();
+				// 		const dnsLink = responseJson.Answer.find(function(answer) { return answer.type === 16; }).data.split("/");
+				// 		return dnsLink[dnsLink.length - 1].slice(0, -1);
+				// 	} else {
+				// 		const currentPathname = self.location.pathname;
+						
+				// 		if (currentPathname.slice(0, 6) === "/ipfs/")
+				// 			return currentPathname.substring(6);
+				// 	}
+				// 	return "Cannot determine CID";
+				// }
+				function getRandomInt(min, max) { return self.Math.floor(self.Math.random() * (max - min + 1)) + min; }
+				// async function initializeWeb3() {
+				// 	const web3 = await getWeb3();
+				// 	web3.on("chainChanged", function() { self.location.reload(); });
+
+				// }
 				// function getWeb3() {
 				// 	let handled = false;
 				// 	return new Promise(function(resolve, reject) {
@@ -180,12 +204,6 @@
 				// 		}
 				// 	});
 				// }
-				function getRandomInt(min, max) { return self.Math.floor(self.Math.random() * (max - min + 1)) + min; }
-				// async function initializeWeb3() {
-				// 	const web3 = await getWeb3();
-				// 	web3.on("chainChanged", function() { self.location.reload(); });
-
-				// }
 				function onBodyLoad() {
 					let frame = false;
 
@@ -211,6 +229,7 @@
 					self.document.addEventListener("DOMContentLoaded", onBodyLoad, { once: true, passive: true });
 				else
 					onBodyLoad();
+				// getCid().then(console.log).catch(console.error);
 			})();
 		</script>
 		<style>

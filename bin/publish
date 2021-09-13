@@ -3,7 +3,7 @@ cwd=`pwd`;
 cidFile="${cwd}/.cid";
 ipfsignore="${cwd}/.ipfsignore";
 
-doesFileExist=false;
+doesFileExist=true;
 oldChecksum="";
 oldCid="";
 
@@ -20,11 +20,20 @@ if [ "${oldChecksum}" = "${newChecksum}" ]; then
 	exit 0;
 fi;
 
-if [ ! "${oldChecksum}" = false ]; then
-	ipfs pin remote rm --service=pinata --cid="${oldCid}" --force;
-	ipfs pin rm --recursive "/ipfs/${oldCid}"; 
+if [ "${oldChecksum}" = false ]; then
+	doesFileExist=false;
 fi;
-newCid=`ipfs add --recursive --ignore-rules-path="${ipfsignore}" --pin --quieter .`;
+
+if [ "${doesFileExist}" = true ]; then
+	ipfs pin remote rm --service=pinata --cid="${oldCid}" --force;
+fi;
+newCid=`ipfs add --recursive --cid-version 1 --ignore-rules-path="${ipfsignore}" --quieter .`;
+
+if [ "${doesFileExist}" = true ]; then
+	ipfs pin update "/ipfs/${oldCid}" "/ipfs/${newCid}";
+else
+	ipfs pin add --recursive=true "/ipfs/${newCid}";
+fi;
 ipfs pin remote add "/ipfs/${newCid}" --service=pinata --name="mare.bits-${newChecksum}";
 echo "{\"checksum\":\"${newChecksum}\",\"cid\":\"${newCid}\"}" > "${cidFile}";
 source "${cwd}/bin/publishIpns";
