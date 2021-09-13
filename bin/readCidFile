@@ -1,0 +1,11 @@
+#!/bin/bash
+readCidFile() {
+	local cwd=`pwd`;
+	local cidFile="${cwd}/.cid";
+
+	if [ -f "${cidFile}" ]; then
+		cat .cid | sed "s/\"//g;s/{checksum://;s/,cid:/;/;s/}//";
+	else
+		echo false;
+	fi;
+}

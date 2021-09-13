@@ -1,5 +1,6 @@
 .cid
 .gitignore
 .ipfsignore
-publish
 README.md
+bin/
+.git/

@@ -1,0 +1,11 @@
+#!/bin/bash
+checksum="";
+cid="";
+
+source "${cwd}/bin/readCidFile";
+IFS=";" read -r checksum cid < <( readCidFile );
+
+if [ "${checksum}" = false ]; then
+	exit 0;
+fi;
+ipfs name publish "/ipfs/${cid}" &>/dev/null & disown;
