@@ -4,4 +4,6 @@
 README.md
 bin/
 .git/
-bin/*
+bin/publish
+bin/publishIpns
+bin/readCidFile

@@ -27,7 +27,7 @@ fi;
 if [ "${doesFileExist}" = true ]; then
 	ipfs pin remote rm --service=pinata --cid="${oldCid}" --force;
 fi;
-newCid=`ipfs add --recursive --cid-version 1 --ignore-rules-path="${ipfsignore}" --quieter .`;
+newCid=`ipfs add --recursive --cid-version 1 --ignore-rules-path="${ipfsignore}" --pin=false --quieter .`;
 
 if [ "${doesFileExist}" = true ]; then
 	ipfs pin update "/ipfs/${oldCid}" "/ipfs/${newCid}";

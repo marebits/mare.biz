@@ -97,6 +97,7 @@
 
 			(function() {
 				const colorMasks = [0xff0000, 0xffff00, 0xff];
+				const copiedOutput = self.document.createElement("output");
 				const screenMeasure = {
 					get maxHeight() {
 						const maxHeight = self.Math.max(
@@ -166,47 +167,62 @@
 				// 		return dnsLink[dnsLink.length - 1].slice(0, -1);
 				// 	} else {
 				// 		const currentPathname = self.location.pathname;
-						
+
 				// 		if (currentPathname.slice(0, 6) === "/ipfs/")
 				// 			return currentPathname.substring(6);
 				// 	}
 				// 	return "Cannot determine CID";
 				// }
 				function getRandomInt(min, max) { return self.Math.floor(self.Math.random() * (max - min + 1)) + min; }
-				// async function initializeWeb3() {
-				// 	const web3 = await getWeb3();
-				// 	web3.on("chainChanged", function() { self.location.reload(); });
+				async function initializeWeb3() {
+					const web3 = await getWeb3();
+					web3.on("chainChanged", function() { self.location.reload(); });
 
-				// }
-				// function getWeb3() {
-				// 	let handled = false;
-				// 	return new Promise(function(resolve, reject) {
-				// 		let timeout;
+				}
+				function getWeb3() {
+					let handled = false;
+					return new Promise(function(resolve, reject) {
+						let timeout;
 
-				// 		function handleEthereum() {
-				// 			if (handled)
-				// 				return;
-				// 			handled = true;
-				// 			self.removeEventListener("ethereum#initialized", handleEthereum, { once: true, passive: true });
-				// 			self.clearTimeout(timeout);
-				// 			const { ethereum } = self;
+						function handleEthereum() {
+							if (handled)
+								return;
+							handled = true;
+							self.removeEventListener("ethereum#initialized", handleEthereum, { once: true, passive: true });
+							self.clearTimeout(timeout);
+							const { ethereum } = self;
 
-				// 			if (ethereum)
-				// 				resolve(ethereum);
-				// 			reject("Error detecting web3 provider");
-				// 		}
+							if (ethereum)
+								resolve(ethereum);
+							reject("Error detecting web3 provider");
+						}
 
-				// 		if (self.ethereum)
-				// 			handleEthereum();
-				// 		else {
-				// 			self.addEventListener("ethereum#initialized", handleEthereum, { once: true, passive: true });
-				// 			timeout = self.setTimeout(handleEthereum, 3000);
-				// 		}
-				// 	});
-				// }
+						if (self.ethereum)
+							handleEthereum();
+						else {
+							self.addEventListener("ethereum#initialized", handleEthereum, { once: true, passive: true });
+							timeout = self.setTimeout(handleEthereum, 3000);
+						}
+					});
+				}
 				function onBodyLoad() {
+					const copyContractButtons = self.document.body.getElementsByClassName("copy-contract-button");
 					let frame = false;
 
+					function onCopyContractClick(event) {
+						let thisCopiedOutput;
+						writeTextToClipboard(event.target.dataset.textToCopy).then(function() {
+							thisCopiedOutput = copiedOutput.cloneNode(true);
+							event.target.appendChild(thisCopiedOutput);
+							self.setTimeout(function() { thisCopiedOutput.style.opacity = 1; }, 100);
+							return promiseTimeout(4000);
+						}).then(function() {
+							self.requestAnimationFrame(function() { thisCopiedOutput.style.opacity = 0; });
+							return promiseTimeout(2000);
+						}).then(function () {
+							event.target.removeChild(thisCopiedOutput);
+						}).catch(console.error);
+					}
 					function onWindowScroll() {
 						if (frame)
 							self.cancelAnimationFrame(frame);
@@ -222,13 +238,32 @@
 					self.requestAnimationFrame(function() { new StarContainer("stars-middle", 70, 3, 0.03); });
 					self.requestAnimationFrame(function() { new StarContainer("stars-back", 100, 1.25, 0.01); });
 					self.addEventListener("scroll", onWindowScroll, { passive: true });
-					// initializeWeb3().catch(console.error);
-				};
+					Array.prototype.forEach.call(copyContractButtons, function(copyContractButton) { copyContractButton.addEventListener("click", onCopyContractClick, { passive: true }); });
+					initializeWeb3().catch(console.error);
+				}
+				function promiseTimeout(delay) { return new self.Promise(function(resolve) { self.setTimeout(resolve, delay); }); }
+				function writeTextToClipboard(text) { // returns self.Promise
+					if ("navigator" in self && "clipboard" in self.navigator && "writeText" in self.navigator.clipboard)
+						return self.navigator.clipboard.writeText(self.String(text));
+					else
+						return new self.Promise(function(resolve) {
+							self.setTimeout(function() {
+								const textArea = self.document.createElement("textarea");
+								textArea.value = self.String(text);
+								self.document.body.appendChild(textArea);
+								textArea.select();
+								self.document.execCommand("copy");
+								textArea.remove();
+								resolve();
+							});
+						});
+				}
 
 				if (self.document.readyState === "loading")
 					self.document.addEventListener("DOMContentLoaded", onBodyLoad, { once: true, passive: true });
 				else
 					onBodyLoad();
+				copiedOutput.appendChild(self.document.createTextNode("Copied!"));
 				// getCid().then(console.log).catch(console.error);
 			})();
 		</script>
@@ -244,6 +279,7 @@
 			:root {
 				--big-header-flare-size: 5rem;
 				--black: #000002;
+				--card-header-font-size: 1.5rem;
 				--moon-width: 25vw;
 				--scroll-speed: -1px;
 				--scroll-y: 0;
@@ -357,7 +393,7 @@
 				display: flex;
 				height: 4rem;
 			}
-			.card.header { font-size: 1.5rem; }
+			.card.header { font-size: var(--card-header-font-size); }
 			.card > nav { margin-top: 1rem; }
 			.card > nav > .social {
 				column-gap: 1rem;
@@ -402,6 +438,8 @@
 			.card.rarity { --card-background-color: var(--rarity-background); }
 			.card.pinkie { --card-background-color: var(--pinkie-background); }
 			.card.apple { --card-background-color: var(--apple-background); }
+			.copy-contract-button { display: none; }
+			.copy-contract-button > output { opacity: 0; }
 			.cutie-mark {
 				display: inline-block;
 				margin: 1rem;
@@ -484,6 +522,10 @@
 				width: var(--moon-width);
 				z-index: -2;
 			}
+			@keyframes blink {
+				from { opacity: 0; }
+				to { opacity: 100%; }
+			}
 			@keyframes moon-glow {
 				from { transform: scale(1.01); }
 				to { transform: scale(1.1); }
@@ -505,15 +547,44 @@
 				100% { filter: var(--star-blur) brightness(1.8); }
 			}
 			@media screen {
-				#moon-background, .star:nth-child(5n) {
+				.copy-contract-button {
+					background-color: transparent;
+					border: none;
+					cursor: pointer;
+					display: unset;
+					height: var(--card-header-font-size);
+					overflow: visible !important;
+					padding: 0;
+					position: relative;
+					width: calc(2 * var(--card-header-font-size));
+				}
+				.copy-contract-button::after {
+					background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><g fill='none' stroke='%23eaeef0' stroke-linejoin='round'><path d='M2 5h9v9H2z'/><path d='M5 5V2h9v9h-3'/></g></svg>");
+					background-repeat: no-repeat;
+					content: "";
+					display: inline-block;
+					height: 100%;
+					width: 100%;
+				}
+				.copy-contract-button > output {
+					background-color: var(--twilight-orange);
+					border-radius: 0.5rem;
+					bottom: calc(var(--card-header-font-size) * -1);
+					font-size: calc(var(--card-header-font-size) / 1.5);
+					font-weight: 700;
+					height: var(--card-header-font-size);
+					left: calc(calc(var(--card-header-font-size) * -25) / 30);
+					padding: 0.25rem;
+					position: absolute;
+					transition-duration: 1s;
+					transition-property: opacity;
+					width: calc(var(--card-header-font-size) * 2.75);
+					z-index: 100;
+				}
+				.star:nth-child(5n), #moon-background {
 					animation-direction: alternate;
 					animation-fill-mode: both;
 					animation-iteration-count: infinite;
-				}
-				#moon-background {
-					animation-duration: 10s;
-					animation-name: moon-glow;
-					animation-timing-function: linear;
 				}
 				.star:nth-child(5n) {
 					animation-duration: calc(2s + var(--star-twinkle-offset));
@@ -523,6 +594,11 @@
 				.stars {
 					transform: translateY(calc(var(--scroll-y) * var(--scroll-speed)));
 					transition: all 0.2s linear;
+				}
+				#moon-background {
+					animation-duration: 10s;
+					animation-name: moon-glow;
+					animation-timing-function: linear;
 				}
 			}
 			@media (prefers-reduced-motion) {
@@ -603,7 +679,7 @@
 					<dt>Token Symbol</dt><dd>$MARE</dd>
 					<dt>Max Supply</dt><dd><data value="233666428910.958452213243697852">233,666,428,911.958452213243697852</data></dd>
 					<dt>Presale Starts?</dt><dd><time datetime="2021-09-16T00:00:00Z">September 15, 2021</time></dd>
-					<dt>Contract Address</dt><dd><a href="//etherscan.io/token/0xc5a1973e1f736e2ad991573f3649f4f4a44c3028" rel="external noopener" target="_blank">0xc5a1973e1f736e2ad991573f3649f4f4a44c3028</a></dd>
+					<dt>Contract Address</dt><dd><a href="//etherscan.io/token/0xc5a1973e1f736e2ad991573f3649f4f4a44c3028" rel="external noopener" target="_blank">0xc5a1973e1f736e2ad991573f3649f4f4a44c3028</a><button class="copy-contract-button" data-text-to-copy="0xc5a1973e1f736e2ad991573f3649f4f4a44c3028" title="Copy contract address"></button></dd>
 				</dl>
 			</section>
 			<h2 class="big-header detail">Details</h2>
