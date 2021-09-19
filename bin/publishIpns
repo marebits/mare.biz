@@ -1,6 +1,7 @@
 #!/bin/bash
 checksum="";
 cid="";
+cwd="/var/www/html/mare.biz";
 
 source "${cwd}/bin/readCidFile";
 IFS=";" read -r checksum cid < <( readCidFile );
