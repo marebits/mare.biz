@@ -63,7 +63,7 @@ class Web3 extends self.EventTarget {
 	constructor() {
 		super();
 		this.__eth = this.__initializeEth().then((eth) => this.__addEvents(eth)).catch(console.error);
-		this.mare = new __Web3Mare(this);
+		this.mare = new Web3Mare(this);
 	}
 	get accounts() { return this.__ethRequestMethod("eth_accounts"); }
 	get chainId() { return this.__chainId; }
