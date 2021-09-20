@@ -32,4 +32,4 @@ function writeTextToClipboard(text) { // returns self.Promise
 		});
 }
 
-export { ScreenMeasure, getRandomInt, promiseTimeout, writeTextToClipboard };
+export { ScreenMeasure, getRandomInt, writeTextToClipboard };
