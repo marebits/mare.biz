@@ -7,8 +7,8 @@ doesFileExist=true;
 oldChecksum="";
 oldCid="";
 
-git commit -a;
-git push origin master;
+# git commit -a;
+# git push origin master;
 
 source "${cwd}/bin/readCidFile";
 IFS=";" read -r oldChecksum oldCid < <( readCidFile );
