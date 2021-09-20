@@ -17,5 +17,19 @@ class ScreenMeasure {
 }
 
 function getRandomInt(min, max) { return self.Math.floor(self.Math.random() * (max - min + 1)) + min; }
+function writeTextToClipboard(text) { // returns self.Promise
+	if ("navigator" in self && "clipboard" in self.navigator && "writeText" in self.navigator.clipboard)
+		return self.navigator.clipboard.writeText(self.String(text));
+	else
+		return this.__promiseTimeout(function() {
+			const textArea = self.document.createElement("textarea");
+			textArea.value = self.String(text);
+			self.document.body.appendChild(textArea);
+			textArea.select();
+			self.document.execCommand("copy");
+			textArea.remove();
+			resolve();
+		});
+}
 
-export { getRandomInt, ScreenMeasure };
+export { ScreenMeasure, getRandomInt, promiseTimeout, writeTextToClipboard };
