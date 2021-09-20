@@ -43,18 +43,25 @@ class Web3Utils {
 	static __ETH_UNITS = new BetterMap(CONSTANTS.ETH_UNITS);
 	static get ETH_UNITS() { return this.__ETH_UNITS; }
 	static fromWei(number, unit = this.ETH_UNITS.ether) {
-		if (!this.ETH_UNITS.has(unit))
+		number = number.toString();
+
+		if (number == "")
+			return "0";
+		else if (!this.ETH_UNITS.has(unit))
 			unit = this.ETH_UNITS.ether;
 		const decimals = unit.length - 1;
-		number = number.toString();
 		const whole = self.Number.parseInt(number.substring(0, number.length - decimals)).toLocaleString("en-US");
 		const fraction = `.${number.slice(-decimals)}`.replace(/\.?0+$/, "");
 		return `${whole}${fraction}`;
 	}
 	static toWei(number, unit = this.ETH_UNITS.ether) {
-		if (!this.ETH_UNITS.has(unit))
+		number = number.toString();
+
+		if (number == "")
+			return "0";
+		else if (!this.ETH_UNITS.has(unit))
 			unit = this.ETH_UNITS.ether;
-		const inputValueSplit = number.toString().split(".");
+		const inputValueSplit = number.split(".");
 
 		if (inputValueSplit.length === 1)
 			inputValueSplit[1] = "0";
