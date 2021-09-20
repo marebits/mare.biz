@@ -106,5 +106,5 @@ function updateWalletMessage(...nodesOrStrings) {
 
 self.customElements.define("contract-link", ContractLink);
 self.customElements.define("output-data-message", OutputDataMessage);
-updateButtons().catch(console.error);
+self.setTimeout(function() { updateButtons().catch(console.error); }, 200);
 // getCid().then(console.log).catch(console.error);
