@@ -48,8 +48,8 @@ class Web3Utils {
 		const decimals = unit.length - 1;
 		number = number.toString();
 		const whole = self.Number.parseInt(number.substring(0, number.length - decimals)).toLocaleString("en-US");
-		const fraction = number.slice(-decimals).replace(/\.?0+$/, "");
-		return `${whole}.${fraction}`;
+		const fraction = `.${number.slice(-decimals)}`.replace(/\.?0+$/, "");
+		return `${whole}${fraction}`;
 	}
 	static toWei(number, unit = this.ETH_UNITS.ether) {
 		if (!this.ETH_UNITS.has(unit))
