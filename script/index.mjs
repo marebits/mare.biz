@@ -73,6 +73,7 @@ function onWalletConnectClick() { web3.connect().catch(console.error); }
 function onWeb3Initialized() {}
 function onWithdrawClick() {}
 async function updateButtons() {
+	console.log("updating buttons");
 	const currentAccount = await web3.currentAccount;
 	addToMetaMaskButton.disabled = true;
 	purchaseButton.disabled = true;
@@ -81,7 +82,10 @@ async function updateButtons() {
 	updateWalletMessage("Click Connect Wallet above to proceed.");
 
 	if (await web3.isConnected) {
+		console.log("web3 is connected");
+		console.log(`web3.chainId is ${web3.chainId} and target chain id is ${CONSTANTS.TARGET_CHAIN_ID}`);
 		if (web3.chainId === CONSTANTS.TARGET_CHAIN_ID) {
+			console.log("on the correct chain");
 			if (typeof currentAccount === "undefined")
 				walletConnectButton.disabled = false;
 			else {
