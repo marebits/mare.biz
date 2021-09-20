@@ -62,7 +62,7 @@ class Web3Utils {
 class Web3 extends self.EventTarget {
 	constructor() {
 		super();
-		this.__eth = this.__initializeEth().then((eth) => this.__addEvents(eth)).catch(console.error);
+		this.__eth = this.__initializeEth().then((eth) => this.__addEvents(eth)).catch();
 		this.mare = new Web3Mare(this);
 	}
 	get accounts() { return this.__ethRequestMethod("eth_accounts"); }
