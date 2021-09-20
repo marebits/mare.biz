@@ -58,7 +58,7 @@ class Web3Utils {
 		number = number.toString();
 
 		if (number == "")
-			return "0";
+			return 0n;
 		else if (!this.ETH_UNITS.has(unit))
 			unit = this.ETH_UNITS.ether;
 		const inputValueSplit = number.split(".");
