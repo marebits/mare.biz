@@ -45,7 +45,7 @@ class Web3Utils {
 	static fromWei(number, unit = this.ETH_UNITS.ether) {
 		number = number.toString();
 
-		if (number == "")
+		if (number === "0" || number == "")
 			return "0";
 		else if (!this.ETH_UNITS.has(unit))
 			unit = this.ETH_UNITS.ether;
@@ -57,7 +57,7 @@ class Web3Utils {
 	static toWei(number, unit = this.ETH_UNITS.ether) {
 		number = number.toString();
 
-		if (number == "")
+		if (number == "" || number === "0")
 			return 0n;
 		else if (!this.ETH_UNITS.has(unit))
 			unit = this.ETH_UNITS.ether;
