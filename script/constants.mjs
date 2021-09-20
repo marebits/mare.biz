@@ -26,7 +26,8 @@ const CONSTANTS = {
 	TARGET_CHAIN_ID: "0x3", 
 	TOKEN_CONTRACT_ADDRESS: "0xc5a1973e1f736e2ad991573f3649f4f4a44c3028", 
 	TOKEN_ICON_PNG: "https://mare.biz/marebits/icon-512.png", 
-	TOKEN_SALE_RATE: 65426600000n
+	TOKEN_SALE_RATE: 65426600000n, 
+	TOKEN_SYMBOL: "MARE"
 };
 self.Object.defineProperty(CONSTANTS, "CHAINS_BY_NAME", {
 	enumerable: true, 
