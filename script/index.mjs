@@ -29,6 +29,7 @@ browserEvents.addMany([
 	new MareEvent(web3, "initialized", onWeb3Initialized), 
 	new MareEvent(withdrawButton, "click", onWithdrawClick, { passive: true })
 ]);
+browserEvents.startListening();
 
 // async function getCid() {
 // 	if (self.location.host === "mare.biz") {
@@ -106,5 +107,5 @@ function updateWalletMessage(...nodesOrStrings) {
 
 self.customElements.define("contract-link", ContractLink);
 self.customElements.define("output-data-message", OutputDataMessage);
-browserEvents.startListening();
+updateButtons();
 // getCid().then(console.log).catch(console.error);
