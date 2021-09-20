@@ -122,10 +122,8 @@ svg[role=presentation] {
 	filter: brightness(0.8);
 }
 .action-button[disabled] { filter: brightness(1.4) grayscale(0.6) brightness(0.7); }
-.alert {
-	color: red !important;
-	font-weight: 700;
-}
+.alert, .super-important, #briefing-details > dt { font-weight: 700; }
+.alert { color: red !important; }
 .big-header {
 	font-family: WoodrowW00-Reg, cursive;
 	font-weight: normal;
@@ -228,6 +226,7 @@ svg[role=presentation] {
 	position: relative;
 	z-index: -100;
 }
+.super-important { text-transform: uppercase; }
 #briefing-details {
 	display: grid;
 	grid-template-columns: repeat(4, 25%);
@@ -243,10 +242,7 @@ svg[role=presentation] {
 	padding-left: 0.3rem;
 }
 #briefing-details > dd { grid-row-start: 2; }
-#briefing-details > dt {
-	font-weight: 700;
-	grid-row-start: 1;
-}
+#briefing-details > dt { grid-row-start: 1; }
 #briefing-details > *:nth-child(1), #briefing-details > *:nth-child(2) { border-left-color: var(--twilight-background); }
 #briefing-details > *:nth-child(3), #briefing-details > *:nth-child(4) { border-left-color: var(--dash-background); }
 #briefing-details > *:nth-child(5), #briefing-details > *:nth-child(6) { border-left-color: var(--flutter-background); }
