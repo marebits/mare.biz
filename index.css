@@ -91,6 +91,8 @@ main {
 	flex-direction: column;
 }
 main > * { width: 65%; }
+ol ol { list-style-type: lower-alpha; }
+ol ol ol { list-style-type: lower-roman; }
 dfn { font-style: normal; }
 dfn[title="brohoof /)"] {
 	display: block;
