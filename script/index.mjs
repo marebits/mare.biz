@@ -2,6 +2,7 @@
 
 import { browserEvents } from "./EventSet.mjs";
 import { CONSTANTS } from "./constants.mjs";
+import { ContractLink } from "./ContractLink.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { Web3 } from "./Web3.mjs";
 
