@@ -85,9 +85,9 @@ class Web3 extends self.EventTarget {
 	}
 	async __ethRequest(args) {
 		const eth = await this.eth;
-		return eth.request(args);
+		return ("request" in eth) ? eth.request(args) : undefined;
 	}
-	__ethRequestMethod(method) { return this.__ethRequest({ method }); }
+	__ethRequestMethod(method) { return this.__ethRequest({ method }).catch(console.error); }
 	__initializeEth() {
 		const eventTarget = this;
 		let handled = false;
