@@ -10,6 +10,7 @@ import { Web3 } from "./Web3.mjs";
 const TARGET_CHAIN_ID_INT = self.Number.parseInt(CONSTANTS.TARGET_CHAIN_ID, 16);
 const addToMetaMaskButton = self.document.getElementById("add-to-metamask");
 const bitsBalanceOutput = self.document.getElementById("bits-balance");
+const defaultChainInfo = CONSTANTS.CHAINS.get(CONSTANTS.TARGET_CHAIN_ID);
 const purchaseAmountInput = self.document.getElementById("purchase-amount");
 const purchaseBalanceOutput = self.document.getElementById("purchase-balance");
 const purchaseButton = self.document.getElementById("purchase");
@@ -88,14 +89,12 @@ async function updateButtons() {
 					purchaseButton.disabled = false;
 				else if (await web3.mare.isFinalized)
 					withdrawButton.disabled = false;
-				updateWalletMessage("Connected to wallet:", new ContractLink({
-					contract: currentAccount, hrefBase: "https://ropsten.etherscan.io/token/", textContent: currentAccount
-				}));
+				updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
 				bitsBalanceOutput.value = await web3.mare.balance;
 			}
 			addToMetaMaskButton.disabled = false;
 		} else
-			updateWalletMessage(`Please change the network in your wallet to ${CONSTANTS.CHAINS.get(TARGET_CHAIN_ID_INT).name}`);
+			updateWalletMessage(`Please change the network in your wallet to ${defaultChainInfo.name}`);
 	}
 }
 function updateWalletMessage(...nodesOrStrings) {

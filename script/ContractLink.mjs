@@ -3,17 +3,13 @@ import { browserEvents } from "./EventSet.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { writeTextToClipboard } from "./utils.mjs";
 
-const validContractLinkTypes = new self.Set(["address", "token", "tx"]);
+const validContractLinkTypes = new self.Set(CONSTANTS.CONTRACT_LINK.VALID_CONTRACT_LINK_TYPES);
 
-class ContractLinkType {
-	static ADDRESS = "address";
-	static TOKEN = "token";
-	static TX = "tx";
-}
 class ContractLink extends self.HTMLElement {
 	constructor(options) {
 		super();
 		this.__initializeOptions(options);
+		this.chainInfo = CONSTANTS.CHAINS_BY_NAME.get(this.chainName);
 		const doc = self.document.createDocumentFragment();
 		const style = self.document.createElement("style");
 		style.textContent = `
@@ -98,12 +94,18 @@ class ContractLink extends self.HTMLElement {
 		doc.appendChild(this.button);
 		super.attachShadow({ mode: "open" }).appendChild(doc);
 	}
-	get bexName() { return this.__getAttributeOrDefault("bex-name", CONSTANTS.CONTRACT_LINK.DEFAULT_BEX_NAME); }
 	get buttonColor() { return this.__getAttributeOrDefault("button-color", CONSTANTS.CONTRACT_LINK.DEFAULT_BUTTON_COLOR); }
+	get chainName() { return this.__getAttributeOrDefault("chain-name", CONSTANTS.CONTRACT_LINK.DEFAULT_CHAIN_NAME); }
 	get contract() { return super.getAttribute("contract"); }
-	get hrefBase() { return super.getAttribute("href-base"); }
-	get href() { return new self.URL(this.contract, this.hrefBase); }
-	get title() { return CONSTANTS.CONTRACT_LINK.ANCHOR_TITLE_TAG(this.bexName); }
+	get contractLinkType() {
+		const contractLinkType = super.getAttribute("contract-link-type");
+
+		if (validContractLinkTypes.has(contractLinkType))
+			return contractLinkType;
+		return CONSTANTS.CONTRACT_LINK.DEFAULT_CONTRACT_LINK_TYPE;
+	}
+	get href() { return new self.URL(this.contract, new self.URL(`${this.contractLinkType}/`, this.chainInfo.bexHrefBase)); }
+	get title() { return CONSTANTS.CONTRACT_LINK.ANCHOR_TITLE_TAG(this.chainInfo.bexName); }
 	get __copiedOutputElement() {
 		if (typeof this.___copiedOutputElement === "undefined") {
 			this.___copiedOutputElement = self.document.createElement("output");
