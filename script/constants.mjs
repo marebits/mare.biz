@@ -5,7 +5,7 @@ const chainsBase = [
 	["0x13881", { bexName: "Polygonscan", bexHrefBase: "https://mumbai.polygonscan.com/", name: "Matic Mumbai Testnet", shortName: "matic" }]
 ];
 const CONSTANTS = {
-	CHAINS: new self.Map(chainsBase]), 
+	CHAINS: new self.Map(chainsBase), 
 	COLOR_MASKS: [0xff0000, 0xffff00, 0xff], 
 	CONTRACT_LINK: {
 		ANCHOR_TITLE_TAG: function(bexName) { return `View contract on ${bexName}`; }, 
