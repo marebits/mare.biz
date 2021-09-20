@@ -1,3 +1,4 @@
+import { BetterMap } from "./BetterMap.mjs";
 import { CONSTANTS } from "./constants.mjs";
 import { EventSet, browserEvents } from "./EventSet.mjs";
 import { MareEvent } from "./MareEvent.mjs";
