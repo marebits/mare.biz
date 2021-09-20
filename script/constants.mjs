@@ -24,7 +24,7 @@ const CONSTANTS = {
 		["wei", "1"], ["kwei", "1000"], ["mwei", "1000000"], ["gwei", "1000000000"], ["szabo", "1000000000000"], ["ether", "1000000000000000000"]
 	], 
 	TARGET_CHAIN_ID: "0x3", 
-	TOKEN_CONTRACT_ADDRESS: "0xc5a1973e1f736e2ad991573f3649f4f4a44c3028", 
+	TOKEN_CONTRACT_ADDRESS: "0x35c94a5a563d7dc00b7edaa455e0a931691deb27", //production: 0xc5a1973e1f736e2ad991573f3649f4f4a44c3028
 	TOKEN_ICON_PNG: "https://mare.biz/marebits/icon-512.png", 
 	TOKEN_SALE_RATE: 65426600000n, 
 	TOKEN_SYMBOL: "MARE"

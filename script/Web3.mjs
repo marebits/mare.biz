@@ -26,14 +26,14 @@ class Web3Mare {
 		return this.web3.__ethRequest({
 			method: "wallet_watchAsset", 
 			params: {
-				"type": "ERC20", 
-				"options": {
-					"address": CONSTANTS.TOKEN_CONTRACT_ADDRESS, 
-					"decimals": 18, 
-					"symbol": CONSTANTS.TOKEN_SYMBOL, 
-					"image": CONSTANTS.TOKEN_ICON_PNG,
+				options: {
+					address: CONSTANTS.TOKEN_CONTRACT_ADDRESS, 
+					decimals: 18, 
+					image: CONSTANTS.TOKEN_ICON_PNG, 
+					symbol: CONSTANTS.TOKEN_SYMBOL
 				},
-			},
+				type: "ERC20"
+			}
 		});
 	}
 	withdrawTokens() {}
