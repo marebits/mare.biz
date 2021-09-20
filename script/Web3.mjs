@@ -80,7 +80,7 @@ class Web3 extends self.EventTarget {
 			new MareEvent(eth, "disconnect", this.__onDisconnected.bind(this))
 		]);
 		this.__events.startListening();
-		browserEvents.add(new MareEvent(self.document, "visibilitychange", this.__onSelfVisibilityChange.bind(this), { passive: true }));
+		self.document.addEventListener("visibilitychange", this.__onSelfVisibilityChange.bind(this), { passive: true });
 		return eth;
 	}
 	async __ethRequest(args) {

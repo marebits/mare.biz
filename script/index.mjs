@@ -21,8 +21,7 @@ const web3 = new Web3();
 browserEvents.addMany([
 	new MareEvent(addToMetaMaskButton, "click", onAddToMetaMaskClick, { passive: true }), 
 	new MareEvent(purchaseAmountInput, "input", onPurchaseAmountInput, { passive: true }), 
-	new MareEvent(purchaseButton, "click", onPurchaseButtonClick, { passive: true }), 
-	new MareEvent(self.document, "visibilitychange", onVisibilityChange, { passive: true }), 
+	new MareEvent(purchaseButton, "click", onPurchaseButtonClick, { passive: true }),  
 	new MareEvent(walletConnectButton, "click", onWalletConnectClick, { passive: true }), 
 	new MareEvent(web3, "accountsChanged", () => updateButtons().catch(console.error)), 
 	new MareEvent(web3, "connected", () => updateButtons().catch(console.error)), 
@@ -106,5 +105,6 @@ function updateWalletMessage(...nodesOrStrings) {
 
 self.customElements.define("contract-link", ContractLink);
 self.customElements.define("output-data-message", OutputDataMessage);
+self.document.addEventListener("visibilitychange", onVisibilityChange, { passive: true });
 self.setTimeout(function() { updateButtons().catch(console.error); }, 200);
 // getCid().then(console.log).catch(console.error);
