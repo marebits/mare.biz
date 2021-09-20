@@ -89,7 +89,7 @@ async function updateButtons() {
 				else if (await web3.mare.isFinalized)
 					withdrawButton.disabled = false;
 				updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
-				bitsBalanceOutput.value = await web3.mare.balance;
+				// bitsBalanceOutput.value = await web3.mare.balance;
 			}
 			addToMetaMaskButton.disabled = false;
 		} else
