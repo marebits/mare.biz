@@ -160,6 +160,7 @@ class Web3 extends self.EventTarget {
 	}
 	__onAccountsChanged(accounts) {
 		console.log("accounts changed");
+		console.log(accounts);
 		if (accounts.length === 0)
 			this.dispatchEvent(events.get("disconnected"));
 		else
