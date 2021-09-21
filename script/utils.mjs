@@ -67,7 +67,7 @@ function loadScriptAsync(scriptPath, type = "text/javascript") {
 	});
 }
 function preload(files = [], attributes = {}) {
-	self.requestAnimationFrame(() => arrayify(files).forEach(((hrefOrAttributes) => {
+	self.requestAnimationFrame(() => arrayify(files).forEach(hrefOrAttributes => {
 		const fileAttributes = (typeof hrefOrAttributes === "string") ? { href: hrefOrAttributes } : hrefOrAttributes;
 
 		if (preloadedFiles.has(fileAttributes.href))
