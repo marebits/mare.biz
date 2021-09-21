@@ -81,10 +81,7 @@ class MareWeb3 extends self.EventTarget {
 		this.__initialize().catch(console.error);
 	}
 
-	get accounts() {
-		if (!typeof this.eth === "undefined")
-			return this.eth.getAccounts();
-	}
+	get accounts() { return this.eth.getAccounts(); }
 	get chainId() { return this.__chainId; }
 	get currentAccount() {
 		if (!typeof this.eth === "undefined")
@@ -154,9 +151,7 @@ class MareWeb3 extends self.EventTarget {
 		await loadScriptAsync("script/web3.min.js");
 		this.__web3 = new self.Web3(this.provider);
 		console.log("finished initializing");
-		const accounts = await this.eth.getAccounts();
-		console.log(this.accounts);
-		this.__onAccountsChanged(accounts);
+		this.__onAccountsChanged(this.accounts);
 	}
 	__onAccountsChanged(accounts) {
 		console.log("accounts changed", accounts);
