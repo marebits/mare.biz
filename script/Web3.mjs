@@ -86,7 +86,10 @@ class Web3 extends self.EventTarget {
 			return this.eth.getAccounts();
 	}
 	get chainId() { return this.__chainId; }
-	get currentAccount() { return this.accounts.then(accounts => (typeof accounts === "undefined") ? undefined : accounts[0]); }
+	get currentAccount() {
+		if (!typeof this.eth === "undefined")
+			return this.accounts.then(accounts => accounts[0]);
+	}
 	get eth() { return this.__eth; }
 	get provider() { return this.__provider; }
 	get isConnected() {
