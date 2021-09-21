@@ -2,7 +2,7 @@ import { BetterMap } from "./BetterMap.mjs";
 import { CONSTANTS } from "./constants.mjs";
 import { EventSet, browserEvents } from "./EventSet.mjs";
 import { MareEvent } from "./MareEvent.mjs";
-import { loadScriptAsync, preload } from "./utils.js";
+import { loadScriptAsync, preload } from "./utils.mjs";
 
 const events = new self.Map([
 	["accountsChanged", new self.Event("accountsChanged")], 
