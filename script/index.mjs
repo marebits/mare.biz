@@ -5,7 +5,7 @@ import { CONSTANTS } from "./constants.mjs";
 import { ContractLink } from "./ContractLink.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { OutputDataMessage } from "./OutputDataMessage.mjs";
-import { Web3 } from "./Web3.mjs";
+import { MareWeb3 } from "./MareWeb3.mjs";
 
 const TARGET_CHAIN_ID_INT = self.Number.parseInt(CONSTANTS.TARGET_CHAIN_ID, 16);
 const addToMetaMaskButton = self.document.getElementById("add-to-metamask");
@@ -17,7 +17,7 @@ const purchaseButton = self.document.getElementById("purchase");
 const walletConnectButton = self.document.getElementById("wallet-connect");
 const walletMessageOutput = self.document.getElementById("wallet-message");
 const withdrawButton = self.document.getElementById("withdraw");
-const web3 = new Web3();
+const web3 = new MareWeb3();
 browserEvents.addMany([
 	new MareEvent(addToMetaMaskButton, "click", onAddToMetaMaskClick, { passive: true }), 
 	new MareEvent(purchaseAmountInput, "input", onPurchaseAmountInput, { passive: true }), 
