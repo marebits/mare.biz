@@ -149,13 +149,14 @@ class MareWeb3 extends self.EventTarget {
 
 		if (typeof this.provider === "string")
 			return;
+		console.log(this.dispatchEvent);
 		await loadScriptAsync("script/web3.min.js");
 		this.__web3 = new self.Web3(this.provider);
 		self.Object.defineProperties(this, {
 			eth: { enumerable: true, value: this.__web3.eth }, 
 			utils: { enumerable: true, value: this.__web3.utils }
 		});
-		console.log(this);
+		console.log(this.dispatchEvent);
 		this.dispatchEvent(events.get("initialized"));
 		console.log("finished initializing");
 		this.__onAccountsChanged(await this.accounts);
