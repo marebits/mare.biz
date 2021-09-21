@@ -1,0 +1,34 @@
+{
+  "name": "mare.biz",
+  "version": "1.0.0",
+  "description": "Web site for the Mare Bits project. https://mare.biz/",
+  "main": "script/index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marebits/mare.biz.git"
+  },
+  "keywords": [
+    "mare",
+    "mare",
+    "bits",
+    "ethereum",
+    "erc20",
+    "bitcoin",
+    "crypto",
+    "money",
+    "brony",
+    "pony",
+    "lauren",
+    "faust",
+    "nft"
+  ],
+  "author": "Twifag",
+  "license": "SEE LICENSE IN https://donutsteel.pl/",
+  "bugs": {
+    "url": "https://github.com/marebits/mare.biz/issues"
+  },
+  "homepage": "https://github.com/marebits/mare.biz#readme"
+}
