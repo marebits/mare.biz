@@ -73,7 +73,7 @@ class Web3MareUtils {
 		return self.BigInt((inputValueSplit[0] + inputValueSplit[1].padEnd(unit.length - 1, "0")).replace(/^0*/, ""));
 	}
 }
-class Web3 extends self.EventTarget {
+class MareWeb3 extends self.EventTarget {
 	mare = new Web3Mare(this);
 
 	constructor() {
@@ -185,6 +185,6 @@ class Web3 extends self.EventTarget {
 			this.__events.startListening();
 	}
 }
-self.Object.defineProperty(Web3.prototype, "mareUtils", { enumerable: true, value: Web3MareUtils });
+self.Object.defineProperty(MareWeb3.prototype, "mareUtils", { enumerable: true, value: Web3MareUtils });
 
-export { Web3 };
+export { MareWeb3 };
