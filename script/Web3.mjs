@@ -116,7 +116,6 @@ class Web3 extends self.EventTarget {
 	}
 	__ethRequestMethod(method) { return this.__ethRequest({ method }); }
 	__getProvider() {
-		const eventTarget = this;
 		let handled = false;
 		return new self.Promise(function(resolve, reject) {
 			const event = new MareEvent(self, "ethereum#initialized", handleEthereum, { once: true, passive: true });
@@ -130,10 +129,8 @@ class Web3 extends self.EventTarget {
 				self.clearTimeout(timeout);
 				const { ethereum } = self;
 
-				if (ethereum) {
-					eventTarget.dispatchEvent(events.get("initialized"));
+				if (ethereum)
 					resolve(ethereum);
-				}
 				reject("Cannot detect an installed web3 compatible wallet.");
 			}
 
@@ -146,6 +143,7 @@ class Web3 extends self.EventTarget {
 		});
 	}
 	async __initialize() {
+		console.log("starting initializing");
 		this.__provider = await this.__getProvider();
 		this.__addEvents();
 
@@ -157,6 +155,8 @@ class Web3 extends self.EventTarget {
 			eth: { enumerable: true, value: this.__web3.eth }, 
 			utils: { enumerable: true, value: this.__web3.utils }
 		});
+		this.dispatchEvent(events.get("initialized"));
+		console.log("finished initializing");
 		this.__onAccountsChanged(await this.accounts);
 	}
 	__onAccountsChanged(accounts) {
