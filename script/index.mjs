@@ -24,9 +24,9 @@ browserEvents.addMany([
 	new MareEvent(purchaseButton, "click", onPurchaseButtonClick, { passive: true }),  
 	new MareEvent(walletConnectButton, "click", onWalletConnectClick, { passive: true }), 
 	new MareEvent(web3, "accountsChanged", () => updateButtons().catch(console.error)), 
-	new MareEvent(web3, "connected", () => updateButtons().catch(console.error)), 
+	// new MareEvent(web3, "connected", () => updateButtons().catch(console.error)), 
 	new MareEvent(web3, "disconnected", () => updateButtons().catch(console.error)), 
-	new MareEvent(web3, "initialized", onWeb3Initialized), 
+	new MareEvent(web3, "initialized", updateButtons().catch(console.error)), 
 	new MareEvent(withdrawButton, "click", onWithdrawClick, { passive: true })
 ]);
 browserEvents.startListening();
