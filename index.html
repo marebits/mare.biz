@@ -98,7 +98,10 @@
 		<script src="script/stars.mjs" type="module"></script>
 	</head>
 	<body data-is-js-disabled>
-		<script>delete self.document.body.dataset.isJsDisabled;</script>
+		<script>
+			if ("noModule" in self.HTMLScriptElement.prototype)
+				delete self.document.body.dataset.isJsDisabled;
+		</script>
 		<svg role="presentation">
 			<defs>
 				<filter id="darken-mare">
