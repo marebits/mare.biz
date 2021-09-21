@@ -153,10 +153,13 @@ class Web3 extends self.EventTarget {
 			return;
 		await loadScriptAsync("script/web3.min.js");
 		this.__web3 = new self.Web3(this.provider);
+		console.log(`this.__web3: ${this.__web3}`);
 		self.Object.defineProperties(this, {
 			eth: { enumerable: true, value: this.__web3.eth }, 
 			utils: { enumerable: true, value: this.__web3.utils }
 		});
+		console.log(`this.eth: ${this.eth}`);
+		console.log(`this.utils: ${this.utils}`);
 	}
 	__onAccountsChanged(accounts) {
 		console.log("accounts changed");
