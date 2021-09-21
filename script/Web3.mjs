@@ -78,7 +78,7 @@ class Web3 extends self.EventTarget {
 
 	constructor() {
 		super();
-		this.__initialize().catch();
+		this.__initialize().catch(console.error);
 	}
 
 	get accounts() {
@@ -109,7 +109,6 @@ class Web3 extends self.EventTarget {
 		]);
 		this.__events.startListening();
 		self.document.addEventListener("visibilitychange", this.__onSelfVisibilityChange.bind(this), { passive: true });
-		return eth;
 	}
 	__ethRequest(args) {
 		if (this.isConnected)
