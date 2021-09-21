@@ -42,7 +42,7 @@ function createElement(name, attributes = {}, parent = undefined, text = undefin
 }
 function getRandomInt(min, max) { return self.Math.floor(self.Math.random() * (max - min + 1)) + min; }
 function loadScriptAsync(scriptPath, type = "text/javascript") {
-	preload(scriptPath, { as: "script" type });
+	preload(scriptPath, { as: "script", type });
 	const scriptElement = createElement("script", { async: true, defer: true, src: scriptPath.toString() });
 
 	if (type !== "text/javascript")
