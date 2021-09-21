@@ -152,6 +152,7 @@ class Web3 extends self.EventTarget {
 		if (typeof this.provider === "string")
 			return;
 		await loadScriptAsync("script/web3.min.js");
+		console.log({Web3: self.Web3 });
 		this.__web3 = new self.Web3(this.provider);
 		console.info({ web3: web3.__web3 });
 		self.Object.defineProperties(this, {
