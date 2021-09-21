@@ -157,6 +157,7 @@ class Web3 extends self.EventTarget {
 			eth: { enumerable: true, value: this.__web3.eth }, 
 			utils: { enumerable: true, value: this.__web3.utils }
 		});
+		this.__onAccountsChanged(await this.accounts);
 	}
 	__onAccountsChanged(accounts) {
 		console.log("accounts changed");
