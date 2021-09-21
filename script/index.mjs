@@ -17,16 +17,16 @@ const purchaseButton = self.document.getElementById("purchase");
 const walletConnectButton = self.document.getElementById("wallet-connect");
 const walletMessageOutput = self.document.getElementById("wallet-message");
 const withdrawButton = self.document.getElementById("withdraw");
-const mareWeb3 = new Web3();
+const web3 = new Web3();
 browserEvents.addMany([
 	new MareEvent(addToMetaMaskButton, "click", onAddToMetaMaskClick, { passive: true }), 
 	new MareEvent(purchaseAmountInput, "input", onPurchaseAmountInput, { passive: true }), 
 	new MareEvent(purchaseButton, "click", onPurchaseButtonClick, { passive: true }),  
 	new MareEvent(walletConnectButton, "click", onWalletConnectClick, { passive: true }), 
-	new MareEvent(mareWeb3, "accountsChanged", () => updateButtons().catch(console.error)), 
-	new MareEvent(mareWeb3, "connected", () => updateButtons().catch(console.error)), 
-	new MareEvent(mareWeb3, "disconnected", () => updateButtons().catch(console.error)), 
-	new MareEvent(mareWeb3, "initialized", onWeb3Initialized), 
+	new MareEvent(web3, "accountsChanged", () => updateButtons().catch(console.error)), 
+	new MareEvent(web3, "connected", () => updateButtons().catch(console.error)), 
+	new MareEvent(web3, "disconnected", () => updateButtons().catch(console.error)), 
+	new MareEvent(web3, "initialized", onWeb3Initialized), 
 	new MareEvent(withdrawButton, "click", onWithdrawClick, { passive: true })
 ]);
 browserEvents.startListening();
@@ -49,15 +49,15 @@ browserEvents.startListening();
 // 	}
 // 	return "Cannot determine CID";
 // }
-function onAddToMetaMaskClick(event) { mareWeb3.mare.watchAsset().catch(console.error); }
+function onAddToMetaMaskClick(event) { web3.mare.watchAsset().catch(console.error); }
 function onPurchaseAmountInput(event) {
 	if (!event.target.checkValidity()) {
 		purchaseBalanceOutput.value = "0";
 		console.error("Invalid purchase amount entered.");
 		return;
 	}
-	const newPurchaseAmount = mareWeb3.mareUtils.toWei(event.target.value) * CONSTANTS.TOKEN_SALE_RATE;
-	purchaseBalanceOutput.value = mareWeb3.mareUtils.fromWei(newPurchaseAmount);
+	const newPurchaseAmount = web3.mareUtils.toWei(event.target.value) * CONSTANTS.TOKEN_SALE_RATE;
+	purchaseBalanceOutput.value = web3.mareUtils.fromWei(newPurchaseAmount);
 }
 function onPurchaseButtonClick(event) {
 
@@ -68,32 +68,32 @@ function onVisibilityChange() {
 	else
 		browserEvents.startListening();
 }
-function onWalletConnectClick() { mareWeb3.connect().catch(console.error); }
+function onWalletConnectClick() { web3.connect().catch(console.error); }
 function onWeb3Initialized() {}
 function onWithdrawClick() {}
 async function updateButtons() {
 	console.log("update buttons");
-	const currentAccount = await mareWeb3.currentAccount;
+	const currentAccount = await web3.currentAccount;
 	console.log({ currentAccount });
-	console.log(await mareWeb3.eth.getAccounts());
+	console.log(await web3.eth.getAccounts());
 	addToMetaMaskButton.disabled = true;
 	purchaseButton.disabled = true;
 	walletConnectButton.disabled = true;
 	withdrawButton.disabled = true;
 	updateWalletMessage("Click Connect Wallet above to proceed.");
 
-	if (mareWeb3.isConnected) {
-		console.log({ isConnected: mareWeb3.isConnected });
-		if (mareWeb3.chainId === CONSTANTS.TARGET_CHAIN_ID) {
+	if (web3.isConnected) {
+		console.log({ isConnected: web3.isConnected });
+		if (web3.chainId === CONSTANTS.TARGET_CHAIN_ID) {
 			if (typeof currentAccount === "undefined")
 				walletConnectButton.disabled = false;
 			else {
-				if (await mareWeb3.mare.isOpen)
+				if (await web3.mare.isOpen)
 					purchaseButton.disabled = false;
-				else if (await mareWeb3.mare.isFinalized)
+				else if (await web3.mare.isFinalized)
 					withdrawButton.disabled = false;
 				updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
-				bitsBalanceOutput.value = await mareWeb3.mare.balance;
+				bitsBalanceOutput.value = await web3.mare.balance;
 			}
 			addToMetaMaskButton.disabled = false;
 		} else
