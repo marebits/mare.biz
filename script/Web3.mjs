@@ -90,7 +90,7 @@ class MareWeb3 extends self.EventTarget {
 		if (!typeof this.eth === "undefined")
 			return this.accounts.then(accounts => accounts[0]);
 	}
-	get eth() { return this.__eth; }
+	get eth() { return this.__web3.eth; }
 	get provider() { return this.__provider; }
 	get isConnected() {
 		if (typeof this.provider === "undefined")
@@ -98,6 +98,7 @@ class MareWeb3 extends self.EventTarget {
 		return this.provider.isConnected();
 	}
 	get isProviderConnected() { return this.currentAccount.then(currentAccount => typeof currentAccount !== "undefined"); }
+	get utils() { return this.__web3.utils; }
 
 	async connect() { this.__onAccountsChanged(await this.eth.requestAccounts()); }
 	__addEvents() {
@@ -149,14 +150,8 @@ class MareWeb3 extends self.EventTarget {
 
 		if (typeof this.provider === "string")
 			return;
-		const dispatchEvent = this.dispatchEvent;
 		await loadScriptAsync("script/web3.min.js");
 		this.__web3 = new self.Web3(this.provider);
-		self.Object.defineProperties(this, {
-			eth: { enumerable: true, value: this.__web3.eth }, 
-			utils: { enumerable: true, value: this.__web3.utils }
-		});
-		this.dispatchEvent = dispatchEvent;
 		this.dispatchEvent(events.get("initialized"));
 		console.log("finished initializing");
 		this.__onAccountsChanged(await this.accounts);
