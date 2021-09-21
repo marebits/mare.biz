@@ -42,7 +42,7 @@ class Web3Mare {
 	withdrawTokens() {}
 	__balanceOf(account) { return self.Promise.resolve(130853200000n); }
 }
-class Web3Utils {
+class Web3MareUtils {
 	static __ETH_UNITS = new BetterMap(CONSTANTS.ETH_UNITS);
 
 	static get ETH_UNITS() { return this.__ETH_UNITS; }
@@ -181,6 +181,6 @@ class Web3 extends self.EventTarget {
 			this.__events.startListening();
 	}
 }
-self.Object.defineProperty(Web3.prototype, "utils", { enumerable: true, value: Web3Utils });
+self.Object.defineProperty(Web3.prototype, "mareUtils", { enumerable: true, value: Web3MareUtils });
 
 export { Web3 };
