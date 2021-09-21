@@ -75,7 +75,6 @@ async function updateButtons() {
 	console.log("update buttons");
 	const currentAccount = await web3.currentAccount;
 	console.log({ currentAccount });
-	console.log(await web3.eth.getAccounts());
 	addToMetaMaskButton.disabled = true;
 	purchaseButton.disabled = true;
 	walletConnectButton.disabled = true;
