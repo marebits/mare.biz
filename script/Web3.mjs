@@ -99,7 +99,7 @@ class Web3 extends self.EventTarget {
 	}
 	get isProviderConnected() { return this.currentAccount.then(currentAccount => typeof currentAccount !== "undefined"); }
 
-	async connect() { console.log(this.eth); this.__onAccountsChanged(await this.eth.requestAccounts()); }
+	async connect() { this.__onAccountsChanged(await this.eth.requestAccounts()); }
 	__addEvents() {
 		this.__events = new EventSet("addListener", "removeListener", [
 			new MareEvent(this.provider, "accountsChanged", this.__onAccountsChanged.bind(this)), 
@@ -152,9 +152,11 @@ class Web3 extends self.EventTarget {
 		if (typeof this.provider === "string")
 			return;
 		await loadScriptAsync("script/web3.min.js");
-		this.__eth = new self.Web3(this.provider);
-		console.log(this.eth);
-		self.Object.defineProperty(this, "utils", { enumerable: true, value: this.eth.utils });
+		this.__web3 = new self.Web3(this.provider);
+		self.Object.defineProperties(this, {
+			eth: { enumerable: true, value: this.__web3.eth }, 
+			utils: { enumerable: true, value: this.__web3.utils }
+		});
 	}
 	__onAccountsChanged(accounts) {
 		console.log("accounts changed");
