@@ -56,8 +56,8 @@ function onPurchaseAmountInput(event) {
 		console.error("Invalid purchase amount entered.");
 		return;
 	}
-	const newPurchaseAmount = web3.utils.toWei(event.target.value) * CONSTANTS.TOKEN_SALE_RATE;
-	purchaseBalanceOutput.value = web3.utils.fromWei(newPurchaseAmount);
+	const newPurchaseAmount = self.BigInt(web3.utils.toWei(event.target.value)) * CONSTANTS.TOKEN_SALE_RATE;
+	purchaseBalanceOutput.value = web3.utils.fromWei(newPurchaseAmount.toString());
 }
 function onPurchaseButtonClick(event) {
 
@@ -79,7 +79,7 @@ async function updateButtons() {
 	withdrawButton.disabled = true;
 	updateWalletMessage("Click Connect Wallet above to proceed.");
 
-	if (await web3.isConnected) {
+	if (web3.isConnected) {
 		if (web3.chainId === CONSTANTS.TARGET_CHAIN_ID) {
 			if (typeof currentAccount === "undefined")
 				walletConnectButton.disabled = false;
@@ -89,7 +89,7 @@ async function updateButtons() {
 				else if (await web3.mare.isFinalized)
 					withdrawButton.disabled = false;
 				updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
-				// bitsBalanceOutput.value = await web3.mare.balance;
+				bitsBalanceOutput.value = await web3.mare.balance;
 			}
 			addToMetaMaskButton.disabled = false;
 		} else

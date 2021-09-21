@@ -2,6 +2,7 @@ import { BetterMap } from "./BetterMap.mjs";
 import { CONSTANTS } from "./constants.mjs";
 import { EventSet, browserEvents } from "./EventSet.mjs";
 import { MareEvent } from "./MareEvent.mjs";
+import { loadScriptAsync, preload } from "./utils.js";
 
 const events = new self.Map([
 	["accountsChanged", new self.Event("accountsChanged")], 
@@ -12,6 +13,7 @@ const events = new self.Map([
 
 class Web3Mare {
 	constructor(web3) { this.web3 = web3; }
+
 	get balance() { return this.web3.currentAccount.then(this.__balanceOf.bind(this)); }
 	get bestPony() {}
 	get capReached() {}
@@ -21,6 +23,7 @@ class Web3Mare {
 	get isOpen() { return self.Promise.resolve(true); }
 	get openingTime() {}
 	get weiRaised() {}
+
 	buyTokens(amount) {}
 	watchAsset() {
 		return this.web3.__ethRequest({
@@ -41,7 +44,9 @@ class Web3Mare {
 }
 class Web3Utils {
 	static __ETH_UNITS = new BetterMap(CONSTANTS.ETH_UNITS);
+
 	static get ETH_UNITS() { return this.__ETH_UNITS; }
+
 	static fromWei(number, unit = this.ETH_UNITS.ether) {
 		number = number.toString();
 
@@ -65,39 +70,47 @@ class Web3Utils {
 
 		if (inputValueSplit.length === 1)
 			inputValueSplit[1] = "0";
-		return BigInt((inputValueSplit[0] + inputValueSplit[1].padEnd(unit.length - 1, "0")).replace(/^0*/, ""));
+		return self.BigInt((inputValueSplit[0] + inputValueSplit[1].padEnd(unit.length - 1, "0")).replace(/^0*/, ""));
 	}
 }
 class Web3 extends self.EventTarget {
+	mare = new Web3Mare(this);
+
 	constructor() {
 		super();
-		this.__eth = this.__initializeEth().then((eth) => this.__addEvents(eth)).catch();
-		this.mare = new Web3Mare(this);
+		this.__initialize().catch();
 	}
-	get accounts() { return this.__ethRequestMethod("eth_accounts"); }
+
+	get accounts() { return this.eth.getAccounts(); }
 	get chainId() { return this.__chainId; }
 	get currentAccount() { return this.accounts.then(accounts => accounts[0]); }
 	get eth() { return this.__eth; }
-	get isConnected() { return this.eth.then(eth => eth.isConnected()); }
+	get provider() { return this.__provider; }
+	get isConnected() {
+		if (typeof this.provider === "undefined")
+			return false;
+		return this.provider.isConnected();
+	}
 	get isProviderConnected() { return this.currentAccount.then(currentAccount => typeof currentAccount !== "undefined"); }
-	async connect() { this.__onAccountsChanged(await this.__ethRequestMethod("eth_requestAccounts")); }
-	__addEvents(eth) {
+
+	async connect() { this.__onAccountsChanged(await this.eth.requestAccounts()); }
+	__addEvents() {
 		this.__events = new EventSet("addListener", "removeListener", [
-			new MareEvent(eth, "accountsChanged", this.__onAccountsChanged.bind(this)), 
-			new MareEvent(eth, "chainChanged", this.__onChainChanged.bind(this)), 
-			new MareEvent(eth, "connect", this.__onConnected.bind(this)), 
-			new MareEvent(eth, "disconnect", this.__onDisconnected.bind(this))
+			new MareEvent(this.provider, "accountsChanged", this.__onAccountsChanged.bind(this)), 
+			new MareEvent(this.provider, "chainChanged", this.__onChainChanged.bind(this)), 
+			new MareEvent(this.provider, "connect", this.__onConnected.bind(this)), 
+			new MareEvent(this.provider, "disconnect", this.__onDisconnected.bind(this))
 		]);
 		this.__events.startListening();
 		self.document.addEventListener("visibilitychange", this.__onSelfVisibilityChange.bind(this), { passive: true });
 		return eth;
 	}
-	async __ethRequest(args) {
-		const eth = await this.eth;
-		return eth.request(args);
+	__ethRequest(args) {
+		if (this.isConnected)
+			return this.provider.request(args);
 	}
 	__ethRequestMethod(method) { return this.__ethRequest({ method }); }
-	__initializeEth() {
+	__getProvider() {
 		const eventTarget = this;
 		let handled = false;
 		return new self.Promise(function(resolve, reject) {
@@ -126,6 +139,16 @@ class Web3 extends self.EventTarget {
 				timeout = self.setTimeout(handleEthereum, 3000);
 			}
 		});
+	}
+	async __initialize() {
+		this.__provider = await this.__getProvider();
+		this.__addEvents();
+
+		if (typeof this.provider === "string")
+			return;
+		await loadScriptAsync("script/web3.min.js");
+		this.__eth = new self.Web3(this.provider);
+		self.Object.defineProperty(this, "utils", { enumerable: true, value: this.eth.utils });
 	}
 	__onAccountsChanged(accounts) {
 		console.log("accounts changed");
