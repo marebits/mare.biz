@@ -157,7 +157,7 @@ class MareWeb3 extends self.EventTarget {
 		this.__onAccountsChanged(await this.accounts);
 	}
 	__onAccountsChanged(accounts) {
-		console.log("accounts changed");
+		console.log("accounts changed", accounts);
 		if (accounts.length === 0)
 			this.dispatchEvent(events.get("disconnected"));
 		else
