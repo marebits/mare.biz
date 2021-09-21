@@ -150,7 +150,7 @@ class MareWeb3 extends self.EventTarget {
 
 		if (typeof this.provider === "string")
 			return;
-		this.dispatchEvent(events.get("initialized"));
+		// this.dispatchEvent(events.get("initialized"));
 		await loadScriptAsync("script/web3.min.js");
 		this.__web3 = new self.Web3(this.provider);
 		console.log("finished initializing");
