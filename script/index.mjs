@@ -5,7 +5,7 @@ import { CONSTANTS } from "./constants.mjs";
 import { ContractLink } from "./ContractLink.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { OutputDataMessage } from "./OutputDataMessage.mjs";
-import { MareWeb3 } from "./MareWeb3.mjs";
+import { MareWeb3 } from "./Web3.mjs";
 
 const TARGET_CHAIN_ID_INT = self.Number.parseInt(CONSTANTS.TARGET_CHAIN_ID, 16);
 const addToMetaMaskButton = self.document.getElementById("add-to-metamask");
