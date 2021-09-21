@@ -155,6 +155,7 @@ class MareWeb3 extends self.EventTarget {
 			eth: { enumerable: true, value: this.__web3.eth }, 
 			utils: { enumerable: true, value: this.__web3.utils }
 		});
+		console.log(this);
 		this.dispatchEvent(events.get("initialized"));
 		console.log("finished initializing");
 		this.__onAccountsChanged(await this.accounts);
