@@ -56,7 +56,7 @@ function onPurchaseAmountInput(event) {
 		console.error("Invalid purchase amount entered.");
 		return;
 	}
-	const newPurchaseAmount = web3.mareUtils.toWei(event.target.value) * CONSTANTS.TOKEN_SALE_RATE;
+	const newPurchaseAmount = web3.mareUtils.toWei(event.target.value) * CONSTANTS.TOKEN.SALE_RATE;
 	purchaseBalanceOutput.value = web3.mareUtils.fromWei(newPurchaseAmount);
 }
 function onPurchaseButtonClick(event) {

@@ -31,10 +31,10 @@ class Mare {
 			method: "wallet_watchAsset", 
 			params: {
 				options: {
-					address: CONSTANTS.TOKEN_CONTRACT_ADDRESS, 
+					address: CONSTANTS.TOKEN.CONTRACT_ADDRESS, 
 					decimals: 18, 
-					image: CONSTANTS.TOKEN_ICON_PNG, 
-					symbol: CONSTANTS.TOKEN_SYMBOL
+					image: CONSTANTS.TOKEN.ICON_PNG, 
+					symbol: CONSTANTS.TOKEN.SYMBOL
 				},
 				type: "ERC20"
 			}
@@ -43,7 +43,7 @@ class Mare {
 	withdrawTokens() {}
 	__balanceOf(account) { return self.Promise.resolve(130853200000n); }
 	async __initialize() {
-		marebitsPresale = await fetchJson("script/MarebitsPresale.json");
+		marebitsPresale = await fetchJson(CONSTANTS.PRESALE.CONTRACT_ABI);
 		this.abi = marebitsPresale.abi;
 	}
 }
