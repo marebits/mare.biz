@@ -143,7 +143,7 @@ class MareWeb3 extends self.EventTarget {
 			}
 		});
 	}
-	async __initialize() {
+	__initialize = () => {
 		console.log("starting initializing");
 		this.__provider = await this.__getProvider();
 		this.__addEvents();
