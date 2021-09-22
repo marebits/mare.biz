@@ -127,10 +127,11 @@ class Web3 extends self.EventTarget {
 				handled = true;
 				browserEvents.delete(event);
 				self.clearTimeout(timeout);
-				const { ethereum } = self;
 
-				if (ethereum)
-					resolve(ethereum);
+				if (self.ethereum)
+					resolve(self.ethereum);
+				else if (typeof self.web3 !== "undefined" && typeof self.web3.currentProvider !== "undefined")
+					resolve(self.web3.currentProvider);
 				reject("Cannot detect an installed web3 compatible wallet.");
 			}
 
