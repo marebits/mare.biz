@@ -75,10 +75,7 @@ function updateButtons() {
 	(async function() {
 		console.log("update buttons");
 		const currentAccount = await web3.currentAccount;
-		addToMetaMaskButton.disabled = true;
-		purchaseButton.disabled = true;
-		walletConnectButton.disabled = true;
-		withdrawButton.disabled = true;
+		addToMetaMaskButton.disabled = purchaseButton.disabled = walletConnectButton.disabled = withdrawButton.disabled = true;
 		updateWalletMessage("Click Connect Wallet above to proceed.");
 
 		if (web3.isConnected) {
