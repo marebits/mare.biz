@@ -43,7 +43,7 @@ class Mare {
 	withdrawTokens() {}
 	__balanceOf(account) { return self.Promise.resolve(130853200000n); }
 	async __initialize() {
-		marebitsPresale = await fetchJson(CONSTANTS.PRESALE.CONTRACT_ABI);
+		const marebitsPresale = await fetchJson(CONSTANTS.PRESALE.CONTRACT_ABI);
 		this.abi = marebitsPresale.abi;
 	}
 }
