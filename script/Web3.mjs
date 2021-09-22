@@ -87,7 +87,10 @@ class MareWeb3 extends self.EventTarget {
 		if (!typeof this.eth === "undefined")
 			return this.accounts.then(accounts => accounts[0]);
 	}
-	get eth() { return this.__web3.eth; }
+	get eth() {
+		if (!typeof this.eth === "undefined")
+			return this.__web3.eth;
+	}
 	get provider() { return this.__provider; }
 	get isConnected() {
 		if (typeof this.provider === "undefined")
