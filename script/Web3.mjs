@@ -4,6 +4,7 @@ import { EventSet, browserEvents } from "./EventSet.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { loadScriptAsync, preload } from "./utils.mjs";
 
+const ETH_UNITS = new BetterMap(CONSTANTS.ETH_UNITS);
 const events = new self.Map([
 	["accountsChanged", new self.Event("accountsChanged")], 
 	["connected", new self.Event("connected")], 
@@ -43,29 +44,27 @@ class Web3Mare {
 	__balanceOf(account) { return self.Promise.resolve(130853200000n); }
 }
 class Web3MareUtils {
-	static __ETH_UNITS = new BetterMap(CONSTANTS.ETH_UNITS);
+	static get ETH_UNITS() { return ETH_UNITS; }
 
-	static get ETH_UNITS() { return this.__ETH_UNITS; }
-
-	static fromWei(number, unit = this.ETH_UNITS.ether) {
+	static fromWei(number, unit = ETH_UNITS.ether) {
 		number = number.toString();
 
 		if (number === "0" || number == "")
 			return "0";
-		else if (!this.ETH_UNITS.has(unit))
-			unit = this.ETH_UNITS.ether;
+		else if (!ETH_UNITS.has(unit))
+			unit = ETH_UNITS.ether;
 		const decimals = unit.length - 1;
 		const whole = self.Number.parseInt(number.substring(0, number.length - decimals)).toLocaleString("en-US");
 		const fraction = `.${number.slice(-decimals)}`.replace(/\.?0+$/, "");
 		return `${whole}${fraction}`;
 	}
-	static toWei(number, unit = this.ETH_UNITS.ether) {
+	static toWei(number, unit = ETH_UNITS.ether) {
 		number = number.toString();
 
 		if (number == "" || number === "0")
 			return 0n;
-		else if (!this.ETH_UNITS.has(unit))
-			unit = this.ETH_UNITS.ether;
+		else if (!ETH_UNITS.has(unit))
+			unit = ETH_UNITS.ether;
 		const inputValueSplit = number.split(".");
 
 		if (inputValueSplit.length === 1)
@@ -78,7 +77,7 @@ class MareWeb3 extends self.EventTarget {
 
 	constructor() {
 		super();
-		this.__initialize().then(() => this.dispatchEvent(events.get("initialized"))).catch(console.error);
+		this.__initialize().catch(console.error);
 	}
 
 	get accounts() { return this.eth.getAccounts(); }
@@ -97,7 +96,7 @@ class MareWeb3 extends self.EventTarget {
 			return false;
 		return this.provider.isConnected();
 	}
-	get isProviderConnected() { return this.currentAccount.then(currentAccount => typeof currentAccount !== "undefined"); }
+	// get isProviderConnected() { return this.currentAccount.then(currentAccount => typeof currentAccount !== "undefined"); }
 	get utils() { return this.__web3.utils; }
 
 	async connect() { this.__onAccountsChanged(await this.eth.requestAccounts()); }
@@ -153,6 +152,7 @@ class MareWeb3 extends self.EventTarget {
 		await loadScriptAsync("script/web3.min.js");
 		this.__web3 = new self.Web3(this.provider);
 		console.log("finished initializing");
+		this.dispatchEvent(events.get("initialized"));
 		this.__onAccountsChanged(await this.accounts);
 	}
 	__onAccountsChanged(accounts) {
