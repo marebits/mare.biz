@@ -21,7 +21,7 @@ const web3 = new Web3();
 browserEvents.addMany([
 	new MareEvent(addToMetaMaskButton, "click", onAddToMetaMaskClick, { passive: true }), 
 	new MareEvent(purchaseAmountInput, "input", onPurchaseAmountInput, { passive: true }), 
-	new MareEvent(purchaseButton, "click", onPurchaseButtonClick, { passive: true }),  
+	new MareEvent(purchaseButton, "click", onPurchaseButtonClick, { passive: true }), 
 	new MareEvent(walletConnectButton, "click", onWalletConnectClick, { passive: true }), 
 	new MareEvent(web3, "accountsChanged", updateButtons), 
 	// new MareEvent(web3, "connected", () => updateButtons().catch(console.error)), 

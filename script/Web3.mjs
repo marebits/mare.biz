@@ -12,7 +12,7 @@ const events = new self.Map([
 	["initialized", new self.Event("initialized")]
 ]);
 
-class Web3Mare {
+class Mare {
 	constructor(web3) { this.web3 = web3; }
 
 	get balance() { return this.web3.currentAccount.then(this.__balanceOf.bind(this)); }
@@ -43,7 +43,7 @@ class Web3Mare {
 	withdrawTokens() {}
 	__balanceOf(account) { return self.Promise.resolve(130853200000n); }
 }
-class Web3MareUtils {
+class MareUtils {
 	static get ETH_UNITS() { return ETH_UNITS; }
 
 	static fromWei(number, unit = ETH_UNITS.ether) {
@@ -73,7 +73,7 @@ class Web3MareUtils {
 	}
 }
 class Web3 extends self.EventTarget {
-	mare = new Web3Mare(this);
+	mare = new Mare(this);
 
 	constructor() {
 		super();
@@ -181,6 +181,6 @@ class Web3 extends self.EventTarget {
 			this.__events.startListening();
 	}
 }
-self.Object.defineProperty(Web3.prototype, "mareUtils", { enumerable: true, value: Web3MareUtils });
+self.Object.defineProperty(Web3.prototype, "mareUtils", { enumerable: true, value: MareUtils });
 
 export { Web3 };
