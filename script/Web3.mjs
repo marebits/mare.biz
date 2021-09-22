@@ -2,7 +2,7 @@ import { BetterMap } from "./BetterMap.mjs";
 import { CONSTANTS } from "./constants.mjs";
 import { EventSet, browserEvents } from "./EventSet.mjs";
 import { MareEvent } from "./MareEvent.mjs";
-import { loadScriptAsync, preload } from "./utils.mjs";
+import { fetchJson, loadScriptAsync, preload } from "./utils.mjs";
 
 const ETH_UNITS = new BetterMap(CONSTANTS.ETH_UNITS);
 const events = new self.Map([
@@ -42,6 +42,10 @@ class Mare {
 	}
 	withdrawTokens() {}
 	__balanceOf(account) { return self.Promise.resolve(130853200000n); }
+	async __initialize() {
+		marebitsPresale = await fetchJson("script/MarebitsPresale.json");
+		this.abi = marebitsPresale.abi;
+	}
 }
 class MareUtils {
 	static get ETH_UNITS() { return ETH_UNITS; }
@@ -152,6 +156,7 @@ class Web3 extends self.EventTarget {
 			return;
 		await loadScriptAsync("script/web3.min.js");
 		this.__web3 = new self.Web3(this.provider);
+		await this.mare.__initialize();
 		console.log("finished initializing");
 		this.dispatchEvent(events.get("initialized"));
 		this.__onAccountsChanged(await this.accounts);
@@ -166,7 +171,6 @@ class Web3 extends self.EventTarget {
 	__onConnected(connectInfo) {
 		console.log("connected");
 		this.__chainId = connectInfo.chainId;
-		// this.accounts.then(this.__onAccountsChanged.bind(this)).catch(console.error);
 		this.dispatchEvent(events.get("connected"));
 	}
 	__onChainChanged(chainId) { self.location.reload(); }

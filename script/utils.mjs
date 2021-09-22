@@ -40,6 +40,10 @@ function createElement(name, attributes = {}, parent = undefined, text = undefin
 		parent.appendChild(element);
 	return element;
 }
+async function fetchJson(url) {
+	const response = await self.fetch(url, { Accept: "application/json" });
+	return response.json();
+}
 function getRandomInt(min, max) { return self.Math.floor(self.Math.random() * (max - min + 1)) + min; }
 function loadScriptAsync(scriptPath, type = "text/javascript") {
 	preload(scriptPath, { as: "script", type });
@@ -95,4 +99,4 @@ function writeTextToClipboard(text) { // returns self.Promise
 		});
 }
 
-export { ScreenMeasure, createElement, getRandomInt, loadScriptAsync, preload, setAttributes, writeTextToClipboard };
+export { ScreenMeasure, createElement, fetchJson, getRandomInt, loadScriptAsync, preload, setAttributes, writeTextToClipboard };
