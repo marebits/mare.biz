@@ -84,11 +84,11 @@ class MareWeb3 extends self.EventTarget {
 	get accounts() { return this.eth.getAccounts(); }
 	get chainId() { return this.__chainId; }
 	get currentAccount() {
-		if (!typeof this.eth === "undefined")
+		if (typeof this.eth !== "undefined")
 			return this.accounts.then(accounts => accounts[0]);
 	}
 	get eth() {
-		if (!typeof this.__web3.eth === "undefined")
+		if (typeof this.__web3 !== "undefined" && typeof this.__web3.eth !== "undefined")
 			return this.__web3.eth;
 	}
 	get provider() { return this.__provider; }
