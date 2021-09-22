@@ -78,7 +78,7 @@ class MareWeb3 extends self.EventTarget {
 
 	constructor() {
 		super();
-		this.__initialize().catch(console.error);
+		this.__initialize().then(() => this.dispatchEvent(events.get("initialized"))).catch(console.error);
 	}
 
 	get accounts() { return this.eth.getAccounts(); }
@@ -143,7 +143,7 @@ class MareWeb3 extends self.EventTarget {
 			}
 		});
 	}
-	__initialize = async () => {
+	async __initialize() {
 		console.log("starting initializing");
 		this.__provider = await this.__getProvider();
 		this.__addEvents();
@@ -153,7 +153,6 @@ class MareWeb3 extends self.EventTarget {
 		await loadScriptAsync("script/web3.min.js");
 		this.__web3 = new self.Web3(this.provider);
 		console.log("finished initializing");
-		this.dispatchEvent(events.get("initialized"));
 		this.__onAccountsChanged(await this.accounts);
 	}
 	__onAccountsChanged(accounts) {
