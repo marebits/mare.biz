@@ -74,7 +74,6 @@ function onWithdrawClick() {}
 async function updateButtons() {
 	console.log("update buttons");
 	const currentAccount = await web3.currentAccount;
-	console.log({ currentAccount });
 	addToMetaMaskButton.disabled = true;
 	purchaseButton.disabled = true;
 	walletConnectButton.disabled = true;
@@ -82,7 +81,6 @@ async function updateButtons() {
 	updateWalletMessage("Click Connect Wallet above to proceed.");
 
 	if (web3.isConnected) {
-		console.log({ isConnected: web3.isConnected });
 		if (web3.chainId === CONSTANTS.TARGET_CHAIN_ID) {
 			if (typeof currentAccount === "undefined")
 				walletConnectButton.disabled = false;
