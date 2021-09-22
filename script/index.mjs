@@ -26,7 +26,7 @@ browserEvents.addMany([
 	new MareEvent(web3, "accountsChanged", () => updateButtons().catch(console.error)), 
 	// new MareEvent(web3, "connected", () => updateButtons().catch(console.error)), 
 	new MareEvent(web3, "disconnected", () => updateButtons().catch(console.error)), 
-	new MareEvent(web3, "initialized", updateButtons().catch(console.error)), 
+	new MareEvent(web3, "initialized", () => updateButtons().catch(console.error)), 
 	new MareEvent(withdrawButton, "click", onWithdrawClick, { passive: true })
 ]);
 browserEvents.startListening();
