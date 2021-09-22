@@ -23,10 +23,10 @@ browserEvents.addMany([
 	new MareEvent(purchaseAmountInput, "input", onPurchaseAmountInput, { passive: true }), 
 	new MareEvent(purchaseButton, "click", onPurchaseButtonClick, { passive: true }),  
 	new MareEvent(walletConnectButton, "click", onWalletConnectClick, { passive: true }), 
-	new MareEvent(web3, "accountsChanged", () => updateButtons().catch(console.error)), 
+	new MareEvent(web3, "accountsChanged", updateButtons), 
 	// new MareEvent(web3, "connected", () => updateButtons().catch(console.error)), 
-	new MareEvent(web3, "disconnected", () => updateButtons().catch(console.error)), 
-	new MareEvent(web3, "initialized", () => updateButtons().catch(console.error)), 
+	new MareEvent(web3, "disconnected", updateButtons), 
+	new MareEvent(web3, "initialized", updateButtons), 
 	new MareEvent(withdrawButton, "click", onWithdrawClick, { passive: true })
 ]);
 browserEvents.startListening();
@@ -71,31 +71,33 @@ function onVisibilityChange() {
 function onWalletConnectClick() { web3.connect().catch(console.error); }
 function onWeb3Initialized() {}
 function onWithdrawClick() {}
-async function updateButtons() {
-	console.log("update buttons");
-	const currentAccount = await web3.currentAccount;
-	addToMetaMaskButton.disabled = true;
-	purchaseButton.disabled = true;
-	walletConnectButton.disabled = true;
-	withdrawButton.disabled = true;
-	updateWalletMessage("Click Connect Wallet above to proceed.");
+function updateButtons() {
+	(async function() {
+		console.log("update buttons");
+		const currentAccount = await web3.currentAccount;
+		addToMetaMaskButton.disabled = true;
+		purchaseButton.disabled = true;
+		walletConnectButton.disabled = true;
+		withdrawButton.disabled = true;
+		updateWalletMessage("Click Connect Wallet above to proceed.");
 
-	if (web3.isConnected) {
-		if (web3.chainId === CONSTANTS.TARGET_CHAIN_ID) {
-			if (typeof currentAccount === "undefined")
-				walletConnectButton.disabled = false;
-			else {
-				if (await web3.mare.isOpen)
-					purchaseButton.disabled = false;
-				else if (await web3.mare.isFinalized)
-					withdrawButton.disabled = false;
-				updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
-				bitsBalanceOutput.value = await web3.mare.balance;
-			}
-			addToMetaMaskButton.disabled = false;
-		} else
-			updateWalletMessage(`Please change the network in your wallet to ${defaultChainInfo.name}`);
-	}
+		if (web3.isConnected) {
+			if (web3.chainId === CONSTANTS.TARGET_CHAIN_ID) {
+				if (typeof currentAccount === "undefined")
+					walletConnectButton.disabled = false;
+				else {
+					if (await web3.mare.isOpen)
+						purchaseButton.disabled = false;
+					else if (await web3.mare.isFinalized)
+						withdrawButton.disabled = false;
+					updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
+					bitsBalanceOutput.value = await web3.mare.balance;
+				}
+				addToMetaMaskButton.disabled = false;
+			} else
+				updateWalletMessage(`Please change the network in your wallet to ${defaultChainInfo.name}`);
+		}
+	})().catch(console.error);
 }
 function updateWalletMessage(...nodesOrStrings) {
 	if (nodesOrStrings.length === 1 && typeof nodesOrStrings[0] === "string")
