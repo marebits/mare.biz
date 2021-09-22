@@ -2,6 +2,7 @@ const chainsBase = [
 	["0x1", { bexName: "Etherscan", bexHrefBase: "https://etherscan.io/", name: "Ethereum Mainnet", shortName: "eth" }], 
 	["0x3", { bexName: "Etherscan", bexHrefBase: "https://ropsten.etherscan.io/", name: "Ropsten Test Network", shortName: "ropsten" }], 
 	["0x89", { bexName: "Polygonscan", bexHrefBase: "https://polygonscan.com/", name: "Matic Mainnet", shortName: "matic" }], 
+	["0x539", { bexName: "Ganache", bexHrefBase: "https://mare.biz/", name: "Ganache", shortName: "ganache" }], 
 	["0x13881", { bexName: "Polygonscan", bexHrefBase: "https://mumbai.polygonscan.com/", name: "Matic Mumbai Testnet", shortName: "mumbai" }]
 ];
 const CONSTANTS = {
@@ -23,8 +24,8 @@ const CONSTANTS = {
 	ETH_UNITS: [
 		["wei", "1"], ["kwei", "1000"], ["mwei", "1000000"], ["gwei", "1000000000"], ["szabo", "1000000000000"], ["ether", "1000000000000000000"]
 	], 
-	TARGET_CHAIN_ID: "0x3", 
-	TOKEN_CONTRACT_ADDRESS: "0x35c94a5a563d7dc00b7edaa455e0a931691deb27", //production: 0xc5a1973e1f736e2ad991573f3649f4f4a44c3028
+	TARGET_CHAIN_ID: "0x539", 
+	TOKEN_CONTRACT_ADDRESS: "0x97ba87557967E2FC9793fd53B496B0652Ba9bA72", //ropsten: "0x35c94a5a563d7dc00b7edaa455e0a931691deb27", //production: 0xc5a1973e1f736e2ad991573f3649f4f4a44c3028
 	TOKEN_ICON_PNG: "https://mare.biz/marebits/icon-512.png", 
 	TOKEN_SALE_RATE: 60753271517n, 
 	TOKEN_SYMBOL: "MARE"
