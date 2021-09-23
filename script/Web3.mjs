@@ -99,10 +99,13 @@ class MareUtils {
 		else if (!ETH_UNITS.has(unit))
 			unit = ETH_UNITS.ether;
 		const inputValueSplit = number.split(".");
+		const numDecimals = unit.length - 1;
 
 		if (inputValueSplit.length === 1)
 			inputValueSplit[1] = "0";
-		return self.BigInt((inputValueSplit[0] + inputValueSplit[1].padEnd(unit.length - 1, "0")).replace(/^0*/, ""));
+		else
+			inputValueSplit[1] = inputValueSplit[1].substring(0, numDecimals);
+		return self.BigInt((inputValueSplit[0] + inputValueSplit[1].padEnd(numDecimals, "0")).replace(/^0*/, ""));
 	}
 }
 class Web3 extends self.EventTarget {
