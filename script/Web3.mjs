@@ -95,7 +95,7 @@ class MareUtils {
 		if (wholeLength > 0)
 			result.whole = self.Number.parseInt(number.substring(0, wholeLength)).toLocaleString("en-US");
 		else if (wholeLength < 0){
-			console.log(result.fraction.padStart(-wholeLength, "0"));
+			console.log(`padding ${result.fraction} with ${-wholeLength} 0s: ${result.fraction.padStart(-wholeLength, "0")}`);
 			result.fraction = result.fraction.padStart(-wholeLength, "0");
 		}
 		return `${result.whole}.${result.fraction}`.replace(/\.?0+$/, "");
