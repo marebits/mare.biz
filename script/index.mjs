@@ -5,7 +5,7 @@ import { CONSTANTS } from "./constants.mjs";
 import { ContractLink } from "./ContractLink.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { OutputDataMessage } from "./OutputDataMessage.mjs";
-import { runInBackground } from "./util.mjs";
+import { runInBackground } from "./utils.mjs";
 import { Web3 } from "./Web3.mjs";
 
 // const TARGET_CHAIN_ID_INT = self.Number.parseInt(CONSTANTS.TARGET_CHAIN_ID, 16);
