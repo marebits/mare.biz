@@ -18,7 +18,7 @@ class Mare {
 
 	constructor(web3) { this.web3 = web3; }
 
-	get balance() { return this.web3.currentAccount.then(this.web3.mareUtils.fromWei(this.__balanceOf.bind(this))); }
+	get balance() { return this.web3.currentAccount.then(currentAccount => this.__balanceOf(currentAccount)).then(this.web3.mareUtils.fromWei); }
 	get bestPony() { return this.__callMethod("bestPony"); }
 	get capReached() { return this.__callMethod("capReached"); }
 	get closingTime() { return this.__callMethod("closingTime"); }
@@ -58,7 +58,7 @@ class Mare {
 		});
 	}
 	withdrawTokens() {}
-	async __balanceOf(account) { return this.__callMethod("balanceOf", await this.web3.currentAccount); }
+	__balanceOf(account) { return this.__callMethod("balanceOf", account); }
 	__callMethod(methodName, ...params) { return this.web3.currentAccount.then(currentAccount => this.contract.methods[methodName](...params).call({ from: currentAccount })); }
 	async __initialize() {
 		const marebitsPresale = await fetchJson(CONSTANTS.PRESALE.CONTRACT_ABI);
