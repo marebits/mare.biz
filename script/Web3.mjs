@@ -81,7 +81,6 @@ class MareUtils {
 
 	static fromWei(number, unit = ETH_UNITS.ether) {
 		number = number.toString();
-		console.log(number);
 
 		if (number === "0" || number == "")
 			return "0";
@@ -90,14 +89,11 @@ class MareUtils {
 		const decimals = unit.length - 1;
 		const result = { whole: "0", fraction: number.slice(-decimals) };
 		const wholeLength = number.length - decimals;
-		console.log(wholeLength);
 
 		if (wholeLength > 0)
 			result.whole = self.Number.parseInt(number.substring(0, wholeLength)).toLocaleString("en-US");
-		else if (wholeLength < 0){
-			console.log(`padding ${result.fraction} with ${-wholeLength} 0s: ${result.fraction.padStart(-wholeLength, "0")}`);
-			result.fraction = result.fraction.padStart(-wholeLength, "0");
-		}
+		else if (wholeLength < 0)
+			result.fraction = `${"0".repeat(-wholeLength)}${result.fraction}`;
 		return `${result.whole}.${result.fraction}`.replace(/\.?0+$/, "");
 	}
 	static toWei(number, unit = ETH_UNITS.ether) {
