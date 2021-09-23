@@ -167,7 +167,7 @@ class Web3 extends self.EventTarget {
 		await this.mare.__initialize();
 		console.log("finished initializing");
 		this.dispatchEvent(events.get("initialized"));
-		this.__onAccountsChanged(await this.accounts);
+		// this.__onAccountsChanged(await this.accounts);
 	}
 	__onAccountsChanged(accounts) {
 		console.log("accounts changed", accounts);
