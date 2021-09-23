@@ -11,6 +11,8 @@ const TARGET_CHAIN_ID_INT = self.Number.parseInt(CONSTANTS.TARGET_CHAIN_ID, 16);
 const addToMetaMaskButton = self.document.getElementById("add-to-metamask");
 const bitsBalanceOutput = self.document.getElementById("bits-balance");
 const defaultChainInfo = CONSTANTS.CHAINS.get(CONSTANTS.TARGET_CHAIN_ID);
+const ethRaisedOutput = self.document.getElementById("eth-raised");
+const mareBitsSoldOutput = self.document.getElementById("marebits-sold");
 const purchaseAmountInput = self.document.getElementById("purchase-amount");
 const purchaseBalanceOutput = self.document.getElementById("purchase-balance");
 const purchaseButton = self.document.getElementById("purchase");
@@ -89,6 +91,8 @@ function updateButtons() {
 						withdrawButton.disabled = false;
 					updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
 					bitsBalanceOutput.value = await web3.mare.balance;
+					mareBitsSoldOutput.value = await web3.mare.mareSold;
+					ethRaisedOutput.value = await web3.mare.ethRaised;
 				}
 				addToMetaMaskButton.disabled = false;
 			} else

@@ -21,10 +21,12 @@ class Mare {
 	get bestPony() {}
 	get capReached() {}
 	get closingTime() {}
+	get ethRaised() { return this.weiRaised.then(weiRaised => this.web3.utils.fromWei(weiRaised)); }
 	get hasClosed() { return self.Promise.resolve(false); }
 	get isFinalized() { return self.Promise.resolve(false); }
 	get isInitialized() { return this.__isInitialized; }
 	get isOpen() { return self.Promise.resolve(true); }
+	get mareSold() { return this.ethRaised.then(ethRaised => ethRaised.mul(CONSTANTS.TOKEN.SALE_RATE)); }
 	get openingTime() {}
 	get weiRaised() { return this.__callMethod("weiRaised"); }
 
