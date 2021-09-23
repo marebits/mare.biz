@@ -114,6 +114,12 @@ class ContractLink extends self.HTMLElement {
 		}
 		return this.___copiedOutputElement;
 	}
+	set contract(contract) {
+		this.setAttribute("contract", contract);
+
+		if (this.anchor.textContent.length === 0)
+			this.anchor.textContent = contract;
+	}
 	__getAttributeOrDefault(attribute, alternative) {
 		const value = super.getAttribute(attribute);
 
