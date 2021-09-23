@@ -81,12 +81,14 @@ class MareUtils {
 
 	static fromWei(number, unit = ETH_UNITS.ether) {
 		number = number.toString();
+		console.log(number);
 
 		if (number === "0" || number == "")
 			return "0";
 		else if (!ETH_UNITS.has(unit))
 			unit = ETH_UNITS.ether;
 		const decimals = unit.length - 1;
+		console.log(number.length - decimals);
 		const whole = self.Number.parseInt(number.substring(0, number.length - decimals)).toLocaleString("en-US");
 		const fraction = `.${number.slice(-decimals)}`.replace(/\.?0+$/, "");
 		return `${whole}${fraction}`;
