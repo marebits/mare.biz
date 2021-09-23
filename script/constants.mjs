@@ -1,9 +1,9 @@
 const chainsBase = [
-	["0x1", { bexName: "Etherscan", bexHrefBase: "https://etherscan.io/", name: "Ethereum Mainnet", shortName: "eth" }], 
-	["0x3", { bexName: "Etherscan", bexHrefBase: "https://ropsten.etherscan.io/", name: "Ropsten Test Network", shortName: "ropsten" }], 
-	["0x89", { bexName: "Polygonscan", bexHrefBase: "https://polygonscan.com/", name: "Matic Mainnet", shortName: "matic" }], 
-	["0x539", { bexName: "Ganache", bexHrefBase: "https://mare.biz/", name: "Ganache", shortName: "ganache" }], 
-	["0x13881", { bexName: "Polygonscan", bexHrefBase: "https://mumbai.polygonscan.com/", name: "Matic Mumbai Testnet", shortName: "mumbai" }]
+	[0x1, { bexName: "Etherscan", bexHrefBase: "https://etherscan.io/", name: "Ethereum Mainnet", shortName: "eth" }], 
+	[0x3, { bexName: "Etherscan", bexHrefBase: "https://ropsten.etherscan.io/", name: "Ropsten Test Network", shortName: "ropsten" }], 
+	[0x89, { bexName: "Polygonscan", bexHrefBase: "https://polygonscan.com/", name: "Matic Mainnet", shortName: "matic" }], 
+	[0x539, { bexName: "Ganache", bexHrefBase: "https://mare.biz/", name: "Ganache", shortName: "ganache" }], 
+	[0x13881, { bexName: "Polygonscan", bexHrefBase: "https://mumbai.polygonscan.com/", name: "Matic Mumbai Testnet", shortName: "mumbai" }]
 ];
 const CONSTANTS = {
 	CHAINS: new self.Map(chainsBase), 
