@@ -96,8 +96,10 @@ function updateButtons() {
 					console.log(await web3.mare.weiRaised);
 				}
 				addToMetaMaskButton.disabled = false;
-			} else
+			} else {
+				console.log(`current chain id is ${web3.chainId} and you should be on ${CONSTANTS.TARGET_CHAIN_ID}`);
 				updateWalletMessage(`Please change the network in your wallet to ${defaultChainInfo.name}`);
+			}
 		}
 	})().catch(console.error);
 }
