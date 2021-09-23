@@ -1,5 +1,8 @@
 const preloadedFiles = new self.Set();
 
+if (!"requestIdleCallback" in self)
+	self.requestIdleCallback = (task) => self.setTimeout(task, 1);
+
 class ScreenMeasure {
 	static get maxHeight() {
 		const maxHeight = self.Math.max(
@@ -80,6 +83,7 @@ function preload(files = [], attributes = {}) {
 		preloadedFiles.add(fileAttributes.href);
 	}));
 }
+function runInBackground(task, timeout = 5000) { self.requestIdleCallback(task, { timeout }); }
 function setAttributes(element, attributes = {}) {
 	for (const key in attributes)
 		element.setAttribute(key, attributes[key]);
@@ -99,4 +103,4 @@ function writeTextToClipboard(text) { // returns self.Promise
 		});
 }
 
-export { ScreenMeasure, createElement, fetchJson, getRandomInt, loadScriptAsync, preload, setAttributes, writeTextToClipboard };
+export { ScreenMeasure, createElement, fetchJson, getRandomInt, loadScriptAsync, preload, runInBackground, setAttributes, writeTextToClipboard };

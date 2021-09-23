@@ -5,6 +5,7 @@ import { CONSTANTS } from "./constants.mjs";
 import { ContractLink } from "./ContractLink.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { OutputDataMessage } from "./OutputDataMessage.mjs";
+import { runInBackground } from "./util.mjs";
 import { Web3 } from "./Web3.mjs";
 
 // const TARGET_CHAIN_ID_INT = self.Number.parseInt(CONSTANTS.TARGET_CHAIN_ID, 16);
@@ -57,7 +58,7 @@ browserEvents.startListening();
 // }
 function onAddToMetaMaskClick(event) { web3.mare.watchAsset().catch(console.error); }
 function onPurchaseAmountInput(event) {
-	if (!event.target.checkValidity()) {
+	if (!event.target.checkValidity() || /e/i.test(number)) {
 		purchaseBalanceOutput.value = "0";
 		console.error("Invalid purchase amount entered.");
 		return;
@@ -76,6 +77,7 @@ function onVisibilityChange() {
 }
 function onWalletConnectClick() { web3.connect().catch(console.error); }
 function onWithdrawClick() { web3.mare.withdrawTokens().catch(console.error); }
+function setFieldValueToPromise(field, promise) { runInBackground(() => promise.then(value => field.value = value).catch(console.error)); }
 function updateButtons() {
 	(async function() {
 		console.log("update buttons");
@@ -97,9 +99,9 @@ function updateButtons() {
 					updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
 					saleProgress.hidden = !(saleNotYetOpen.hidden = isOpen);
 					saleProgressHr.hidden = false;
-					bitsBalanceOutput.value = await web3.mare.balance;
-					mareBitsSoldOutput.value = await web3.mare.mareSold;
-					ethRaisedOutput.value = await web3.mare.ethRaised;
+					setFieldValueToPromise(bitsBalanceOutput, web3.mare.balance);
+					setFieldValueToPromise(mareBitsSoldOutput, web3.mare.mareSold);
+					setFieldValueToPromise(ethRaisedOutput, web3.mare.ethRaised);
 				}
 				addToMetaMaskButton.disabled = false;
 			} else {
