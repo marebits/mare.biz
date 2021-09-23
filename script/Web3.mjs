@@ -2,6 +2,7 @@ import { BetterMap } from "./BetterMap.mjs";
 import { CONSTANTS } from "./constants.mjs";
 import { EventSet, browserEvents } from "./EventSet.mjs";
 import { MareEvent } from "./MareEvent.mjs";
+// import { TypedCache } from "./TypedCache.mjs";
 import { fetchJson, loadScriptAsync, preload } from "./utils.mjs";
 
 const ETH_UNITS = new BetterMap(CONSTANTS.ETH_UNITS);
