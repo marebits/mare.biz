@@ -18,7 +18,7 @@ class Mare {
 
 	constructor(web3) { this.web3 = web3; }
 
-	get balance() { return this.web3.currentAccount.then(this.__balanceOf.bind(this)); }
+	get balance() { return this.web3.currentAccount.then(this.web3.mareUtils.fromWei(this.__balanceOf.bind(this))); }
 	get bestPony() { return this.__callMethod("bestPony"); }
 	get capReached() { return this.__callMethod("capReached"); }
 	get closingTime() { return this.__callMethod("closingTime"); }
@@ -27,7 +27,7 @@ class Mare {
 	get isFinalized() { return this.__callMethod("isFinalized"); }
 	get isInitialized() { return this.__isInitialized; }
 	get isOpen() { return this.__callMethod("isOpen"); }
-	get mareSold() { return this.weiRaised.then(weiRaised => this.web3.mareUtils.fromWei(BigInt(weiRaised) * this.web3.mareUtils.toWei(CONSTANTS.TOKEN.SALE_RATE))); }
+	get mareSold() { return this.weiRaised.then(weiRaised => this.web3.mareUtils.fromWei(BigInt(weiRaised) * CONSTANTS.TOKEN.SALE_RATE)); }
 	get openingTime() { return this.__callMethod("openingTime"); }
 	get weiRaised() { return this.__callMethod("weiRaised"); }
 
