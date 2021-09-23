@@ -165,7 +165,7 @@ class Web3 extends self.EventTarget {
 		await loadScriptAsync("script/web3.min.js");
 		this.__web3 = new self.Web3(this.provider);
 		await this.mare.__initialize();
-		console.log("finished initializing", this.eth);
+		console.log("finished initializing");
 		this.dispatchEvent(events.get("initialized"));
 		// this.__onAccountsChanged(await this.accounts);
 	}
