@@ -88,12 +88,15 @@ class MareUtils {
 		else if (!ETH_UNITS.has(unit))
 			unit = ETH_UNITS.ether;
 		const decimals = unit.length - 1;
+		const result = { whole: "0", fraction: number.slice(-decimals) };
 		const wholeLength = number.length - decimals;
-
 		console.log(number.length - decimals);
-		const whole = ((wholeLength <= 0) ? 0 : self.Number.parseInt(number.substring(0, number.length - decimals))).toLocaleString("en-US");
-		const fraction = `.${number.slice(-decimals)}`.replace(/\.?0+$/, "");
-		return `${whole}${fraction}`;
+
+		if (wholeLength > 0)
+			result.whole = self.Number.parseInt(number.substring(0, wholeLength)).toLocaleString("en-US");
+		else if (wholeLength < 0)
+			result.fraction = result.fraction.padStart(-wholeLength, "0");
+		return `${result.whole}.${result.fraction}`;
 	}
 	static toWei(number, unit = ETH_UNITS.ether) {
 		number = number.toString();
