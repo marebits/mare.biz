@@ -23,6 +23,7 @@ const CONSTANTS = {
 	}, 
 	ETH_UNITS: [["wei", "1"], ["kwei", "1000"], ["mwei", "1000000"], ["gwei", "1000000000"], ["szabo", "1000000000000"], ["ether", "1000000000000000000"]], 
 	PRESALE: {
+		CAP: 2, 
 		CONTRACT_ABI: "script/MarebitsPresale.json", 
 		CONTRACT_ADDRESS: "0x1e1655108b6A422C7699c515f3Da33e7d07A11dc"
 	}, 
