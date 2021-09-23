@@ -99,10 +99,11 @@ class MareUtils {
 	static toWei(number, unit = ETH_UNITS.ether) {
 		number = number.toString();
 
-		if (number == "" || number === "0")
+		if (number == "" || number === "0" || /e/i.test(number))
 			return 0n;
 		else if (!ETH_UNITS.has(unit))
 			unit = ETH_UNITS.ether;
+
 		const inputValueSplit = number.split(".");
 		const numDecimals = unit.length - 1;
 
