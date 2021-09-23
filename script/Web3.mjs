@@ -26,7 +26,7 @@ class Mare {
 	get isFinalized() { return self.Promise.resolve(false); }
 	get isInitialized() { return this.__isInitialized; }
 	get isOpen() { return self.Promise.resolve(true); }
-	get mareSold() { return this.ethRaised.then(ethRaised => ethRaised * CONSTANTS.TOKEN.SALE_RATE); }
+	get mareSold() { return this.weiRaised.then(weiRaised => this.web3.mareUtils.fromWei(BigInt(weiRaised) * this.web3.mareUtils.toWei(CONSTANTS.TOKEN.SALE_RATE))); }
 	get openingTime() {}
 	get weiRaised() { return this.__callMethod("weiRaised"); }
 
