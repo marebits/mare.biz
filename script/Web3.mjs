@@ -96,7 +96,7 @@ class MareUtils {
 			result.whole = self.Number.parseInt(number.substring(0, wholeLength)).toLocaleString("en-US");
 		else if (wholeLength < 0)
 			result.fraction = result.fraction.padStart(-wholeLength, "0");
-		return `${result.whole}.${result.fraction}`;
+		return `${result.whole}.${result.fraction}`.replace(/\.?0+$/, "");
 	}
 	static toWei(number, unit = ETH_UNITS.ether) {
 		number = number.toString();
