@@ -27,7 +27,7 @@ const CONSTANTS = {
 		CONTRACT_ABI: "script/MarebitsPresale.json", 
 		CONTRACT_ADDRESS: "0x1e1655108b6A422C7699c515f3Da33e7d07A11dc"
 	}, 
-	TARGET_CHAIN_ID: "0x539", 
+	TARGET_CHAIN_ID: 0x539, 
 	TOKEN: {
 		CONTRACT_ADDRESS: "0x97ba87557967E2FC9793fd53B496B0652Ba9bA72", //ropsten: "0x35c94a5a563d7dc00b7edaa455e0a931691deb27", //production: 0xc5a1973e1f736e2ad991573f3649f4f4a44c3028
 		ICON_PNG: "https://mare.biz/marebits/icon-512.png", 

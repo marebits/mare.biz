@@ -93,7 +93,7 @@ class Web3 extends self.EventTarget {
 	}
 
 	get accounts() { return this.eth.getAccounts(); }
-	get chainId() { return this.__chainId; }
+	get chainId() { return this.eth.getChainId(); }
 	get currentAccount() {
 		if (typeof this.eth !== "undefined")
 			return this.accounts.then(accounts => accounts[0]);
@@ -178,7 +178,6 @@ class Web3 extends self.EventTarget {
 	}
 	__onConnected(connectInfo) {
 		console.log("connected");
-		this.__chainId = connectInfo.chainId;
 		this.dispatchEvent(events.get("connected"));
 	}
 	__onChainChanged(chainId) { self.location.reload(); }

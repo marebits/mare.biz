@@ -7,7 +7,7 @@ import { MareEvent } from "./MareEvent.mjs";
 import { OutputDataMessage } from "./OutputDataMessage.mjs";
 import { Web3 } from "./Web3.mjs";
 
-const TARGET_CHAIN_ID_INT = self.Number.parseInt(CONSTANTS.TARGET_CHAIN_ID, 16);
+// const TARGET_CHAIN_ID_INT = self.Number.parseInt(CONSTANTS.TARGET_CHAIN_ID, 16);
 const addToMetaMaskButton = self.document.getElementById("add-to-metamask");
 const bitsBalanceOutput = self.document.getElementById("bits-balance");
 const defaultChainInfo = CONSTANTS.CHAINS.get(CONSTANTS.TARGET_CHAIN_ID);
@@ -81,7 +81,7 @@ function updateButtons() {
 		updateWalletMessage("Click Connect Wallet above to proceed.");
 
 		if (web3.isConnected) {
-			if (web3.chainId === CONSTANTS.TARGET_CHAIN_ID) {
+			if (await web3.chainId === CONSTANTS.TARGET_CHAIN_ID) {
 				if (typeof currentAccount === "undefined")
 					walletConnectButton.disabled = false;
 				else {
@@ -97,7 +97,7 @@ function updateButtons() {
 				}
 				addToMetaMaskButton.disabled = false;
 			} else {
-				console.log(`current chain id is ${web3.chainId} and you should be on ${CONSTANTS.TARGET_CHAIN_ID}`);
+				console.log(`current chain id is ${await web3.chainId} and you should be on ${CONSTANTS.TARGET_CHAIN_ID}`);
 				updateWalletMessage(`Please change the network in your wallet to ${defaultChainInfo.name}`);
 			}
 		}
