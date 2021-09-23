@@ -58,7 +58,7 @@ browserEvents.startListening();
 // }
 function onAddToMetaMaskClick(event) { web3.mare.watchAsset().catch(console.error); }
 function onPurchaseAmountInput(event) {
-	if (!event.target.checkValidity() || /e/i.test(number)) {
+	if (!event.target.checkValidity() || /e/i.test(event.target.value)) {
 		purchaseBalanceOutput.value = "0";
 		console.error("Invalid purchase amount entered.");
 		return;
