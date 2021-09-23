@@ -62,7 +62,7 @@ function onPurchaseAmountInput(event) {
 	purchaseBalanceOutput.value = web3.mareUtils.fromWei(newPurchaseAmount);
 }
 function onPurchaseButtonClick(event) {
-
+	web3.mare.buyTokens(purchaseAmountInput.value).catch(console.error);
 }
 function onVisibilityChange() {
 	if (self.document.visibilityState === "hidden")
