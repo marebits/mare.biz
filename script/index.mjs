@@ -91,8 +91,9 @@ function updateButtons() {
 						withdrawButton.disabled = false;
 					updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
 					bitsBalanceOutput.value = await web3.mare.balance;
-					mareBitsSoldOutput.value = await web3.mare.mareSold;
-					ethRaisedOutput.value = await web3.mare.ethRaised;
+					// mareBitsSoldOutput.value = await web3.mare.mareSold;
+					// ethRaisedOutput.value = await web3.mare.ethRaised;
+					console.log(await web3.mare.weiRaised);
 				}
 				addToMetaMaskButton.disabled = false;
 			} else
