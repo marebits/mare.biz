@@ -19,6 +19,7 @@ const purchaseBalanceOutput = self.document.getElementById("purchase-balance");
 const purchaseButton = self.document.getElementById("purchase");
 const saleNotYetOpen = self.document.getElementById("sale-not-yet-open");
 const saleProgress = self.document.getElementById("sale-progress");
+const saleProgressHr = self.document.getElementById("sale-progress-hr");
 const tokenContractLink = self.document.getElementById("token-contract");
 const walletConnectButton = self.document.getElementById("wallet-connect");
 const walletMessageOutput = self.document.getElementById("wallet-message");
@@ -97,6 +98,7 @@ function updateButtons() {
 						withdrawButton.disabled = false;
 					updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
 					saleProgress.hidden = !(saleNotYetOpen.hidden = isOpen);
+					saleProgressHr.hidden = false;
 					bitsBalanceOutput.value = await web3.mare.balance;
 					mareBitsSoldOutput.value = await web3.mare.mareSold;
 					ethRaisedOutput.value = await web3.mare.ethRaised;
