@@ -31,7 +31,6 @@ browserEvents.addMany([
 	new MareEvent(purchaseButton, "click", onPurchaseButtonClick, { passive: true }), 
 	new MareEvent(walletConnectButton, "click", onWalletConnectClick, { passive: true }), 
 	new MareEvent(web3, "accountsChanged", updateButtons), 
-	// new MareEvent(web3, "connected", () => updateButtons().catch(console.error)), 
 	new MareEvent(web3, "disconnected", updateButtons), 
 	new MareEvent(web3, "initialized", updateButtons), 
 	new MareEvent(withdrawButton, "click", onWithdrawClick, { passive: true })
@@ -76,8 +75,7 @@ function onVisibilityChange() {
 		browserEvents.startListening();
 }
 function onWalletConnectClick() { web3.connect().catch(console.error); }
-function onWeb3Initialized() {}
-function onWithdrawClick() {}
+function onWithdrawClick() { web3.mare.withdrawTokens().catch(console.error); }
 function updateButtons() {
 	(async function() {
 		console.log("update buttons");
