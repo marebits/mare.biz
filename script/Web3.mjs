@@ -45,6 +45,7 @@ class Mare {
 	async __initialize() {
 		const marebitsPresale = await fetchJson(CONSTANTS.PRESALE.CONTRACT_ABI);
 		this.abi = marebitsPresale.abi;
+		this.contract = new this.web3.eth.Contract(this.abi, CONSTANTS.PRESALE.CONTRACT_ADDRESS, { from: await this.web3.currentAccount });
 	}
 }
 class MareUtils {
