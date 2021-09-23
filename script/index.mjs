@@ -93,9 +93,6 @@ function updateButtons() {
 					bitsBalanceOutput.value = await web3.mare.balance;
 					mareBitsSoldOutput.value = await web3.mare.mareSold;
 					ethRaisedOutput.value = await web3.mare.ethRaised;
-					console.log(await web3.mare.closingTime);
-					console.log(await web3.mare.openingTime);
-					console.log(await web3.mare.isOpen);
 				}
 				addToMetaMaskButton.disabled = false;
 			} else {

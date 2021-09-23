@@ -30,7 +30,18 @@ class Mare {
 	get openingTime() { return this.__callMethod("openingTime"); }
 	get weiRaised() { return this.__callMethod("weiRaised"); }
 
-	buyTokens(amount) {}
+	async buyTokens(amount) {
+		const amountWei = this.web3.utils.toWei(amount);
+		const currentAccount = await this.web3.currentAccount;
+		this.contract.methods.buyTokens(currentAccount).send({ from: currentAccount, value: amountWei })
+			.addListener("sending", () => console.log("transaction is sending"))
+			.addListener("sent", () => console.log("transaction is sent"))
+			.addListener("transactionHash", transactionHash => console.log("transaction hash is ", transactionHash))
+			.addListener("receipt", receipt => console.log("received receipt ", receipt))
+			.addListener("confirmation", (confirmation, receipt, latestBlockHash) => console.log("received confirmation ", confirmation, receipt, latestBlockHash))
+			.addListener("error", error => console.error(error));
+
+	}
 	watchAsset() {
 		return this.web3.__ethRequest({
 			method: "wallet_watchAsset", 
@@ -46,7 +57,7 @@ class Mare {
 		});
 	}
 	withdrawTokens() {}
-	__balanceOf(account) { return self.Promise.resolve(130853200000n); }
+	async __balanceOf(account) { return this.__callMethod("balanceOf", await this.web3.currentAccount); }
 	__callMethod(methodName, ...params) { return this.web3.currentAccount.then(currentAccount => this.contract.methods[methodName](...params).call({ from: currentAccount })); }
 	async __initialize() {
 		const marebitsPresale = await fetchJson(CONSTANTS.PRESALE.CONTRACT_ABI);
