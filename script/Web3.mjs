@@ -13,6 +13,8 @@ const events = new self.Map([
 ]);
 
 class Mare {
+	__isInitialized = false;
+
 	constructor(web3) { this.web3 = web3; }
 
 	get balance() { return this.web3.currentAccount.then(this.__balanceOf.bind(this)); }
@@ -21,9 +23,10 @@ class Mare {
 	get closingTime() {}
 	get hasClosed() { return self.Promise.resolve(false); }
 	get isFinalized() { return self.Promise.resolve(false); }
+	get isInitialized() { return this.__isInitialized; }
 	get isOpen() { return self.Promise.resolve(true); }
 	get openingTime() {}
-	get weiRaised() {}
+	get weiRaised() { return this.__callMethod("weiRaised"); }
 
 	buyTokens(amount) {}
 	watchAsset() {
@@ -42,11 +45,12 @@ class Mare {
 	}
 	withdrawTokens() {}
 	__balanceOf(account) { return self.Promise.resolve(130853200000n); }
+	__callMethod(methodName, ...params) { return this.web3.currentAccount.then(currentAccount => this.contract.methods[methodName](...params).call({ from: currentAccount })); }
 	async __initialize() {
 		const marebitsPresale = await fetchJson(CONSTANTS.PRESALE.CONTRACT_ABI);
 		this.abi = marebitsPresale.abi;
 		this.contract = new this.web3.eth.Contract(this.abi, CONSTANTS.PRESALE.CONTRACT_ADDRESS, { from: await this.web3.currentAccount });
-		console.log(this.contract.methods);
+		this.__isInitialized = true;
 	}
 }
 class MareUtils {
