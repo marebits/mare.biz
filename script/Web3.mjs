@@ -103,7 +103,6 @@ class MareUtils {
 			return 0n;
 		else if (!ETH_UNITS.has(unit))
 			unit = ETH_UNITS.ether;
-
 		const inputValueSplit = number.split(".");
 		const numDecimals = unit.length - 1;
 
