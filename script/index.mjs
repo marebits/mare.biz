@@ -88,7 +88,7 @@ async function onPurchaseButtonClick(event) {
 	}
 	function onTransactionError(error) {
 		purchaseResult.replaceChildren(self.document.createTextNode(`Error ${error.code}: ${error.message}`));
-		event.target.disabled = false;
+		updateButtons();
 		console.error(error);
 	}
 	function onTransactionHash(transactionHash) {
@@ -99,19 +99,13 @@ async function onPurchaseButtonClick(event) {
 		purchaseResultElements.confirmations = createElement("div", {}, purchaseResult, "Awaiting confirmations...");
 		updateButtons();
 	}
-	function onTransactionReceipt(receipt) {
-		const mareBitsSold = self.BigInt(receipt.events.TokensPurchased.returnValues.amount);
-		mareBitsSoldOutput.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(mareBitsSoldOutput.value) + mareBitsSold);
-		bitsBalance.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(bitsBalance.value) + mareBitsSold);
-		ethRaised.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(ethRaised.value) + self.BigInt(receipt.events.TokensPurchased.returnValues.value));
-	}
 
 	if (!purchaseResult.hidden)
 		purchaseResult.replaceChildren();
 	purchaseResult.hidden = false;
 	purchaseResult.classList.remove("alert");
 	purchaseResultElements.transactionHash = createElement("div", {}, purchaseResult, "Sending transaction...");
-	web3.mare.buyTokens(purchaseAmountInput.value, onTransactionHash, onTransactionReceipt, onTransactionConfirmation, onTransactionError)
+	web3.mare.buyTokens(purchaseAmountInput.value, onTransactionHash, updateButtons, onTransactionConfirmation, onTransactionError)
 		.then(updateButtons)
 		.catch(console.error);
 }
@@ -122,7 +116,39 @@ function onVisibilityChange() {
 		browserEvents.startListening();
 }
 function onWalletConnectClick() { web3.connect().catch(console.error); }
-function onWithdrawClick() { web3.mare.withdrawTokens().catch(console.error); }
+function onWithdrawClick(event) {
+	const purchaseResultElements = {};
+	event.target.disabled = true;
+
+	function onTransactionConfirmation(confirmation, receipt, latestBlockHash) {
+		purchaseResultElements.confirmations.replaceChildren(
+			self.document.createTextNode("Received "), 
+			createElement("output-data-message", { value: confirmation }), 
+			self.document.createTextNode(" confirmations"));
+	}
+	function onTransactionError(error) {
+		purchaseResult.replaceChildren(self.document.createTextNode(`Error ${error.code}: ${error.message}`));
+		updateButtons();
+		console.error(error);
+	}
+	function onTransactionHash(transactionHash) {
+		purchaseResultElements.transactionHash.replaceChildren(
+			self.document.createTextNode("Transaction Hash:"), 
+			new ContractLink ({ chainName: defaultChainInfo.shortName, contract: transactionHash, contractLinkType: "tx", textContent: transactionHash })
+		);
+		purchaseResultElements.confirmations = createElement("div", {}, purchaseResult, "Awaiting confirmations...");
+		updateButtons();
+	}
+
+	if (!purchaseResult.hidden)
+		purchaseResult.replaceChildren();
+	purchaseResult.hidden = false;
+	purchaseResult.classList.remove("alert");
+	purchaseResultElements.transactionHash = createElement("div", {}, purchaseResult, "Sending transaction...");
+	web3.mare.withdrawTokens(onTransactionHash, updateButtons, onTransactionConfirmation, onTransactionError)
+		.then(updateButtons)
+		.catch(console.error);
+}
 function setFieldValueToPromise(field, promise) { runInBackground(() => promise.then(value => field.value = value).catch(console.error)); }
 function updateButtons() {
 	(async function() {
