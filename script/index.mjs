@@ -99,7 +99,7 @@ async function onPurchaseButtonClick(event) {
 		purchaseResultElements.transactionHash.classList.remove("loader");
 		purchaseResultElements.transactionHash.replaceChildren(
 			self.document.createTextNode("Transaction Hash:"), 
-			createElement("contract-link", { chainName: defaultChainInfo.shortName, contract: transactionHash, contractLinkType: "tx" })
+			new ContractLink ({ chainName: defaultChainInfo.shortName, contract: transactionHash, contractLinkType: "tx", textContent: transactionHash })
 		);
 		purchaseResultElements.confirmations = createElement("div", { class: "loader" }, purchaseResult, "Awaiting confirmations...");
 	}
