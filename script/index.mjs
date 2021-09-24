@@ -81,6 +81,7 @@ async function onPurchaseButtonClick(event) {
 	event.target.disabled = true;
 
 	function onTransactionConfirmation(confirmation, receipt, latestBlockHash) {
+		console.log("transaction confirmation");
 		purchaseResultElements.confirmations.classList.remove("loader");
 		purchaseResultElements.confirmations.replaceChildren(
 			self.document.createTextNode("Received "), 
@@ -93,6 +94,7 @@ async function onPurchaseButtonClick(event) {
 		console.error(error);
 	}
 	function onTransactionHash(transactionHash) {
+		console.log("transaction hash");
 		purchaseResultElements.transactionHash.classList.remove("loader");
 		purchaseResultElements.transactionHash.replaceChildren(
 			self.document.createTextNode("Transaction Hash:"), 
@@ -101,6 +103,7 @@ async function onPurchaseButtonClick(event) {
 		purchaseResultElements.confirmations = createElement("div", { class: "loader" }, purchaseResult, "Awaiting confirmations...");
 	}
 	function onTransactionReceipt(receipt) {
+		console.log("transaction receipt");
 		const mareBitsSold = self.BigInt(receipt.events.TokensPurchased.returnValues.amount);
 		mareBitsSoldOutput.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(mareBitsSoldOutput.value) + mareBitsSold);
 		bitsBalance.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(bitsBalance.value) + mareBitsSold);
