@@ -54,15 +54,13 @@ class Mare {
 			}
 		});
 	}
-	async withdrawTokens() {
-		const currentAccount = await this.web3.currentAccount;
-		return this.contract.methods.withdrawTokens(currentAccount).send({ from: currentAccount })
-			.addListener("sending", () => console.log("transaction is sending"))
-			.addListener("sent", () => console.log("transaction is sent"))
-			.addListener("transactionHash", transactionHash => console.log("transaction hash is ", transactionHash))
-			.addListener("receipt", receipt => console.log("received receipt ", receipt))
-			.addListener("confirmation", (confirmation, receipt, latestBlockHash) => console.log("received confirmation ", confirmation, receipt, latestBlockHash))
-			.addListener("error", error => console.error(error));
+	withdrawTokens(onTransactionHash, onReceipt, onConfirmation, onError) {
+		return this.web3.currentAccount.then(currentAccount => this.contract.methods.withdrawTokens(currentAccount).send({ from: currentAccount })
+			.addListener("transactionHash", (transactionHash) => onTransactionHash(transactionHash))
+			.addListener("receipt", (receipt) => onReceipt(receipt))
+			.addListener("confirmation", (confirmation, receipt, latestBlockHash) => onConfirmation(confirmation, receipt, latestBlockHash))
+			.addListener("error", (error) => onError(error))
+		);
 	}
 	__balanceOf(account) { return this.__callMethod("balanceOf", account); }
 	__callMethod(methodName, ...params) { return this.web3.currentAccount.then(currentAccount => this.contract.methods[methodName](...params).call({ from: currentAccount })); }
