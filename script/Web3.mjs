@@ -34,10 +34,10 @@ class Mare {
 	buyTokens(amount, onTransactionHash, onReceipt, onConfirmation, onError) {
 		const amountWei = this.web3.utils.toWei(amount);
 		return this.web3.currentAccount.then(currentAccount => this.contract.methods.buyTokens(currentAccount).send({ from: currentAccount, value: amountWei })
-			.addListener("transactionHash", onTransactionHash)
-			.addListener("receipt", onReceipt)
-			.addListener("confirmation", onConfirmation)
-			.addListener("error", onError)
+			.addListener("transactionHash", (transactionHash) => onTransactionHash(transactionHash))
+			.addListener("receipt", (receipt) => onReceipt(receipt))
+			.addListener("confirmation", (confirmation, receipt, latestBlockHash) => onConfirmation(confirmation, receipt, latestBlockHash))
+			.addListener("error", (error) => onError(error))
 		);
 	}
 	watchAsset() {
