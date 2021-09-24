@@ -80,41 +80,41 @@ async function onPurchaseButtonClick(event) {
 	const purchaseResultElements = {};
 	event.target.disabled = true;
 
+	function onTransactionConfirmation(confirmation, receipt, latestBlockHash) {
+		purchaseResultElements.confirmations.classList.remove("loader");
+		purchaseResultElements.confirmations.replaceChildren(
+			self.document.createTextNode("Received "), 
+			createElement("output-data-message", { value: confirmation }), 
+			self.document.createTextNode(" confirmations"));
+	}
+	function onTransactionError(error) {
+		purchaseResult.classList.add("alert");
+		purchaseResult.replaceChildren(self.document.createTextNode(`Error ${error.code}: ${error.message}`));
+		console.error(error);
+	}
+	function onTransactionHash(transactionHash) {
+		purchaseResultElements.transactionHash.classList.remove("loader");
+		purchaseResultElements.transactionHash.replaceChildren(
+			self.document.createTextNode("Transaction Hash:"), 
+			createElement("contract-link", { chainName: defaultChainInfo.shortName, contract: transactionHash, contractLinkType: "tx" })
+		);
+		purchaseResultElements.confirmations = createElement("div", { class: "loader" }, purchaseResult, "Awaiting confirmations...");
+	}
+	function onTransactionReceipt(receipt) {
+		const mareBitsSold = self.BigInt(receipt.events.TokensPurchased.returnValues.amount);
+		mareBitsSoldOutput.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(mareBitsSoldOutput.value) + mareBitsSold);
+		bitsBalance.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(bitsBalance.value) + mareBitsSold);
+		ethRaised.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(ethRaised.value) + self.BigInt(receipt.events.TokensPurchased.returnValues.value));
+		this.target.disabled = false;
+		purchaseAmountInput.value = "";
+	}
+
 	if (!purchaseResult.hidden)
 		purchaseResult.replaceChildren();
 	purchaseResult.hidden = false;
 	purchaseResult.classList.remove("alert");
 	purchaseResultElements.transactionHash = createElement("div", { class: "loader" }, purchaseResult, "Sending transaction...");
-	web3.mare.buyTokens(purchaseAmountInput.value)
-		.addListener("transactionHash", transactionHash => {
-			purchaseResultElements.transactionHash.classList.remove("loader");
-			purchaseResultElements.transactionHash.replaceChildren(
-				self.document.createTextNode("Transaction Hash:"), 
-				createElement("contract-link", { chainName: defaultChainInfo.shortName, contract: transactionHash, contractLinkType: "tx" })
-			);
-			purchaseResultElements.confirmations = createElement("div", { class: "loader" }, purchaseResult, "Awaiting confirmations...");
-		})
-		.addListener("receipt", receipt => {
-			const mareBitsSold = self.BigInt(receipt.events.TokensPurchased.returnValues.amount);
-			mareBitsSoldOutput.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(mareBitsSoldOutput.value) + mareBitsSold);
-			bitsBalance.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(bitsBalance.value) + mareBitsSold);
-			ethRaised.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(ethRaised.value) + self.BigInt(receipt.events.TokensPurchased.returnValues.value));
-			this.target.disabled = false;
-			purchaseAmountInput.value = "";
-		})
-		.addListener("confirmation", (confirmation, receipt, latestBlockHash) => {
-			purchaseResultElements.confirmations.classList.remove("loader");
-			purchaseResultElements.confirmations.replaceChildren(
-				self.document.createTextNode("Received "), 
-				createElement("output-data-message", { value: confirmation }), 
-				self.document.createTextNode(" confirmations"));
-		})
-		.addListener("error", error => {
-			purchaseResult.classList.add("alert");
-			purchaseResult.replaceChildren(self.document.createTextNode(`Error ${error.code}: ${error.message}`));
-			console.error(error);
-		})
-		.catch(console.error);
+	web3.mare.buyTokens(purchaseAmountInput.value, onTransactionHash, onTransactionReceipt, onTransactionConfirmation, onTransactionError).catch(console.error);
 }
 function onVisibilityChange() {
 	if (self.document.visibilityState === "hidden")

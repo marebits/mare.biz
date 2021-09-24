@@ -31,9 +31,13 @@ class Mare {
 	get openingTime() { return this.__callMethod("openingTime"); }
 	get weiRaised() { return this.__callMethod("weiRaised"); }
 
-	buyTokens(amount) {
+	buyTokens(amount, onTransactionHash, onReceipt, onConfirmation, onError) {
 		const amountWei = this.web3.utils.toWei(amount);
-		return this.web3.currentAccount.then(currentAccount => this.contract.methods.buyTokens(currentAccount).send({ from: currentAccount, value: amountWei }));
+		return this.web3.currentAccount.then(currentAccount => this.contract.methods.buyTokens(currentAccount).send({ from: currentAccount, value: amountWei }))
+			.addListener("transactionHash", onTransactionHash)
+			.addListener("receipt", onReceipt)
+			.addListener("confirmation", onConfirmation)
+			.addListener("error", onError);
 	}
 	watchAsset() {
 		return this.web3.__ethRequest({
