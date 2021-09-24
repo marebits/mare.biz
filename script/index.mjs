@@ -149,6 +149,7 @@ function updateButtons() {
 					setFieldValueToPromise(bitsBalanceOutput, web3.mare.balance);
 					setFieldValueToPromise(mareBitsSoldOutput, web3.mare.mareSold);
 					setFieldValueToPromise(ethRaisedOutput, web3.mare.ethRaised);
+					runInBackground(() => web3.mare.closingTime.then(console.log).catch(console.error));
 				}
 				addToMetaMaskButton.disabled = false;
 			} else {
