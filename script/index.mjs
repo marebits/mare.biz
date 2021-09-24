@@ -82,7 +82,6 @@ async function onPurchaseButtonClick(event) {
 
 	function onTransactionConfirmation(confirmation, receipt, latestBlockHash) {
 		console.log("transaction confirmation");
-		purchaseResultElements.confirmations.classList.remove("loader");
 		purchaseResultElements.confirmations.replaceChildren(
 			self.document.createTextNode("Received "), 
 			createElement("output-data-message", { value: confirmation }), 
@@ -96,12 +95,11 @@ async function onPurchaseButtonClick(event) {
 	}
 	function onTransactionHash(transactionHash) {
 		console.log("transaction hash");
-		purchaseResultElements.transactionHash.classList.remove("loader");
 		purchaseResultElements.transactionHash.replaceChildren(
 			self.document.createTextNode("Transaction Hash:"), 
 			new ContractLink ({ chainName: defaultChainInfo.shortName, contract: transactionHash, contractLinkType: "tx", textContent: transactionHash })
 		);
-		purchaseResultElements.confirmations = createElement("div", { class: "loader" }, purchaseResult, "Awaiting confirmations...");
+		purchaseResultElements.confirmations = createElement("div", {}, purchaseResult, "Awaiting confirmations...");
 	}
 	function onTransactionReceipt(receipt) {
 		console.log("transaction receipt");
@@ -117,7 +115,7 @@ async function onPurchaseButtonClick(event) {
 		purchaseResult.replaceChildren();
 	purchaseResult.hidden = false;
 	purchaseResult.classList.remove("alert");
-	purchaseResultElements.transactionHash = createElement("div", { class: "loader" }, purchaseResult, "Sending transaction...");
+	purchaseResultElements.transactionHash = createElement("div", {}, purchaseResult, "Sending transaction...");
 	web3.mare.buyTokens(purchaseAmountInput.value, onTransactionHash, onTransactionReceipt, onTransactionConfirmation, onTransactionError).catch(console.error);
 }
 function onVisibilityChange() {
