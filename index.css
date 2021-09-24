@@ -101,6 +101,10 @@ dfn[title="brohoof /)"] {
 	letter-spacing: -0.3rem;
 	text-shadow: 0.3px 0.3px 3px var(--twilight-pink), -0.3px -0.3px 3px var(--twilight-background);
 }
+summary {
+	cursor: pointer;
+	list-style-position: outside;
+}
 svg[role=presentation] {
 	height: 0;
 	visibility: hidden;
