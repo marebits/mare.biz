@@ -319,14 +319,13 @@ svg[role=presentation] {
 		animation: dots 1.8s infinite ease-in-out;
 		animation-fill-mode: both;
 		border-radius: 50%;
-		height: 2.5em;
-		width: 2.5em;
+		height: 1.5em;
+		width: 1.5em;
 	}
 	.loader {
 		animation-delay: -0.16s;
 		color: var(--twilight-blue);
 		font-size: 10px;
-		margin: 80px auto;
 		position: relative;
 		text-indent: -9999em;
 		transform: translateZ(0);
