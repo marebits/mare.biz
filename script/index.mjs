@@ -116,7 +116,8 @@ async function onPurchaseButtonClick(event) {
 	purchaseResult.hidden = false;
 	purchaseResult.classList.remove("alert");
 	purchaseResultElements.transactionHash = createElement("div", {}, purchaseResult, "Sending transaction...");
-	web3.mare.buyTokens(purchaseAmountInput.value, onTransactionHash, onTransactionReceipt, onTransactionConfirmation, onTransactionError).catch(console.error);
+	web3.mare.buyTokens(purchaseAmountInput.value, onTransactionHash, onTransactionReceipt, onTransactionConfirmation, onTransactionError)
+		.then(() => event.target.disabled = false).catch(console.error);
 }
 function onVisibilityChange() {
 	if (self.document.visibilityState === "hidden")
