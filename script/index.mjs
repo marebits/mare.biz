@@ -91,6 +91,7 @@ async function onPurchaseButtonClick(event) {
 	function onTransactionError(error) {
 		purchaseResult.classList.add("alert");
 		purchaseResult.replaceChildren(self.document.createTextNode(`Error ${error.code}: ${error.message}`));
+		this.target.disabled = false;
 		console.error(error);
 	}
 	function onTransactionHash(transactionHash) {
