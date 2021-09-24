@@ -37,7 +37,7 @@ function createElement(name, attributes = {}, parent = undefined, text = undefin
 	setAttributes(element, attributes);
 
 	if (text !== undefined)
-		element.appendChild(new self.document.createTextNode(self.String(text)));
+		element.appendChild(self.document.createTextNode(self.String(text)));
 
 	if (parent instanceof self.Node)
 		parent.appendChild(element);
