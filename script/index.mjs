@@ -155,6 +155,7 @@ function updateButtons() {
 		console.log("update buttons");
 		const currentAccount = await web3.currentAccount;
 		addToMetaMaskButton.disabled = purchaseButton.disabled = walletConnectButton.disabled = withdrawButton.disabled = true;
+		mareBitsSoldOutput.value = ethRaisedOutput.value = bitsBalanceOutput.value = "0";
 		purchaseAmountInput.value = "";
 		updateWalletMessage("Click Connect Wallet above to proceed.");
  
@@ -172,8 +173,8 @@ function updateButtons() {
 					else if (hasClosed && await balance !== "0")
 						withdrawButton.disabled = false;
 					updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
-					// saleProgress.hidden = !(saleNotYetOpen.hidden = isOpen);
-					// saleProgressHr.hidden = false;
+					saleProgress.hidden = !(saleNotYetOpen.hidden = isOpen || hasClosed);
+					saleProgressHr.hidden = false;
 					bitsBalanceOutput.value = await balance;
 					setFieldValueToPromise(mareBitsSoldOutput, web3.mare.mareSold);
 					setFieldValueToPromise(ethRaisedOutput, web3.mare.ethRaised);
