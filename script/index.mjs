@@ -97,14 +97,14 @@ async function onPurchaseButtonClick(event) {
 			new ContractLink ({ chainName: defaultChainInfo.shortName, contract: transactionHash, contractLinkType: "tx", textContent: transactionHash })
 		);
 		purchaseResultElements.confirmations = createElement("div", {}, purchaseResult, "Awaiting confirmations...");
+		event.target.disabled = false;
+		purchaseAmountInput.value = "";
 	}
 	function onTransactionReceipt(receipt) {
 		const mareBitsSold = self.BigInt(receipt.events.TokensPurchased.returnValues.amount);
 		mareBitsSoldOutput.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(mareBitsSoldOutput.value) + mareBitsSold);
 		bitsBalance.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(bitsBalance.value) + mareBitsSold);
 		ethRaised.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(ethRaised.value) + self.BigInt(receipt.events.TokensPurchased.returnValues.value));
-		event.target.disabled = false;
-		purchaseAmountInput.value = "";
 	}
 
 	if (!purchaseResult.hidden)
