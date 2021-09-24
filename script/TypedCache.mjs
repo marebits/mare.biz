@@ -7,10 +7,11 @@ class TypedCache {
 		try {
 			const cachedJson = self.JSON.parse(cachedValue);
 
-			if ("value" in cachedJson && "valueType" in cachedJson)
+			if ("value" in cachedJson && "valueType" in cachedJson) {
 				if (cachedJson.valueType === "bigint")
 					return self.BigInt(cachedJson.value);
 				return cachedJson.value;
+			}
 			return cachedValue;
 		} catch {}
 
@@ -35,7 +36,7 @@ class TypedCache {
 				if (value instanceof self.Promise)
 					value.then(value => this.set(key, value)).catch(console.error);
 				else if (value !== null)
-					Cache.set(key, self.JSON.stringify({ value, valueType: "object" });
+					Cache.set(key, self.JSON.stringify({ value, valueType: "object" }));
 		}
 	}
 }
