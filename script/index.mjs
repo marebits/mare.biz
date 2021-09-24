@@ -85,7 +85,7 @@ async function onPurchaseButtonClick(event) {
 	purchaseResult.hidden = false;
 	purchaseResult.classList.remove("alert");
 	purchaseResultElements.transactionHash = createElement("div", { class: "loader" }, purchaseResult, "Sending transaction...");
-	const result = web3.mare.buyTokens(purchaseAmountInput.value)
+	web3.mare.buyTokens(purchaseAmountInput.value)
 		.addListener("transactionHash", transactionHash => {
 			purchaseResultElements.transactionHash.classList.remove("loader");
 			purchaseResultElements.transactionHash.replaceChildren(
