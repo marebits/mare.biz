@@ -5,7 +5,7 @@ import { CONSTANTS } from "./constants.mjs";
 import { ContractLink } from "./ContractLink.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { OutputDataMessage } from "./OutputDataMessage.mjs";
-// import { TypedCache } from "./TypedCache.mjs";
+import { TypedCache } from "./TypedCache.mjs";
 import { createElement, runInBackground } from "./utils.mjs";
 import { Web3 } from "./Web3.mjs";
 
@@ -57,15 +57,15 @@ browserEvents.startListening();
 // 	}
 // 	return "Cannot determine CID";
 // }
-// function cacheGetSet(key, valueGetter) {
-// 	let value = TypedCache.get(key);
+function cacheGetSet(key, valueGetter) {
+	let value = TypedCache.get(key);
 
-// 	if (value == null) {
-// 		value = valueGetter();
-// 		TypedCache.set(key, value);
-// 	}
-// 	return value;
-// }
+	if (value == null) {
+		value = valueGetter();
+		TypedCache.set(key, value);
+	}
+	return value;
+}
 function onAddToMetaMaskClick(event) { web3.mare.watchAsset().catch(console.error); }
 function onPurchaseAmountInput(event) {
 	if (!event.target.checkValidity() || /e/i.test(event.target.value)) {
@@ -149,7 +149,9 @@ function updateButtons() {
 					setFieldValueToPromise(bitsBalanceOutput, web3.mare.balance);
 					setFieldValueToPromise(mareBitsSoldOutput, web3.mare.mareSold);
 					setFieldValueToPromise(ethRaisedOutput, web3.mare.ethRaised);
-					runInBackground(() => web3.mare.closingTime.then(console.log).catch(console.error));
+
+					const openingTime = await self.Promise.resolve(cacheGetSet("openingTime", () => web3.mare.openingTime));
+					const closingTime = await self.Promise.resolve(cacheGetSet("closingTime", () => web3.mare.closingTime));
 				}
 				addToMetaMaskButton.disabled = false;
 			} else {
