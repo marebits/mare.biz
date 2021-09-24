@@ -167,6 +167,7 @@ function updateButtons() {
 					const balance = await web3.mare.balance;
 					const closingTime = await self.Promise.resolve(cacheGetSet("closingTime", () => web3.mare.closingTime));
 					const openingTime = await self.Promise.resolve(cacheGetSet("openingTime", () => web3.mare.openingTime));
+					console.log({ balance, closingTime });
 
 					if (isOpen)
 						purchaseButton.disabled = false;
