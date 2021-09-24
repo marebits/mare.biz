@@ -99,6 +99,8 @@ async function onPurchaseButtonClick(event) {
 			mareBitsSoldOutput.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(mareBitsSoldOutput.value) + mareBitsSold);
 			bitsBalance.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(bitsBalance.value) + mareBitsSold);
 			ethRaised.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(ethRaised.value) + self.BigInt(receipt.events.TokensPurchased.returnValues.value));
+			this.target.disabled = false;
+			purchaseAmountInput.value = "";
 		})
 		.addListener("confirmation", (confirmation, receipt, latestBlockHash) => {
 			purchaseResultElements.confirmations.classList.remove("loader");
