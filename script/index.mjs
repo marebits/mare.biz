@@ -167,11 +167,10 @@ function updateButtons() {
 					const balance = await web3.mare.balance;
 					const closingTime = await self.Promise.resolve(cacheGetSet("closingTime", () => web3.mare.closingTime));
 					const openingTime = await self.Promise.resolve(cacheGetSet("openingTime", () => web3.mare.openingTime));
-					console.log({ balance, closingTime });
 
 					if (isOpen)
 						purchaseButton.disabled = false;
-					else if (self.Date.now() > closingTime * 1000 && balance > 0)
+					else if (self.Date.now() > closingTime * 1000 && balance !== "0")
 						withdrawButton.disabled = false;
 					updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
 					// saleProgress.hidden = !(saleNotYetOpen.hidden = isOpen);
