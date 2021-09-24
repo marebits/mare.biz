@@ -164,20 +164,20 @@ function updateButtons() {
 					walletConnectButton.disabled = false;
 				else {
 					const isOpen = await web3.mare.isOpen;
-					const balance = await web3.mare.balance;
-					const closingTime = await self.Promise.resolve(cacheGetSet("closingTime", () => web3.mare.closingTime));
-					const openingTime = await self.Promise.resolve(cacheGetSet("openingTime", () => web3.mare.openingTime));
+					const hasClosed = isOpen ? false : await web3.mare.hasClosed;
 
 					if (isOpen)
 						purchaseButton.disabled = false;
-					else if (self.Date.now() > closingTime * 1000 && balance !== "0")
+					else if (hasClosed && balance !== "0")
 						withdrawButton.disabled = false;
 					updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
 					// saleProgress.hidden = !(saleNotYetOpen.hidden = isOpen);
 					// saleProgressHr.hidden = false;
-					bitsBalanceOutput.value = balance;
+					setFieldValueToPromise(bitsBalanceOutput, web3.mare.balance);
 					setFieldValueToPromise(mareBitsSoldOutput, web3.mare.mareSold);
 					setFieldValueToPromise(ethRaisedOutput, web3.mare.ethRaised);
+					// const closingTime = await self.Promise.resolve(cacheGetSet("closingTime", () => web3.mare.closingTime));
+					// const openingTime = await self.Promise.resolve(cacheGetSet("openingTime", () => web3.mare.openingTime));
 				}
 				addToMetaMaskButton.disabled = false;
 			} else {
