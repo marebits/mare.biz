@@ -97,8 +97,7 @@ async function onPurchaseButtonClick(event) {
 			new ContractLink ({ chainName: defaultChainInfo.shortName, contract: transactionHash, contractLinkType: "tx", textContent: transactionHash })
 		);
 		purchaseResultElements.confirmations = createElement("div", {}, purchaseResult, "Awaiting confirmations...");
-		event.target.disabled = false;
-		purchaseAmountInput.value = "";
+		updateButtons();
 	}
 	function onTransactionReceipt(receipt) {
 		const mareBitsSold = self.BigInt(receipt.events.TokensPurchased.returnValues.amount);
@@ -113,7 +112,7 @@ async function onPurchaseButtonClick(event) {
 	purchaseResult.classList.remove("alert");
 	purchaseResultElements.transactionHash = createElement("div", {}, purchaseResult, "Sending transaction...");
 	web3.mare.buyTokens(purchaseAmountInput.value, onTransactionHash, onTransactionReceipt, onTransactionConfirmation, onTransactionError)
-		.then(() => event.target.disabled = false)
+		.then(updateButtons)
 		.catch(console.error);
 }
 function onVisibilityChange() {
@@ -130,29 +129,28 @@ function updateButtons() {
 		console.log("update buttons");
 		const currentAccount = await web3.currentAccount;
 		addToMetaMaskButton.disabled = purchaseButton.disabled = walletConnectButton.disabled = withdrawButton.disabled = true;
+		purchaseAmountInput.value = "";
 		updateWalletMessage("Click Connect Wallet above to proceed.");
-
+ 
 		if (web3.isConnected) {
 			if (await web3.chainId === CONSTANTS.TARGET_CHAIN_ID) {
 				if (typeof currentAccount === "undefined")
 					walletConnectButton.disabled = false;
 				else {
 					const isOpen = await web3.mare.isOpen;
-					console.log({ isOpen });
+					const closingTime = await self.Promise.resolve(cacheGetSet("closingTime", () => web3.mare.closingTime));
+					const openingTime = await self.Promise.resolve(cacheGetSet("openingTime", () => web3.mare.openingTime));
 
 					if (isOpen)
 						purchaseButton.disabled = false;
-					else if (await web3.mare.isFinalized)
+					else if (self.Date.now() > closingTime * 1000)
 						withdrawButton.disabled = false;
 					updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
-					saleProgress.hidden = !(saleNotYetOpen.hidden = isOpen);
-					saleProgressHr.hidden = false;
+					// saleProgress.hidden = !(saleNotYetOpen.hidden = isOpen);
+					// saleProgressHr.hidden = false;
 					setFieldValueToPromise(bitsBalanceOutput, web3.mare.balance);
 					setFieldValueToPromise(mareBitsSoldOutput, web3.mare.mareSold);
 					setFieldValueToPromise(ethRaisedOutput, web3.mare.ethRaised);
-
-					const openingTime = await self.Promise.resolve(cacheGetSet("openingTime", () => web3.mare.openingTime));
-					const closingTime = await self.Promise.resolve(cacheGetSet("closingTime", () => web3.mare.closingTime));
 				}
 				addToMetaMaskButton.disabled = false;
 			} else {
