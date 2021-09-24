@@ -138,6 +138,7 @@ function updateButtons() {
 					walletConnectButton.disabled = false;
 				else {
 					const isOpen = await web3.mare.isOpen;
+					console.log({ isOpen });
 
 					if (isOpen)
 						purchaseButton.disabled = false;
