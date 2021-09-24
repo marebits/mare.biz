@@ -5,10 +5,10 @@ import { CONSTANTS } from "./constants.mjs";
 import { ContractLink } from "./ContractLink.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { OutputDataMessage } from "./OutputDataMessage.mjs";
-import { runInBackground } from "./utils.mjs";
+// import { TypedCache } from "./TypedCache.mjs";
+import { createElement, runInBackground } from "./utils.mjs";
 import { Web3 } from "./Web3.mjs";
 
-// const TARGET_CHAIN_ID_INT = self.Number.parseInt(CONSTANTS.TARGET_CHAIN_ID, 16);
 const addToMetaMaskButton = self.document.getElementById("add-to-metamask");
 const bitsBalanceOutput = self.document.getElementById("bits-balance");
 const defaultChainInfo = CONSTANTS.CHAINS.get(CONSTANTS.TARGET_CHAIN_ID);
@@ -18,6 +18,7 @@ const presaleContractLink = self.document.getElementById("presale-contract");
 const purchaseAmountInput = self.document.getElementById("purchase-amount");
 const purchaseBalanceOutput = self.document.getElementById("purchase-balance");
 const purchaseButton = self.document.getElementById("purchase");
+const purchaseResult = self.document.getElementById("purchase-result");
 const saleNotYetOpen = self.document.getElementById("sale-not-yet-open");
 const saleProgress = self.document.getElementById("sale-progress");
 const saleProgressHr = self.document.getElementById("sale-progress-hr");
@@ -56,6 +57,15 @@ browserEvents.startListening();
 // 	}
 // 	return "Cannot determine CID";
 // }
+// function cacheGetSet(key, valueGetter) {
+// 	let value = TypedCache.get(key);
+
+// 	if (value == null) {
+// 		value = valueGetter();
+// 		TypedCache.set(key, value);
+// 	}
+// 	return value;
+// }
 function onAddToMetaMaskClick(event) { web3.mare.watchAsset().catch(console.error); }
 function onPurchaseAmountInput(event) {
 	if (!event.target.checkValidity() || /e/i.test(event.target.value)) {
@@ -66,8 +76,43 @@ function onPurchaseAmountInput(event) {
 	const newPurchaseAmount = web3.mareUtils.toWei(event.target.value) * CONSTANTS.TOKEN.SALE_RATE;
 	purchaseBalanceOutput.value = web3.mareUtils.fromWei(newPurchaseAmount);
 }
-function onPurchaseButtonClick(event) {
-	web3.mare.buyTokens(purchaseAmountInput.value).catch(console.error);
+async function onPurchaseButtonClick(event) {
+	const purchaseResultElements = {};
+	event.target.disabled = true;
+
+	if (!purchaseResult.hidden)
+		purchaseResult.replaceChildren();
+	purchaseResult.hidden = false;
+	purchaseResult.classList.remove("alert");
+	purchaseResultElements.transactionHash = createElement("div", { class: "loader" }, purchaseResult, "Sending transaction...");
+	const result = web3.mare.buyTokens(purchaseAmountInput.value)
+		.addListener("transactionHash", transactionHash => {
+			purchaseResultElements.transactionHash.classList.remove("loader");
+			purchaseResultElements.transactionHash.replaceChildren(
+				self.document.createTextNode("Transaction Hash:"), 
+				createElement("contract-link", { chainName: defaultChainInfo.shortName, contract: transactionHash, contractLinkType: "tx" })
+			);
+			purchaseResultElements.confirmations = createElement("div", { class: "loader" }, purchaseResult, "Awaiting confirmations...");
+		})
+		.addListener("receipt", receipt => {
+			const mareBitsSold = self.BigInt(receipt.events.TokensPurchased.returnValues.amount);
+			mareBitsSoldOutput.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(mareBitsSoldOutput.value) + mareBitsSold);
+			bitsBalance.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(bitsBalance.value) + mareBitsSold);
+			ethRaised.value = web3.mareUtils.fromWei(web3.mareUtils.toWei(ethRaised.value) + self.BigInt(receipt.events.TokensPurchased.returnValues.value));
+		})
+		.addListener("confirmation", (confirmation, receipt, latestBlockHash) => {
+			purchaseResultElements.confirmations.classList.remove("loader");
+			purchaseResultElements.confirmations.replaceChildren(
+				self.document.createTextNode("Received "), 
+				createElement("output-data-message", { value: confirmation }), 
+				self.document.createTextNode(" confirmations"));
+		})
+		.addListener("error", error => {
+			purchaseResult.classList.add("alert");
+			purchaseResult.replaceChildren(self.document.createTextNode(`Error ${error.code}: ${error.message}`));
+			console.error(error);
+		})
+		.catch(console.error);
 }
 function onVisibilityChange() {
 	if (self.document.visibilityState === "hidden")

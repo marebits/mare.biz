@@ -290,6 +290,10 @@ svg[role=presentation] {
 	from { opacity: 0; }
 	to { opacity: 100%; }
 }
+@keyframes dots {
+	0%, 80%, 100% { box-shadow: 0 2.5em 0 -1.3em; }
+	40% { box-shadow: 0 2.5em 0 0; }
+}
 @keyframes moon-glow {
 	from { transform: scale(1.01); }
 	to { transform: scale(1.1); }
@@ -311,6 +315,34 @@ svg[role=presentation] {
 	100% { filter: var(--star-blur) brightness(1.8); }
 }
 @media screen {
+	.loader, .loader::before, .loader::after {
+		animation: dots 1.8s infinite ease-in-out;
+		animation-fill-mode: both;
+		border-radius: 50%;
+		height: 2.5em;
+		width: 2.5em;
+	}
+	.loader {
+		animation-delay: -0.16s;
+		color: var(--twilight-blue);
+		font-size: 10px;
+		margin: 80px auto;
+		position: relative;
+		text-indent: -9999em;
+		transform: translateZ(0);
+	}
+	.loader::before, .loader::after {
+		content: "";
+		position: absolute;
+		top: 0;
+	}
+	.loader::before {
+		animation-delay: -0.32s;
+		left: -3.5em;
+	}
+	.loader::after {
+		left: 3.5em;
+	}
 	.star:nth-child(5n), #moon-background {
 		animation-direction: alternate;
 		animation-fill-mode: both;
