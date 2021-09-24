@@ -49,6 +49,7 @@ class ContractLink extends self.HTMLElement {
 					display: unset;
 					flex-shrink: 0;
 					height: var(--button-height);
+					margin-left: 0.5em;
 					overflow: visible !important;
 					padding: 0;
 					position: relative;
