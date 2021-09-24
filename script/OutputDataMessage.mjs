@@ -12,7 +12,7 @@ class OutputDataMessage extends self.HTMLElement {
 	get default() { return super.getAttribute("default"); }
 	get value() { return super.getAttribute("value"); }
 	set value(value) {
-		value = value.toString();
+		value = (value == null) ? "" : value.toString();
 
 		if (value.length === 0)
 			value = this.default;
