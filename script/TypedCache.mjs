@@ -1,4 +1,4 @@
-import { Cache } from "./script/Cache.mjs";
+import { Cache } from "./Cache.mjs";
 
 class TypedCache {
 	static get(key) {
