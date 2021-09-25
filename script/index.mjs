@@ -123,7 +123,7 @@ function onWithdrawClick(event) {
 	function onTransactionConfirmation(confirmation, receipt, latestBlockHash) {
 		purchaseResultElements.confirmations.replaceChildren(
 			self.document.createTextNode("Received "), 
-			createElement("output-data-message", { value: confirmation }), 
+			new OutputDataMessage(confirmation), 
 			self.document.createTextNode(" confirmations"));
 	}
 	function onTransactionError(error) {

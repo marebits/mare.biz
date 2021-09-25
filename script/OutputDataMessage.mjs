@@ -1,23 +1,35 @@
-class OutputDataMessage extends self.HTMLElement {
-	constructor() {
-		super();
-		const doc = self.document.createDocumentFragment();
-		this.outputElement = self.document.createElement("output");
-		this.dataElement = self.document.createElement("data");
-		this.outputElement.appendChild(this.dataElement);
-		doc.appendChild(this.outputElement);
-		this.value = this.default;
-		super.attachShadow({ mode: "open" }).appendChild(doc);
-	}
+import { MareCustomElement } from "./MareCustomElement.mjs";
+import { createElement } from "./utils.mjs";
+
+// configurable constants
+const TAG_NAME = "output-data-message";
+
+// other constants (not configurable)
+const _privates = new self.WeakMap();
+
+// private methods
+function createDom() {
+	const doc = self.document.createDocumentFragment();
+	this.outputElement = createElement("output", {}, doc);
+	this.dataElement = createElement("data", {}, this.outputElement);
+	this.value = (value == undefined) ? this.default;
+	this.attachShadow({ mode: "open" }).appendChild(doc);
+}
+
+class OutputDataMessage extends MareCustomElement {
 	get default() { return super.getAttribute("default"); }
 	get value() { return super.getAttribute("value"); }
 	set value(value) {
-		value = (value == null) ? "0" : value.toString();
+		value = (value == null) ? "" : value.toString();
 
 		if (value.length === 0)
 			value = this.default;
 		super.setAttribute("value", this.dataElement.value = this.dataElement.textContent = value);
 		return true;
+	}
+	createdCallback(value) {
+		super();
+		createDom.call(this, value);
 	}
 }
 
