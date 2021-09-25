@@ -5,7 +5,7 @@ import { CONSTANTS } from "./constants.mjs";
 import { ContractLink } from "./ContractLink.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { OutputDataMessage } from "./OutputDataMessage.mjs";
-import { TypedCache } from "./TypedCache.mjs";
+import { Cache } from "./Cache.mjs";
 import { createElement, runInBackground } from "./utils.mjs";
 import { Web3 } from "./Web3.mjs";
 
@@ -83,7 +83,7 @@ async function onPurchaseButtonClick(event) {
 	function onTransactionConfirmation(confirmation, receipt, latestBlockHash) {
 		purchaseResultElements.confirmations.replaceChildren(
 			self.document.createTextNode("Received "), 
-			createElement("output-data-message", { value: confirmation }), 
+			new OutputDataMessage(confirmation), 
 			self.document.createTextNode(" confirmations"));
 	}
 	function onTransactionError(error) {
@@ -178,8 +178,8 @@ function updateButtons() {
 					bitsBalanceOutput.value = await balance;
 					setFieldValueToPromise(mareBitsSoldOutput, web3.mare.mareSold);
 					setFieldValueToPromise(ethRaisedOutput, web3.mare.ethRaised);
-					// const closingTime = await self.Promise.resolve(cacheGetSet("closingTime", () => web3.mare.closingTime));
-					// const openingTime = await self.Promise.resolve(cacheGetSet("openingTime", () => web3.mare.openingTime));
+					const closingTime = await self.Promise.resolve(Cache.Typed.persisted.getOrSet("closingTime", () => web3.mare.closingTime));
+					const openingTime = await self.Promise.resolve(Cache.Typed.persisted.getOrSet("openingTime", () => web3.mare.openingTime));
 				}
 				addToMetaMaskButton.disabled = false;
 			} else {
