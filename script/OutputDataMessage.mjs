@@ -8,11 +8,11 @@ const TAG_NAME = "output-data-message";
 const _privates = new self.WeakMap();
 
 // private methods
-function createDom() {
+function createDom(value) {
 	const doc = self.document.createDocumentFragment();
 	this.outputElement = createElement("output", {}, doc);
 	this.dataElement = createElement("data", {}, this.outputElement);
-	this.value = (value == undefined) ? this.default;
+	this.value = (value == undefined) ? this.default : value;
 	this.attachShadow({ mode: "open" }).appendChild(doc);
 }
 
