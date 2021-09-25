@@ -27,10 +27,7 @@ class OutputDataMessage extends MareCustomElement {
 		super.setAttribute("value", this.dataElement.value = this.dataElement.textContent = value);
 		return true;
 	}
-	createdCallback(value) {
-		super();
-		createDom.call(this, value);
-	}
+	createdCallback(value) { createDom.call(this, value); }
 }
 
 export { OutputDataMessage };
