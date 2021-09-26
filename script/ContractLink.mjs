@@ -86,7 +86,6 @@ const validContractLinkTypes = new self.Set(CONSTANTS.CONTRACT_LINK.VALID_CONTRA
 
 // private methods
 function createCopiedOutputElement() {
-	delete this.copiedOutputElement;
 	return self.Object.defineProperty(_privates.get(this), "copiedOutputElement", { enumerable: true, value: createElement("output", {}, this.button, CONSTANTS.CONTRACT_LINK.COPY_MESSAGE) })
 		.copiedOutputElement;
 }
@@ -148,7 +147,7 @@ class ContractLink extends MareCustomElement {
 	}
 	createdCallback(options) {
 		_privates.set(this, { chainInfo: CONSTANTS.CHAINS_BY_NAME.get(this.chainName) });
-		self.Object.defineProperty(_privates.get(this), "copiedOutputElement", { enumerable: true, get: createCopiedOutputElement.bind(this) });
+		self.Object.defineProperty(_privates.get(this), "copiedOutputElement", { configurable: true, enumerable: true, get: createCopiedOutputElement.bind(this) });
 		initializeOptions.call(this, options);
 		createDom.call(this, options);
 	}
