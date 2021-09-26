@@ -81,7 +81,6 @@ const INLINE_CSS = `
 const TEMPLATE = self.document.createElement("template");
 TEMPLATE.innerHTML = `
 	<template>
-		<style id="style">${INLINE_CSS}</style>
 		<a rel="${CONSTANTS.CONTRACT_LINK.REL}" target="${CONSTANTS.CONTRACT_LINK.TARGET}"><slot></slot></a>
 		<button title="${CONSTANTS.CONTRACT_LINK.BUTTON_TITLE}"></button>
 		<template><output>${CONSTANTS.CONTRACT_LINK.COPY_MESSAGE}</output></template>
@@ -103,7 +102,7 @@ function createCopiedOutputElement() {
 function createDom(options) {
 	const privates = _privates.get(this);
 	const template = TEMPLATE.content.cloneNode(true);
-	const style = template.getElementById("style");
+	const style = createElement("style", {}, template, INLINE_CSS);
 	style.sheet.insertRule(`@media screen { button::after { background-image: url("${CONSTANTS.CONTRACT_LINK.BUTTON_IMAGE_TAG(this.buttonColor)}"); } }`, 0);
 	privates.anchor = template.querySelector("a");
 	setAttributes(privates.anchor, { href: this.href, title: this.title });
