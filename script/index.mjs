@@ -57,15 +57,6 @@ browserEvents.startListening();
 // 	}
 // 	return "Cannot determine CID";
 // }
-function cacheGetSet(key, valueGetter) {
-	let value = TypedCache.get(key);
-
-	if (value == null) {
-		value = valueGetter();
-		TypedCache.set(key, value);
-	}
-	return value;
-}
 function onAddToMetaMaskClick(event) { web3.mare.watchAsset().catch(console.error); }
 function onPurchaseAmountInput(event) {
 	if (event.target.value.length === 0 || !event.target.checkValidity() || /e/i.test(event.target.value)) {
