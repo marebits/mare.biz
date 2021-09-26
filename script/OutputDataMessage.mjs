@@ -29,5 +29,6 @@ class OutputDataMessage extends MareCustomElement {
 	}
 	createdCallback(value) { createDom.call(this, value); }
 }
+OutputDataMessage.TAG_NAME = TAG_NAME;
 
 export { OutputDataMessage };
