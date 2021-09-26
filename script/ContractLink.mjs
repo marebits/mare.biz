@@ -115,7 +115,7 @@ function initializeOptions(options) {
 	if (typeof options.textContent === "string")
 		this.replaceChildren(self.document.createTextNode(options.textContent));
 }
-function async onCopyContractClick(event) {
+async function onCopyContractClick(event) {
 	await writeTextToClipboard(this.contract);
 	hideCopiedOutput.call(this);
 	await promiseTimeout.call(this, showCopiedOutput.bind(this), 100);
