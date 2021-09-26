@@ -84,7 +84,7 @@ TEMPLATE.innerHTML = `
 		<style>${INLINE_CSS}</style>
 		<a rel="${CONSTANTS.CONTRACT_LINK.REL}" target="${CONSTANTS.CONTRACT_LINK.TARGET}"><slot></slot></a>
 		<button title="${CONSTANTS.CONTRACT_LINK.BUTTON_TITLE}"></button>
-		<template><output>${CONSTANTS.CONTRACT_LINK.COPY_MESSAGE}</output></template>
+		<!-- <template><output>${CONSTANTS.CONTRACT_LINK.COPY_MESSAGE}</output></template> -->
 	</template>
 `;
 
