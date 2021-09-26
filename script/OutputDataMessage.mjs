@@ -17,8 +17,7 @@ function createDom(value) {
 	const template = TEMPLATE.content.cloneNode(true);
 	privates.outputElement = template.querySelector("output");
 	privates.dataElement = template.querySelector("data");
-	this.value = (value == undefined) ? this.default : value;
-	this.attachShadow({ mode: "open" }).appendChild(doc);
+	this.attachShadow({ mode: "open" }).appendChild(template);
 }
 
 class OutputDataMessage extends MareCustomElement {
@@ -36,6 +35,7 @@ class OutputDataMessage extends MareCustomElement {
 	createdCallback(value) {
 		_privates.set(this, {});
 		createDom.call(this, value);
+		this.value = (value == undefined) ? this.default : value;
 	}
 }
 OutputDataMessage.TAG_NAME = TAG_NAME;
