@@ -8,75 +8,77 @@ import { createElement, writeTextToClipboard } from "./utils.mjs";
 const TAG_NAME = "contract-link";
 
 // styles
-const INLINE_CSS = `
-	:host {
-		--button-height: 1rem;
-		--button-width: var(--button-height);
-		align-items: center;
-		display: flex;
-	}
-	* {
-		box-sizing: border-box;
-		margin: 0;
-	}
-	a {
-		display: inline-block;
-		max-width: 90%;
-		overflow: hidden;
-		text-decoration: underline;
-		text-decoration-style: dotted;
-		text-overflow: ellipsis;
-	}
-	a:link { color: var(--link-color); }
-	a:visited { color: var(--link-visited-color); }
-	a:focus, a:hover { background-color: var(--link-focus-background-color); }
-	a:active {
-		background-color: var(--link-active-background-color);
-		color: var(--link-active-color);
-	}
-	:host-context(.card.twilight) a { --link-visited-color: var(--twilight-red); }
-	button { display: none; }
-	button > output { opacity: 0; }
-	@media screen {
-		button {
-			background-color: transparent;
-			border: none;
-			cursor: pointer;
-			display: unset;
-			flex-shrink: 0;
-			height: var(--button-height);
-			margin-left: 0.5em;
-			overflow: visible !important;
-			padding: 0;
-			position: relative;
-			width: var(--button-width);
+function INLINE_CSS() {
+	return `
+		:host {
+			--button-height: 1rem;
+			--button-width: var(--button-height);
+			align-items: center;
+			display: flex;
 		}
-		button::after {
-			background-image: url("${CONSTANTS.CONTRACT_LINK.BUTTON_IMAGE_TAG(this.buttonColor)}");
-			background-repeat: no-repeat;
-			content: "";
+		* {
+			box-sizing: border-box;
+			margin: 0;
+		}
+		a {
 			display: inline-block;
-			height: 100%;
-			width: 100%;
+			max-width: 90%;
+			overflow: hidden;
+			text-decoration: underline;
+			text-decoration-style: dotted;
+			text-overflow: ellipsis;
 		}
-		button.white-stroke::after { filter: brightness(0) invert(1); }
-		button > output {
-			--width: calc(var(--card-header-font-size) * 2.75);
-			background-color: var(--twilight-orange);
-			border-radius: 0.5rem;
-			font-size: calc(var(--card-header-font-size) / 1.5);
-			font-weight: 700;
-			height: var(--card-header-font-size);
-			left: calc(var(--width) * -1);
-			padding: 0.25rem;
-			position: absolute;
-			transition-duration: 1s;
-			transition-property: opacity;
-			width: var(--width);
-			z-index: 100;
+		a:link { color: var(--link-color); }
+		a:visited { color: var(--link-visited-color); }
+		a:focus, a:hover { background-color: var(--link-focus-background-color); }
+		a:active {
+			background-color: var(--link-active-background-color);
+			color: var(--link-active-color);
 		}
-	}
-`;
+		:host-context(.card.twilight) a { --link-visited-color: var(--twilight-red); }
+		button { display: none; }
+		button > output { opacity: 0; }
+		@media screen {
+			button {
+				background-color: transparent;
+				border: none;
+				cursor: pointer;
+				display: unset;
+				flex-shrink: 0;
+				height: var(--button-height);
+				margin-left: 0.5em;
+				overflow: visible !important;
+				padding: 0;
+				position: relative;
+				width: var(--button-width);
+			}
+			button::after {
+				background-image: url("${CONSTANTS.CONTRACT_LINK.BUTTON_IMAGE_TAG(this.buttonColor)}");
+				background-repeat: no-repeat;
+				content: "";
+				display: inline-block;
+				height: 100%;
+				width: 100%;
+			}
+			button.white-stroke::after { filter: brightness(0) invert(1); }
+			button > output {
+				--width: calc(var(--card-header-font-size) * 2.75);
+				background-color: var(--twilight-orange);
+				border-radius: 0.5rem;
+				font-size: calc(var(--card-header-font-size) / 1.5);
+				font-weight: 700;
+				height: var(--card-header-font-size);
+				left: calc(var(--width) * -1);
+				padding: 0.25rem;
+				position: absolute;
+				transition-duration: 1s;
+				transition-property: opacity;
+				width: var(--width);
+				z-index: 100;
+			}
+		}
+	`;
+}
 
 // other constants (not configurable)
 const _privates = new self.WeakMap();
@@ -89,7 +91,7 @@ function createCopiedOutputElement() {
 }
 function createDom(options) {
 	const doc = self.document.createDocumentFragment();
-	createElement("style", {}, doc, INLINE_CSS);
+	createElement("style", {}, doc, INLINE_CSS.call(this));
 	_privates.get(this).anchor = createElement(
 		"a", 
 		{ href: this.href, rel: CONSTANTS.CONTRACT_LINK.REL, target: CONSTANTS.CONTRACT_LINK.TARGET, title: this.title }, 
