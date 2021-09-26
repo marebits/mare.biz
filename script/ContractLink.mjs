@@ -103,12 +103,12 @@ function createCopiedOutputElement() {
 function createDom(options) {
 	const privates = _privates.get(this);
 	const template = TEMPLATE.content.cloneNode(true);
-	const style = template.getElementsByTagName("style").item(0);
+	const style = template.querySelector("style");
 	style.sheet.insertRule(`@media screen { button::after { background-image: url("${CONSTANTS.CONTRACT_LINK.BUTTON_IMAGE_TAG(this.buttonColor)}"); } }`, 0);
-	privates.anchor = template.getElementsByTagName("a").item(0);
+	privates.anchor = template.querySelector("a");
 	setAttributes(privates.anchor, { href: this.href, title: this.title });
-	privates.button = template.getElementsByTagName("button").item(0);
-	privates.copiedOutputElementTemplate = template.getElementsByTagName("template").item(0).content;
+	privates.button = template.querySelector("button");
+	privates.copiedOutputElementTemplate = template.querySelector("template").content;
 	this.attachShadow({ mode: "open" }).appendChild(template);
 }
 function getAttributeOrDefault(attribute, alternative) {
@@ -164,8 +164,8 @@ class ContractLink extends MareCustomElement {
 	createdCallback(options) {
 		_privates.set(this, { chainInfo: CONSTANTS.CHAINS_BY_NAME.get(this.chainName) });
 		self.Object.defineProperty(_privates.get(this), "copiedOutputElement", { configurable: true, enumerable: true, get: createCopiedOutputElement.bind(this) });
-		initializeOptions.call(this, options);
 		createDom.call(this, options);
+		initializeOptions.call(this, options);
 	}
 	disconnectedCallback() { browserEvents.delete(_privates.get(this).copyContractClickEvent); }
 }
