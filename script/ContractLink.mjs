@@ -101,8 +101,8 @@ function createCopiedOutputElement() {
 function createDom(options) {
 	const privates = _privates.get(this);
 	const template = TEMPLATE.content.cloneNode(true);
-	const style = template.querySelector("style");
-	style.sheet.insertRule(`@media screen { button::after { background-image: url("${CONSTANTS.CONTRACT_LINK.BUTTON_IMAGE_TAG(this.buttonColor)}"); } }`, 0);
+	// const style = template.querySelector("style");
+	// style.sheet.insertRule(`@media screen { button::after { background-image: url("${CONSTANTS.CONTRACT_LINK.BUTTON_IMAGE_TAG(this.buttonColor)}"); } }`, 0);
 	self.fubar = template;
 	privates.anchor = template.querySelector("a");
 	setAttributes(privates.anchor, { href: this.href, title: this.title });
