@@ -6,7 +6,7 @@ import { ContractLink } from "./ContractLink.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { OutputDataMessage } from "./OutputDataMessage.mjs";
 import { Cache } from "./Cache.mjs";
-import { createElement, runInBackground } from "./utils.mjs";
+import { createElement, defineCustomElements, runInBackground } from "./utils.mjs";
 import { Web3 } from "./Web3.mjs";
 
 const addToMetaMaskButton = self.document.getElementById("add-to-metamask");
@@ -187,8 +187,7 @@ function updateWalletMessage(...nodesOrStrings) {
 		walletMessageOutput.replaceChildren(...nodesOrStrings);
 }
 
-self.customElements.define("contract-link", ContractLink);
-self.customElements.define("output-data-message", OutputDataMessage);
+defineCustomElements([ContractLink, OutputDataMessage]);
 self.document.addEventListener("visibilitychange", onVisibilityChange, { passive: true });
 presaleContractLink.contract = CONSTANTS.PRESALE.CONTRACT_ADDRESS;
 tokenContractLink.contract = CONSTANTS.TOKEN.CONTRACT_ADDRESS;
