@@ -7,11 +7,16 @@ const TAG_NAME = "output-data-message";
 // other constants (not configurable)
 const _privates = new self.WeakMap();
 
+// HTML
+const TEMPLATE = self.document.createElement("template");
+TEMPLATE.innerHTML = `<output><data></data></output>`;
+
 // private methods
 function createDom(value) {
-	const doc = self.document.createDocumentFragment();
-	this.outputElement = createElement("output", {}, doc);
-	this.dataElement = createElement("data", {}, this.outputElement);
+	const privates = _privates.get(this);
+	const template = TEMPLATE.content.cloneNode(true);
+	privates.outputElement = template.querySelector("output");
+	privates.dataElement = template.querySelector("data");
 	this.value = (value == undefined) ? this.default : value;
 	this.attachShadow({ mode: "open" }).appendChild(doc);
 }
@@ -20,14 +25,18 @@ class OutputDataMessage extends MareCustomElement {
 	get default() { return super.getAttribute("default"); }
 	get value() { return super.getAttribute("value"); }
 	set value(value) {
+		const dataElement = _privates.get(this).dataElement;
 		value = (value == null) ? "" : value.toString();
 
 		if (value.length === 0)
 			value = this.default;
-		super.setAttribute("value", this.dataElement.value = this.dataElement.textContent = value);
+		super.setAttribute("value", dataElement.value = dataElement.textContent = value);
 		return true;
 	}
-	createdCallback(value) { createDom.call(this, value); }
+	createdCallback(value) {
+		_privates.set(this, {});
+		createDom.call(this, value);
+	}
 }
 OutputDataMessage.TAG_NAME = TAG_NAME;
 
