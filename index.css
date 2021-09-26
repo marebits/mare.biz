@@ -129,7 +129,7 @@ svg[role=presentation] {
 }
 .action-button[disabled] { filter: brightness(1.4) grayscale(0.6) brightness(0.7); }
 .alert, .super-important, #briefing-details > dt { font-weight: 700; }
-.alert { color: red !important; }
+.alert { color: #d95252 !important; }
 .big-header {
 	font-family: WoodrowW00-Reg, cursive;
 	font-weight: normal;
