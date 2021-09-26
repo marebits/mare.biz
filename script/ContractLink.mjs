@@ -161,8 +161,8 @@ class ContractLink extends MareCustomElement {
 	createdCallback(options) {
 		_privates.set(this, { chainInfo: CONSTANTS.CHAINS_BY_NAME.get(this.chainName) });
 		self.Object.defineProperty(_privates.get(this), "copiedOutputElement", { configurable: true, enumerable: true, get: createCopiedOutputElement.bind(this) });
-		createDom.call(this, options);
 		initializeOptions.call(this, options);
+		createDom.call(this, options);
 	}
 	disconnectedCallback() { browserEvents.delete(_privates.get(this).copyContractClickEvent); }
 }
