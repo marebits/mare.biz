@@ -86,6 +86,7 @@ const validContractLinkTypes = new self.Set(CONSTANTS.CONTRACT_LINK.VALID_CONTRA
 
 // private methods
 function createCopiedOutputElement() {
+	delete this.copiedOutputElement;
 	return self.Object.defineProperty(_privates.get(this), "copiedOutputElement", { enumerable: true, value: createElement("output", {}, this.button, CONSTANTS.CONTRACT_LINK.COPY_MESSAGE) })
 		.copiedOutputElement;
 }
