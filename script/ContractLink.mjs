@@ -114,13 +114,11 @@ function getAttributeOrDefault(attribute, alternative) {
 }
 function hideCopiedOutput() { _privates.get(this).copiedOutputElement.style.opacity = 0; }
 function initializeOptions(options) {
-	console.log("initializing options");
 	if (typeof options !== "object" || self.Object.keys(options).length === 0)
 		return;
 	CONSTANTS.CONTRACT_LINK.ATTRIBUTES.forEach((attributeName, optionName) => {
-		if (typeof options[optionName] === "string"){ console.log(`setting ${attributeName} to ${options[optionName]}`);
+		if (typeof options[optionName] === "string")
 			this.setAttribute(attributeName, options[optionName]);
-		}
 	});
 
 	if (typeof options.textContent === "string")
@@ -159,14 +157,19 @@ class ContractLink extends MareCustomElement {
 	connectedCallback() {
 		const privates = _privates.get(this);
 		privates.copyContractClickEvent = browserEvents.add(new MareEvent(privates.button, "click", () => onCopyContractClick.call(this).catch(console.error), { passive: true }));
+		super.connectedCallback();
 	}
 	createdCallback(options) {
 		_privates.set(this, { chainInfo: CONSTANTS.CHAINS_BY_NAME.get(this.chainName) });
 		self.Object.defineProperty(_privates.get(this), "copiedOutputElement", { configurable: true, enumerable: true, get: createCopiedOutputElement.bind(this) });
 		initializeOptions.call(this, options);
 		createDom.call(this, options);
+		super.createdCallback();
 	}
-	disconnectedCallback() { browserEvents.delete(_privates.get(this).copyContractClickEvent); }
+	disconnectedCallback() {
+		browserEvents.delete(_privates.get(this).copyContractClickEvent);
+		super.disconnectedCallback();
+	}
 }
 ContractLink.TAG_NAME = TAG_NAME;
 
