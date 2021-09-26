@@ -106,7 +106,7 @@ function createDom(options) {
 	const style = template.getElementsByTagName("style").item(0);
 	style.sheet.insertRule(`@media screen { button::after { background-image: url("${CONSTANTS.CONTRACT_LINK.BUTTON_IMAGE_TAG(this.buttonColor)}"); } }`, 0);
 	privates.anchor = template.getElementsByTagName("a").item(0);
-	setAttributes(private.anchor, { href: this.href, title: this.title });
+	setAttributes(privates.anchor, { href: this.href, title: this.title });
 	privates.button = template.getElementsByTagName("button").item(0);
 	privates.copiedOutputElementTemplate = template.getElementsByTagName("template").item(0).content;
 	this.attachShadow({ mode: "open" }).appendChild(template);
