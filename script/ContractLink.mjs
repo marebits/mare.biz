@@ -2,83 +2,91 @@ import { CONSTANTS } from "./constants.mjs";
 import { browserEvents } from "./EventSet.mjs";
 import { MareCustomElement } from "./MareCustomElement.mjs";
 import { MareEvent } from "./MareEvent.mjs";
-import { createElement, writeTextToClipboard } from "./utils.mjs";
+import { createElement, setAttributes, writeTextToClipboard } from "./utils.mjs";
 
 // configurable constants
 const TAG_NAME = "contract-link";
 
 // styles
-function INLINE_CSS() {
-	return `
-		:host {
-			--button-height: 1rem;
-			--button-width: var(--button-height);
-			align-items: center;
-			display: flex;
+const INLINE_CSS = `
+	:host {
+		--button-height: 1rem;
+		--button-width: var(--button-height);
+		align-items: center;
+		display: flex;
+	}
+	* {
+		box-sizing: border-box;
+		margin: 0;
+	}
+	a {
+		display: inline-block;
+		max-width: 90%;
+		overflow: hidden;
+		text-decoration: underline;
+		text-decoration-style: dotted;
+		text-overflow: ellipsis;
+	}
+	a:link { color: var(--link-color); }
+	a:visited { color: var(--link-visited-color); }
+	a:focus, a:hover { background-color: var(--link-focus-background-color); }
+	a:active {
+		background-color: var(--link-active-background-color);
+		color: var(--link-active-color);
+	}
+	:host-context(.card.twilight) a { --link-visited-color: var(--twilight-red); }
+	button { display: none; }
+	button > output { opacity: 0; }
+	@media screen {
+		button {
+			background-color: transparent;
+			border: none;
+			cursor: pointer;
+			display: unset;
+			flex-shrink: 0;
+			height: var(--button-height);
+			margin-left: 0.5em;
+			overflow: visible !important;
+			padding: 0;
+			position: relative;
+			width: var(--button-width);
 		}
-		* {
-			box-sizing: border-box;
-			margin: 0;
-		}
-		a {
+		button::after {
+			background-repeat: no-repeat;
+			content: "";
 			display: inline-block;
-			max-width: 90%;
-			overflow: hidden;
-			text-decoration: underline;
-			text-decoration-style: dotted;
-			text-overflow: ellipsis;
+			height: 100%;
+			width: 100%;
 		}
-		a:link { color: var(--link-color); }
-		a:visited { color: var(--link-visited-color); }
-		a:focus, a:hover { background-color: var(--link-focus-background-color); }
-		a:active {
-			background-color: var(--link-active-background-color);
-			color: var(--link-active-color);
+		button.white-stroke::after { filter: brightness(0) invert(1); }
+		button > output {
+			--width: calc(var(--card-header-font-size) * 2.75);
+			background-color: var(--twilight-orange);
+			border-radius: 0.5rem;
+			font-size: calc(var(--card-header-font-size) / 1.5);
+			font-weight: 700;
+			height: var(--card-header-font-size);
+			left: calc(var(--width) * -1);
+			padding: 0.25rem;
+			position: absolute;
+			transition-duration: 1s;
+			transition-property: opacity;
+			width: var(--width);
+			z-index: 100;
 		}
-		:host-context(.card.twilight) a { --link-visited-color: var(--twilight-red); }
-		button { display: none; }
-		button > output { opacity: 0; }
-		@media screen {
-			button {
-				background-color: transparent;
-				border: none;
-				cursor: pointer;
-				display: unset;
-				flex-shrink: 0;
-				height: var(--button-height);
-				margin-left: 0.5em;
-				overflow: visible !important;
-				padding: 0;
-				position: relative;
-				width: var(--button-width);
-			}
-			button::after {
-				background-image: url("${CONSTANTS.CONTRACT_LINK.BUTTON_IMAGE_TAG(this.buttonColor)}");
-				background-repeat: no-repeat;
-				content: "";
-				display: inline-block;
-				height: 100%;
-				width: 100%;
-			}
-			button.white-stroke::after { filter: brightness(0) invert(1); }
-			button > output {
-				--width: calc(var(--card-header-font-size) * 2.75);
-				background-color: var(--twilight-orange);
-				border-radius: 0.5rem;
-				font-size: calc(var(--card-header-font-size) / 1.5);
-				font-weight: 700;
-				height: var(--card-header-font-size);
-				left: calc(var(--width) * -1);
-				padding: 0.25rem;
-				position: absolute;
-				transition-duration: 1s;
-				transition-property: opacity;
-				width: var(--width);
-				z-index: 100;
-			}
-		}
-	`;
-}
+	}
+`;
+
+// HTML
+const TEMPLATE = self.document.createElement("template");
+TEMPLATE.innerHTML = `
+	<template>
+		<style>${INLINE_CSS}</style>
+		<a rel="${CONSTANTS.CONTRACT_LINK.REL}" target="${CONSTANTS.CONTRACT_LINK.TARGET}"><slot></slot></a>
+		<button title="${CONSTANTS.CONTRACT_LINK.BUTTON_TITLE}"></button>
+		<template><output>${CONSTANTS.CONTRACT_LINK.COPY_MESSAGE}</output></template>
+	</template>
+`;
 
 // other constants (not configurable)
 const _privates = new self.WeakMap();
@@ -86,18 +94,22 @@ const validContractLinkTypes = new self.Set(CONSTANTS.CONTRACT_LINK.VALID_CONTRA
 
 // private methods
 function createCopiedOutputElement() {
-	return self.Object.defineProperty(_privates.get(this), "copiedOutputElement", {
+	const privates = _privates.get(this);
+	return self.Object.defineProperty(privates, "copiedOutputElement", {
 		enumerable: true, 
-		value: createElement("output", {}, _privates.get(this).button, CONSTANTS.CONTRACT_LINK.COPY_MESSAGE)
+		value: privates.button.appendChild(privates.copiedOutputElementTemplate.cloneNode(true))
 	}).copiedOutputElement;
 }
 function createDom(options) {
-	const doc = self.document.createDocumentFragment();
-	createElement("style", {}, doc, INLINE_CSS.call(this));
-	_privates.get(this).anchor = createElement("a", { href: this.href, rel: CONSTANTS.CONTRACT_LINK.REL, target: CONSTANTS.CONTRACT_LINK.TARGET, title: this.title }, doc);
-	_privates.get(this).anchor.appendChild(self.document.createTextNode((this.textContent.length === 0) ? this.contract : this.textContent));
-	_privates.get(this).button = createElement("button", { title: CONSTANTS.CONTRACT_LINK.BUTTON_TITLE }, doc);
-	this.attachShadow({ mode: "open" }).appendChild(doc);
+	const privates = _privates.get(this);
+	const template = TEMPLATE.content.cloneNode(true);
+	const style = template.getElementsByTagName("style").item(0);
+	style.sheet.insertRule(`@media screen { button::after { background-image: url("${CONSTANTS.CONTRACT_LINK.BUTTON_IMAGE_TAG(this.buttonColor)}"); } }`, 0);
+	privates.anchor = template.getElementsByTagName("a").item(0);
+	setAttributes(private.anchor, { href: this.href, title: this.title });
+	privates.button = template.getElementsByTagName("button").item(0);
+	privates.copiedOutputElementTemplate = template.getElementsByTagName("template").item(0).content;
+	this.attachShadow({ mode: "open" }).appendChild(template);
 }
 function getAttributeOrDefault(attribute, alternative) {
 	const value = this.getAttribute(attribute);
@@ -138,15 +150,16 @@ class ContractLink extends MareCustomElement {
 	get href() { return new self.URL(this.contract, new self.URL(`${this.contractLinkType}/`, _privates.get(this).chainInfo.bexHrefBase)); }
 	get title() { return CONSTANTS.CONTRACT_LINK.ANCHOR_TITLE_TAG(_privates.get(this).chainInfo.bexName); }
 	set contract(contract) {
+		const privates = _privates.get(this);
 		super.setAttribute("contract", contract);
-		_privates.get(this).anchor.href = this.href;
+		privates.anchor.href = this.href;
 
-		if (_privates.get(this).anchor.textContent.length === 0)
-			_privates.get(this).anchor.textContent = contract;
+		if (privates.anchor.textContent.length === 0)
+			privates.anchor.textContent = contract;
 	}
 	connectedCallback() {
-		_privates.get(this).copyContractClickEvent = 
-			browserEvents.add(new MareEvent(_privates.get(this).button, "click", () => onCopyContractClick.call(this).catch(console.error), { passive: true }));
+		const privates = _privates.get(this);
+		privates.copyContractClickEvent = browserEvents.add(new MareEvent(privates.button, "click", () => onCopyContractClick.call(this).catch(console.error), { passive: true }));
 	}
 	createdCallback(options) {
 		_privates.set(this, { chainInfo: CONSTANTS.CHAINS_BY_NAME.get(this.chainName) });
