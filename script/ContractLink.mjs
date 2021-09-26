@@ -86,8 +86,10 @@ const validContractLinkTypes = new self.Set(CONSTANTS.CONTRACT_LINK.VALID_CONTRA
 
 // private methods
 function createCopiedOutputElement() {
-	return self.Object.defineProperty(_privates.get(this), "copiedOutputElement", { enumerable: true, value: createElement("output", {}, this.button, CONSTANTS.CONTRACT_LINK.COPY_MESSAGE) })
-		.copiedOutputElement;
+	return self.Object.defineProperty(_privates.get(this), "copiedOutputElement", {
+		enumerable: true, 
+		value: createElement("output", {}, _privates.get(this).button, CONSTANTS.CONTRACT_LINK.COPY_MESSAGE)
+	}).copiedOutputElement;
 }
 function createDom(options) {
 	const doc = self.document.createDocumentFragment();
@@ -101,7 +103,7 @@ function getAttributeOrDefault(attribute, alternative) {
 	const value = this.getAttribute(attribute);
 	return (value == null || value.length === 0) ? alternative : value;
 }
-function hideCopiedOutput() { console.log(_privates.get(this).copiedOutputElement); _privates.get(this).copiedOutputElement.style.opacity = 0; }
+function hideCopiedOutput() { _privates.get(this).copiedOutputElement.style.opacity = 0; }
 function initializeOptions(options) {
 	if (typeof options !== "object" || self.Object.keys(options).length === 0)
 		return;
