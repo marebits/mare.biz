@@ -163,7 +163,6 @@ function updateButtons() {
 						purchaseButton.disabled = false;
 					else if (hasClosed && await balance !== "0")
 						withdrawButton.disabled = false;
-					console.log({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount });
 					updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
 					saleProgress.hidden = !(saleNotYetOpen.hidden = isOpen || hasClosed);
 					saleProgressHr.hidden = false;
