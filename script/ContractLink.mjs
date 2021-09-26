@@ -104,7 +104,9 @@ function createDom(options) {
 	const privates = _privates.get(this);
 	const template = TEMPLATE.content.cloneNode(true);
 	privates.anchor = template.querySelector("a");
-	console.log(privates);
+	console.log({ template });
+	console.log({ template.querySelector });
+	console.log({ template.querySelector("a"); });
 	setAttributes(privates.anchor, { href: this.href, title: this.title });
 	privates.button = template.querySelector("button");
 	privates.copiedOutputElementTemplate = template.querySelector("template").content;
