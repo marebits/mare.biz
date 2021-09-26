@@ -82,9 +82,9 @@ const TEMPLATE = self.document.createElement("template");
 TEMPLATE.innerHTML = `
 	<template>
 		<style id="style">${INLINE_CSS}</style>
-		<a id="a" rel="${CONSTANTS.CONTRACT_LINK.REL}" target="${CONSTANTS.CONTRACT_LINK.TARGET}"><slot></slot></a>
-		<button id="button" title="${CONSTANTS.CONTRACT_LINK.BUTTON_TITLE}"></button>
-		<template id="template"><output>${CONSTANTS.CONTRACT_LINK.COPY_MESSAGE}</output></template>
+		<a rel="${CONSTANTS.CONTRACT_LINK.REL}" target="${CONSTANTS.CONTRACT_LINK.TARGET}"><slot></slot></a>
+		<button title="${CONSTANTS.CONTRACT_LINK.BUTTON_TITLE}"></button>
+		<template><output>${CONSTANTS.CONTRACT_LINK.COPY_MESSAGE}</output></template>
 	</template>
 `;
 
@@ -103,11 +103,11 @@ function createCopiedOutputElement() {
 function createDom(options) {
 	const privates = _privates.get(this);
 	const template = TEMPLATE.content.cloneNode(true);
-	privates.anchor = template.getElementById("a");
-	console.log(privates.anchor);
+	privates.anchor = template.querySelector("a");
+	console.log(privates);
 	setAttributes(privates.anchor, { href: this.href, title: this.title });
-	privates.button = template.getElementById("button");
-	privates.copiedOutputElementTemplate = template.getElementById("template").content;
+	privates.button = template.querySelector("button");
+	privates.copiedOutputElementTemplate = template.querySelector("template").content;
 	this.attachShadow({ mode: "open" }).appendChild(template);
 	const style = template.getElementById("style");
 	style.sheet.insertRule(`@media screen { button::after { background-image: url("${CONSTANTS.CONTRACT_LINK.BUTTON_IMAGE_TAG(this.buttonColor)}"); } }`, 0);
