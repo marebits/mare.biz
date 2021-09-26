@@ -102,10 +102,11 @@ function createCopiedOutputElement() {
 }
 function createDom(options) {
 	const privates = _privates.get(this);
-	const template = TEMPLATE.content.cloneNode(true);
+	const doc = self.document.createDocumentFragment();
+	const template = doc.appendChild(TEMPLATE.content.cloneNode(true));
 	// const style = template.querySelector("style");
 	// style.sheet.insertRule(`@media screen { button::after { background-image: url("${CONSTANTS.CONTRACT_LINK.BUTTON_IMAGE_TAG(this.buttonColor)}"); } }`, 0);
-	privates.anchor = template.querySelector("a");
+	privates.anchor = doc.querySelector("a");
 	setAttributes(privates.anchor, { href: this.href, title: this.title });
 	privates.button = template.querySelector("button");
 	privates.copiedOutputElementTemplate = template.querySelector("template").content;
