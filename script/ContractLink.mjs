@@ -101,7 +101,7 @@ function getAttributeOrDefault(attribute, alternative) {
 	const value = this.getAttribute(attribute);
 	return (value == null || value.length === 0) ? alternative : value;
 }
-function hideCopiedOutput() { _privates.get(this).copiedOutputElement.style.opacity = 0; }
+function hideCopiedOutput() { console.log(_privates.get(this).copiedOutputElement); _privates.get(this).copiedOutputElement.style.opacity = 0; }
 function initializeOptions(options) {
 	if (typeof options !== "object" || self.Object.keys(options).length === 0)
 		return;
