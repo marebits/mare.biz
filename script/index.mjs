@@ -75,7 +75,7 @@ async function onPurchaseButtonClick(event) {
 	function onTransactionConfirmation(confirmation, receipt, latestBlockHash) {
 		purchaseResultElements.confirmations.replaceChildren(
 			self.document.createTextNode("Received "), 
-			new OutputDataMessage(confirmation), 
+			createElement("output-data-message", { value: confirmation }), 
 			self.document.createTextNode(" confirmations"));
 	}
 	function onTransactionError(error) {
@@ -86,7 +86,7 @@ async function onPurchaseButtonClick(event) {
 	function onTransactionHash(transactionHash) {
 		purchaseResultElements.transactionHash.replaceChildren(
 			self.document.createTextNode("Transaction Hash:"), 
-			new ContractLink ({ chainName: defaultChainInfo.shortName, contract: transactionHash, contractLinkType: "tx", textContent: transactionHash })
+			createElement("contract-link", { chainName: defaultChainInfo.shortName, contract: transactionHash, contractLinkType: "tx" }, undefined, transactionHash)
 		);
 		purchaseResultElements.confirmations = createElement("div", {}, purchaseResult, "Awaiting confirmations...");
 		updateButtons();
@@ -115,7 +115,7 @@ function onWithdrawClick(event) {
 	function onTransactionConfirmation(confirmation, receipt, latestBlockHash) {
 		purchaseResultElements.confirmations.replaceChildren(
 			self.document.createTextNode("Received "), 
-			new OutputDataMessage(confirmation), 
+			createElement("output-data-message", { value: confirmation }), 
 			self.document.createTextNode(" confirmations"));
 	}
 	function onTransactionError(error) {
@@ -126,7 +126,7 @@ function onWithdrawClick(event) {
 	function onTransactionHash(transactionHash) {
 		purchaseResultElements.transactionHash.replaceChildren(
 			self.document.createTextNode("Transaction Hash:"), 
-			new ContractLink ({ chainName: defaultChainInfo.shortName, contract: transactionHash, contractLinkType: "tx", textContent: transactionHash })
+			createElement("contract-link", { chainName: defaultChainInfo.shortName, contract: transactionHash, contractLinkType: "tx" }, undefined, transactionHash)
 		);
 		purchaseResultElements.confirmations = createElement("div", {}, purchaseResult, "Awaiting confirmations...");
 		updateButtons();
@@ -164,7 +164,7 @@ function updateButtons() {
 						purchaseButton.disabled = false;
 					else if (hasClosed && await balance !== "0")
 						withdrawButton.disabled = false;
-					updateWalletMessage("Connected to wallet:", new ContractLink({ chainName: defaultChainInfo.shortName, contract: currentAccount, textContent: currentAccount }));
+					updateWalletMessage("Connected to wallet:", createElement("contract-link", { chainName: defaultChainInfo.shortName, contract: currentAccount }, undefined, currentAccount));
 					saleProgress.hidden = !(saleNotYetOpen.hidden = isOpen || hasClosed);
 					saleProgressHr.hidden = false;
 					bitsBalanceOutput.value = await balance;
