@@ -106,7 +106,7 @@ function createDom(options) {
 	privates.anchor = template.querySelector("a");
 	console.log({ template });
 	console.log({ querySelector: template.querySelector });
-	console.log({ a: template.querySelector("a"); });
+	console.log({ a: template.querySelector("a") });
 	setAttributes(privates.anchor, { href: this.href, title: this.title });
 	privates.button = template.querySelector("button");
 	privates.copiedOutputElementTemplate = template.querySelector("template").content;
