@@ -102,8 +102,6 @@ function createDom(options) {
 	const privates = _privates.get(this);
 	const template = TEMPLATE.content.cloneNode(true);
 	const style = createElement("style", {}, template, `@media screen { button::after { background-image: url("${CONSTANTS.CONTRACT_LINK.BUTTON_IMAGE_TAG(this.buttonColor)}"); } }`);
-	// style.sheet.insertRule(`@media screen { button::after { background-image: url("${CONSTANTS.CONTRACT_LINK.BUTTON_IMAGE_TAG(this.buttonColor)}"); } }`, 0);
-	self.fubar = template;
 	privates.anchor = template.querySelector("a");
 	setAttributes(privates.anchor, { href: this.href, title: this.title });
 	privates.button = template.querySelector("button");
