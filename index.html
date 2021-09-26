@@ -2,6 +2,7 @@
 <html lang="en" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#" 🦄 🐎🐱>
 	<head>
 		<meta charset="utf-8">
+		<meta content="default-src 'self'; font-src 'self' fonts.gstatic.com; style-src 'self' fonts.googleapis.com; upgrade-insecure-requests" http-equiv="content-security-policy">
 		<meta content="width=device-width, initial-scale=1" name="viewport">
 		<!-- <base href="https://mare.biz/"> -->
 		<link href="https://mare.biz/" rel="canonical" type="text/html">
@@ -97,10 +98,7 @@
 		<script src="script/stars.mjs" type="module"></script>
 	</head>
 	<body data-is-js-disabled>
-		<script>
-			if ("noModule" in self.HTMLScriptElement.prototype)
-				delete self.document.body.dataset.isJsDisabled;
-		</script>
+		<script>if ("noModule" in self.HTMLScriptElement.prototype) delete self.document.body.dataset.isJsDisabled;</script>
 		<svg role="presentation">
 			<defs>
 				<filter id="darken-mare">
@@ -249,7 +247,7 @@
 			<h2 class="big-header detail">Pre-Sale</h2>
 			<section class="card detail twilight">
 				<h3>This application is not yet in production, this is a user-facing test</h3>
-				<div><span class="alert">In Testing</span>: The pre-sale is currently running on the Ropsten Test Network.  If you don't know what you're doing, don't do anything.</div>
+				<div><span class="alert">In Testing</span>: The pre-sale is currently running on the Ropsten Test Network.</div>
 				<div>Presale contract address: <contract-link chain-name="ropsten" contract="" id="presale-contract"></contract-link>
 				<div>
 					Token contract address: <contract-link chain-name="ropsten" contract="" contract-link-type="token" id="token-contract"></contract-link>
