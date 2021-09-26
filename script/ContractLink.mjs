@@ -114,11 +114,13 @@ function getAttributeOrDefault(attribute, alternative) {
 }
 function hideCopiedOutput() { _privates.get(this).copiedOutputElement.style.opacity = 0; }
 function initializeOptions(options) {
+	console.log("initializing options");
 	if (typeof options !== "object" || self.Object.keys(options).length === 0)
 		return;
 	CONSTANTS.CONTRACT_LINK.ATTRIBUTES.forEach((attributeName, optionName) => {
-		if (typeof options[optionName] === "string")
+		if (typeof options[optionName] === "string"){ console.log(`setting ${attributeName} to ${options[optionName]}`);
 			this.setAttribute(attributeName, options[optionName]);
+		}
 	});
 
 	if (typeof options.textContent === "string")
