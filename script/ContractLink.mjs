@@ -92,12 +92,8 @@ function createCopiedOutputElement() {
 function createDom(options) {
 	const doc = self.document.createDocumentFragment();
 	createElement("style", {}, doc, INLINE_CSS.call(this));
-	_privates.get(this).anchor = createElement(
-		"a", 
-		{ href: this.href, rel: CONSTANTS.CONTRACT_LINK.REL, target: CONSTANTS.CONTRACT_LINK.TARGET, title: this.title }, 
-		doc, 
-		(this.textContent.length === 0) ? this.contract : this.textContent
-	);
+	_privates.get(this).anchor = createElement("a", { href: this.href, rel: CONSTANTS.CONTRACT_LINK.REL, target: CONSTANTS.CONTRACT_LINK.TARGET, title: this.title }, doc);
+	_privates.get(this).anchor.appendChild(new self.createTextNode((this.textContent.length === 0) ? this.contract : this.textContent));
 	_privates.get(this).button = createElement("button", { title: CONSTANTS.CONTRACT_LINK.BUTTON_TITLE }, doc);
 	this.attachShadow({ mode: "open" }).appendChild(doc);
 }
@@ -107,7 +103,7 @@ function getAttributeOrDefault(attribute, alternative) {
 }
 function hideCopiedOutput() { _privates.get(this).copiedOutputElement.style.opacity = 0; }
 function initializeOptions(options) {
-	if (typeof options !== object || self.Object.keys(options).length === 0)
+	if (typeof options !== "object" || self.Object.keys(options).length === 0)
 		return;
 	CONSTANTS.CONTRACT_LINK.ATTRIBUTES.forEach((attributeName, optionName) => {
 		if (typeof options[optionName] === "string")
