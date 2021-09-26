@@ -43,6 +43,33 @@ function createElement(name, attributes = {}, parent = undefined, text = undefin
 		parent.appendChild(element);
 	return element;
 }
+function defineCustomElement(ElementClass) {
+	const supportsCustomElements = self.customElements && self.customElements.define;
+	const supportsRegisterElement = self.Boolean(self.document.registerElement);
+
+	function customElementsNotSupported() { return; }
+	function defineCustomElementV0(ElementClass) {
+		const testElementConstructor = self.document.createElement(ElementClass.TAG_NAME).constructor;
+
+		if (testElementConstructor === self.HTMLElement || testElementConstructor === self.HTMLUnknownElement)
+			return;
+		self.document.registerElement(ElementClass.TAG_NAME, { prototype: self.Object.create(ElementClass.prototype) });
+	}
+	function defineCustomElementV1(ElementClass) {
+		if (self.customElements.get(ElementClass.TAG_NAME))
+			return;
+		self.customElements.define(ElementClass.TAG_NAME, ElementClass);
+	}
+
+	if (supportsCustomElements)
+		defineCustomElement = defineCustomElementV1;
+	else if (supportsRegisterElement)
+		defineCustomElement = defineCustomElementV0;
+	else
+		defineCustomElement = customElementsNotSupported;
+	defineCustomElement(ElementClass);
+}
+function defineCustomElements(elementClasses) { arrayify(elementClasses).forEach(defineCustomElement); }
 async function fetchJson(url) {
 	const response = await self.fetch(url, { Accept: "application/json" });
 	return response.json();
@@ -103,4 +130,4 @@ function writeTextToClipboard(text) { // returns self.Promise
 		});
 }
 
-export { ScreenMeasure, createElement, fetchJson, getRandomInt, loadScriptAsync, preload, runInBackground, setAttributes, writeTextToClipboard };
+export { ScreenMeasure, createElement, defineCustomElement, defineCustomElements, fetchJson, getRandomInt, loadScriptAsync, preload, runInBackground, setAttributes, writeTextToClipboard };
