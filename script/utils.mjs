@@ -70,10 +70,13 @@ function defineCustomElement(ElementClass) {
 	defineCustomElement(ElementClass);
 }
 function defineCustomElements(elementClasses) { arrayify(elementClasses).forEach(defineCustomElement); }
-async function fetchJson(url) {
-	const response = await self.fetch(url, { Accept: "application/json" });
-	return response.json();
+function fetchGeneric(url, mimeType) {
+	preload(url, { as: "fetch", type: mimeType });
+	return self.fetch(url, { Accept: mimeType });
 }
+async function fetchHtml(url) { return (new self.DOMParser()).parseFromString(await fetchText(url, "text/html")); }
+async function fetchJson(url, mimeType = "application/json") { return (await fetchGeneric(url, mimeType)).json(); }
+async function fetchText(url, mimeType = "text/plain") { return (await fetchGeneric(url, mimeType)).text(); }
 function getRandomInt(min, max) { return self.Math.floor(self.Math.random() * (max - min + 1)) + min; }
 function loadScriptAsync(scriptPath, type = "text/javascript") {
 	preload(scriptPath, { as: "script", type });
@@ -130,4 +133,19 @@ function writeTextToClipboard(text) { // returns self.Promise
 		});
 }
 
-export { ScreenMeasure, createElement, defineCustomElement, defineCustomElements, fetchJson, getRandomInt, loadScriptAsync, preload, runInBackground, setAttributes, writeTextToClipboard };
+export {
+	ScreenMeasure, 
+	createElement, 
+	defineCustomElement, 
+	defineCustomElements, 
+	fetchGeneric, 
+	fetchHtml, 
+	fetchJson, 
+	fetchText, 
+	getRandomInt, 
+	loadScriptAsync, 
+	preload, 
+	runInBackground, 
+	setAttributes, 
+	writeTextToClipboard
+};

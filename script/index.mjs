@@ -27,7 +27,7 @@ const walletConnectButton = self.document.getElementById("wallet-connect");
 const walletMessageOutput = self.document.getElementById("wallet-message");
 const withdrawButton = self.document.getElementById("withdraw");
 const web3 = new Web3();
-defineCustomElements([ContractLink, OutputDataMessage]);
+defineCustomElements([ContractLink, MarebitsPresaleApp, OutputDataMessage]);
 browserEvents.addMany([
 	new MareEvent(addToMetaMaskButton, "click", onAddToMetaMaskClick, { passive: true }), 
 	new MareEvent(purchaseAmountInput, "input", onPurchaseAmountInput, { passive: true }), 
