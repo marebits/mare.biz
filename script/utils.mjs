@@ -74,7 +74,7 @@ function fetchGeneric(url, mimeType) {
 	preload(url, { as: "fetch", type: mimeType });
 	return self.fetch(url, { Accept: mimeType });
 }
-async function fetchHtml(url) { return (new self.DOMParser()).parseFromString(await fetchText(url, "text/html")); }
+async function fetchHtml(url) { return (new self.DOMParser()).parseFromString(await fetchText(url, "text/html"), "text/html"); }
 async function fetchJson(url, mimeType = "application/json") { return (await fetchGeneric(url, mimeType)).json(); }
 async function fetchText(url, mimeType = "text/plain") { return (await fetchGeneric(url, mimeType)).text(); }
 function getRandomInt(min, max) { return self.Math.floor(self.Math.random() * (max - min + 1)) + min; }
