@@ -28,6 +28,10 @@ class EventSet extends self.Set {
 			event.target[this.removeMethodName](event.event, event.listener, event.options);
 		super.delete(event);
 	}
+	deleteMany(events) {
+		for (const event of events)
+			this.delete(event);
+	}
 	stopListening() {
 		if (!this.isListening)
 			return;
