@@ -93,10 +93,10 @@ const validContractLinkTypes = new self.Set(CONSTANTS.CONTRACT_LINK.VALID_CONTRA
 // private methods
 function createCopiedOutputElement() {
 	const privates = _privates.get(this);
-	self.marePrivates = privates;
+	const copiedOutputElement = privates.button.appendChild(privates.copiedOutputElementTemplate.cloneNode(true));
 	return self.Object.defineProperty(privates, "copiedOutputElement", {
 		enumerable: true, 
-		value: privates.button.appendChild(privates.copiedOutputElementTemplate.cloneNode(true)).querySelector("output")
+		value: privates.button.querySelector("output")
 	}).copiedOutputElement;
 }
 function createDom(options) {
@@ -113,7 +113,7 @@ function getAttributeOrDefault(attribute, alternative) {
 	const value = this.getAttribute(attribute);
 	return (value == null || value.length === 0) ? alternative : value;
 }
-function hideCopiedOutput() { console.log(_privates.get(this).copiedOutputElement); _privates.get(this).copiedOutputElement.style.opacity = 0; }
+function hideCopiedOutput() { _privates.get(this).copiedOutputElement.style.opacity = 0; }
 function initializeOptions(options) {
 	if (typeof options !== "object" || self.Object.keys(options).length === 0)
 		return;
