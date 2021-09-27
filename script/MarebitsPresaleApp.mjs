@@ -26,7 +26,7 @@ const TAG_NAME = "marebits-presale-app";
 // CSS
 
 // HTML
-const HTML_FILE = "../presale/index.html";
+const HTML_FILE = "presale/index.html";
 
 // other constants (not configurable)
 const _privates = new self.WeakMap();
