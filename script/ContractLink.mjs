@@ -93,6 +93,7 @@ const validContractLinkTypes = new self.Set(CONSTANTS.CONTRACT_LINK.VALID_CONTRA
 // private methods
 function createCopiedOutputElement() {
 	const privates = _privates.get(this);
+	self.marePrivates = privates;
 	return self.Object.defineProperty(privates, "copiedOutputElement", {
 		enumerable: true, 
 		value: privates.button.appendChild(privates.copiedOutputElementTemplate.cloneNode(true)).querySelector("output")
