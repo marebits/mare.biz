@@ -3,6 +3,7 @@
 import { browserEvents } from "./EventSet.mjs";
 import { CONSTANTS } from "./constants.mjs";
 import { ContractLink } from "./ContractLink.mjs";
+import { MarebitsPresaleApp } from "./MarebitsPresaleApp.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { OutputDataMessage } from "./OutputDataMessage.mjs";
 import { Cache } from "./Cache.mjs";
