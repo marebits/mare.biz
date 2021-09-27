@@ -95,7 +95,7 @@ function createCopiedOutputElement() {
 	const privates = _privates.get(this);
 	return self.Object.defineProperty(privates, "copiedOutputElement", {
 		enumerable: true, 
-		value: privates.button.appendChild(privates.copiedOutputElementTemplate.cloneNode(true))
+		value: privates.button.appendChild(privates.copiedOutputElementTemplate.cloneNode(true)).querySelector("output")
 	}).copiedOutputElement;
 }
 function createDom(options) {
