@@ -104,8 +104,10 @@ async function onPurchaseButtonClick(event) {
 function onVisibilityChange() {
 	if (self.document.visibilityState === "hidden")
 		browserEvents.stopListening();
-	else
+	else {
 		browserEvents.startListening();
+		updateButtons();
+	}
 }
 function onWalletConnectClick() { web3.connect().catch(console.error); }
 function onWithdrawClick(event) {
