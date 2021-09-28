@@ -3,7 +3,7 @@
 import { browserEvents } from "./EventSet.mjs";
 import { CONSTANTS } from "./constants.mjs";
 import { ContractLink } from "./ContractLink.mjs";
-import { MarebitsPresaleApp } from "./MarebitsPresaleApp.mjs";
+// import { MarebitsPresaleApp } from "./MarebitsPresaleApp.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { OutputDataMessage } from "./OutputDataMessage.mjs";
 import { Cache } from "./Cache.mjs";
@@ -28,7 +28,7 @@ const walletConnectButton = self.document.getElementById("wallet-connect");
 const walletMessageOutput = self.document.getElementById("wallet-message");
 const withdrawButton = self.document.getElementById("withdraw");
 const web3 = new Web3();
-defineCustomElements([ContractLink, MarebitsPresaleApp, OutputDataMessage]);
+defineCustomElements([ContractLink, OutputDataMessage]);
 browserEvents.addMany([
 	new MareEvent(addToMetaMaskButton, "click", onAddToMetaMaskClick, { passive: true }), 
 	new MareEvent(purchaseAmountInput, "input", onPurchaseAmountInput, { passive: true }), 
@@ -69,7 +69,7 @@ function onPurchaseAmountInput(event) {
 	const newPurchaseAmount = web3.mareUtils.toWei(event.target.value) * CONSTANTS.TOKEN.SALE_RATE;
 	purchaseBalanceOutput.value = web3.mareUtils.fromWei(newPurchaseAmount);
 }
-async function onPurchaseButtonClick(event) {
+function onPurchaseButtonClick(event) {
 	const purchaseResultElements = {};
 	event.target.disabled = true;
 
@@ -155,7 +155,7 @@ function updateButtons() {
 		updateWalletMessage("Click Connect Wallet above to proceed.");
  
 		if (web3.isConnected) {
-			if (await web3.chainId === CONSTANTS.TARGET_CHAIN_ID) {
+			if (await web3.isTargetChain) {
 				if (typeof currentAccount === "undefined")
 					walletConnectButton.disabled = false;
 				else {

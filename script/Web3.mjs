@@ -126,6 +126,7 @@ class Web3 extends self.EventTarget {
 		if (typeof this.__web3 !== "undefined" && typeof this.__web3.eth !== "undefined")
 			return this.__web3.eth;
 	}
+	get isTargetChain() { return this.chainId.then(chainId => chainId === CONSTANTS.TARGET_CHAIN_ID); }
 	get provider() { return this.__provider; }
 	get isConnected() {
 		if (typeof this.provider === "undefined")
