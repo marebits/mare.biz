@@ -1,3 +1,4 @@
+const _privates = new self.WeakMap();
 const preloadedFiles = new self.Set();
 
 if (!"requestIdleCallback" in self)
@@ -19,6 +20,11 @@ class ScreenMeasure {
 		self.Object.defineProperty(this, "maxWidth", { value: maxWidth });
 		return maxWidth;
 	}
+}
+class VisibilityListener {
+	constructor(listener) { _privates.set(this, { event }); }
+	ignore() { self.document.removeEventListener("visibilitychange", listener, { passive: true }); }
+	listen() { self.document.addEventListener("visibilitychange", listener, { passive: true }); }
 }
 
 function arrayify(something) {
@@ -136,6 +142,7 @@ function writeTextToClipboard(text) { // returns self.Promise
 
 export {
 	ScreenMeasure, 
+	VisibilityListener, 
 	createElement, 
 	defineCustomElement, 
 	defineCustomElements, 
