@@ -1,63 +1,5 @@
 @charset "utf-8";
-@import url("//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400");
-@font-face {
-	font-family: WoodrowW00-Reg;
-	font-style: normal;
-	font-weight: normal;
-	src: local(WoodrowWW00 Reg), local(WoodrowW00Reg), local(WoodrowW00-Reg), 
-		url(WoodrowW00-Reg.woff2) format("woff2"), url(WoodrowW00-Reg.woff) format("woff");
-}
-:root {
-	--big-header-flare-size: 5rem;
-	--black: #000002;
-	--card-header-font-size: 1.5rem;
-	--moon-width: 25vw;
-	--scroll-speed: -1px;
-	--scroll-y: 0;
-	--social-button-size: 4rem;
-	--star-blur-offset: 0;
-	--star-color: #fff;
-	--star-pos-x: 0;
-	--star-pos-y: 0;
-	--star-size-base: 5px;
-	--star-size-offset: 0;
-	--star-twinkle-offset: 0;
-	--twilight-blue: #263773;
-	--twilight-orange: #f47735;
-	--twilight-pink: #ed438a;
-	--twilight-pink-transparent: rgba(237, 67, 138, 0.5);
-	--twilight-purple: #662d8a;
-	--twilight-red: #a8005b;
-	--twilight-background: #b689c8;
-	--dash-background: #9bdbf5;
-	--flutter-background: #faf5ab;
-	--rarity-background: #eaeef0;
-	--pinkie-background: #f5b7d0;
-	--apple-background: #faba62;
-
-	--card-background-color: var(--twilight-blue);
-	--link-color: var(--twilight-pink);
-	--link-active-background-color: var(--twilight-pink-transparent);
-	--link-active-color: rgba(18, 188, 117);
-	--link-focus-background-color: rgba(18, 188, 117, 0.5);
-	--link-visited-color: var(--twilight-orange);
-}
-* {
-	box-sizing: border-box;
-	margin: 0;
-}
-a {
-	text-decoration: underline;
-	text-decoration-style: dotted;
-}
-a:link { color: var(--link-color); }
-a:visited { color: var(--link-visited-color); }
-a:focus, a:hover { background-color: var(--link-focus-background-color); }
-a:active {
-	background-color: var(--link-active-background-color);
-	color: var(--link-active-color);
-}
-abbr { text-decoration: none; }
+@import url("common.css");
 body {
 	background-color: var(--black);
 	background-image: linear-gradient(180deg, var(--black) 0%, rgb(78, 36, 113) 61%, rgb(110, 61, 149) 100%);
@@ -83,31 +25,18 @@ hr {
 	border-top-color: var(--twilight-blue);
 	margin: 0.25rem 0;
 }
-html { overflow-x: hidden; }
-input:invalid { border: solid 3px red; }
 main {
 	align-items: center;
 	display: flex;
 	flex-direction: column;
 }
 main > * { width: 65%; }
-ol ol { list-style-type: lower-alpha; }
-ol ol ol { list-style-type: lower-roman; }
-dfn { font-style: normal; }
 dfn[title="brohoof /)"] {
 	display: block;
 	font-family: monospace;
 	font-size: 2rem;
 	letter-spacing: -0.3rem;
 	text-shadow: 0.3px 0.3px 3px var(--twilight-pink), -0.3px -0.3px 3px var(--twilight-background);
-}
-summary {
-	cursor: pointer;
-	list-style-position: outside;
-}
-svg[role=presentation] {
-	height: 0;
-	visibility: hidden;
 }
 .absolute-container { position: absolute; }
 .action-button {
@@ -335,20 +264,8 @@ svg[role=presentation] {
 		animation-timing-function: linear;
 	}
 }
-@media (prefers-reduced-motion) {
-	* {
-		animation: none !important;
-		transition: none !important;
-	}
-	.stars { transform: none; }
-}
+@media (prefers-reduced-motion) { .stars { transform: none; } }
 @media (max-width: 635px) {
-	:root {
-		--big-header-flare-size: 2.5rem;
-		--moon-width: 40vw;
-		--social-button-size: 3rem;
-	}
-	main > * { width: 95%; }
 	.big-header.detail { font-size: 2rem; }
 	.card {
 		margin: 1rem 0.25rem;

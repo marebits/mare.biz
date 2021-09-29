@@ -9,30 +9,18 @@ const TAG_NAME = "contract-link";
 
 // styles
 const INLINE_CSS = `
+	@import url("common.css");
 	:host {
 		--button-height: 1rem;
 		--button-width: var(--button-height);
 		align-items: center;
 		display: flex;
 	}
-	* {
-		box-sizing: border-box;
-		margin: 0;
-	}
 	a {
 		display: inline-block;
 		max-width: 90%;
 		overflow: hidden;
-		text-decoration: underline;
-		text-decoration-style: dotted;
 		text-overflow: ellipsis;
-	}
-	a:link { color: var(--link-color); }
-	a:visited { color: var(--link-visited-color); }
-	a:focus, a:hover { background-color: var(--link-focus-background-color); }
-	a:active {
-		background-color: var(--link-active-background-color);
-		color: var(--link-active-color);
 	}
 	:host-context(.card.twilight) a { --link-visited-color: var(--twilight-red); }
 	button { display: none; }
