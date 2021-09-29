@@ -27,18 +27,18 @@ const tokenContractLink = self.document.getElementById("token-contract");
 const walletConnectButton = self.document.getElementById("wallet-connect");
 const walletMessageOutput = self.document.getElementById("wallet-message");
 const withdrawButton = self.document.getElementById("withdraw");
-const web3 = new Web3();
+// const web3 = new Web3();
 defineCustomElements([ContractLink, MarebitsPresaleApp, OutputDataMessage]);
-browserEvents.addMany([
-	new MareEvent(addToMetaMaskButton, "click", onAddToMetaMaskClick, { passive: true }), 
-	new MareEvent(purchaseAmountInput, "input", onPurchaseAmountInput, { passive: true }), 
-	new MareEvent(purchaseButton, "click", onPurchaseButtonClick, { passive: true }), 
-	new MareEvent(walletConnectButton, "click", onWalletConnectClick, { passive: true }), 
-	new MareEvent(web3, "accountsChanged", updateButtons), 
-	new MareEvent(web3, "disconnected", updateButtons), 
-	new MareEvent(web3, "initialized", updateButtons), 
-	new MareEvent(withdrawButton, "click", onWithdrawClick, { passive: true })
-]);
+// browserEvents.addMany([
+// 	new MareEvent(addToMetaMaskButton, "click", onAddToMetaMaskClick, { passive: true }), 
+// 	new MareEvent(purchaseAmountInput, "input", onPurchaseAmountInput, { passive: true }), 
+// 	new MareEvent(purchaseButton, "click", onPurchaseButtonClick, { passive: true }), 
+// 	new MareEvent(walletConnectButton, "click", onWalletConnectClick, { passive: true }), 
+// 	new MareEvent(web3, "accountsChanged", updateButtons), 
+// 	new MareEvent(web3, "disconnected", updateButtons), 
+// 	new MareEvent(web3, "initialized", updateButtons), 
+// 	new MareEvent(withdrawButton, "click", onWithdrawClick, { passive: true })
+// ]);
 browserEvents.startListening();
 
 // async function getCid() {
