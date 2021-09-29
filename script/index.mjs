@@ -7,7 +7,7 @@ import { MarebitsPresaleApp } from "./MarebitsPresaleApp.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { OutputDataMessage } from "./OutputDataMessage.mjs";
 import { Cache } from "./Cache.mjs";
-import { createElement, defineCustomElements, runInBackground } from "./utils.mjs";
+import { VisibilityListener, createElement, defineCustomElements, runInBackground } from "./utils.mjs";
 import { Web3 } from "./Web3.mjs";
 
 const addToMetaMaskButton = self.document.getElementById("add-to-metamask");
@@ -191,7 +191,7 @@ function updateWalletMessage(...nodesOrStrings) {
 		walletMessageOutput.replaceChildren(...nodesOrStrings);
 }
 
-self.document.addEventListener("visibilitychange", onVisibilityChange, { passive: true });
+(new VisibilityListener(onVisibilityChange)).listen();
 presaleContractLink.contract = CONSTANTS.PRESALE.CONTRACT_ADDRESS;
 tokenContractLink.contract = CONSTANTS.TOKEN.CONTRACT_ADDRESS;
 // self.setTimeout(function() { updateButtons().catch(console.error); }, 200);
