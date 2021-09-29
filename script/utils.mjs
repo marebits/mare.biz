@@ -23,8 +23,8 @@ class ScreenMeasure {
 }
 class VisibilityListener {
 	constructor(listener) { _privates.set(this, { event }); }
-	ignore() { self.document.removeEventListener("visibilitychange", listener, { passive: true }); }
-	listen() { self.document.addEventListener("visibilitychange", listener, { passive: true }); }
+	ignore() { self.document.removeEventListener("visibilitychange", _privates.get(this).listener, { passive: true }); }
+	listen() { self.document.addEventListener("visibilitychange", _privates.get(this).listener, { passive: true }); }
 }
 
 function arrayify(something) {
