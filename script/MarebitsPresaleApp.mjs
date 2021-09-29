@@ -33,6 +33,10 @@ async function createDom() {
 	this.attachShadow({ mode: "open" }).appendChild(template);
 }
 function onClickAddToMetamask() { this.web3.mare.watchAsset().catch(console.error); }
+function onVisibilityChange() {
+	if (self.document.visibilityState !== "hidden")
+		updateButtons.call(this);
+}
 function updateButtons() { (async function() { addToMetaMaskButton.disabled = !(this.web3.isConnected && await this.web3.isTargetChain); })().catch(console.error); }
 
 class MarebitsPresaleApp extends MareCustomElement {
@@ -46,17 +50,20 @@ class MarebitsPresaleApp extends MareCustomElement {
 				new MareEvent(this.web3, "disconnected", updateButtons.bind(this)), 
 				new MareEvent(this.web3, "initialized", updateButtons.bind(this))
 			]);
+			privates.visibilityListener.listen();
 			super.connectedCallback();
 		})().catch(console.error);
 	}
 	createdCallback() {
 		this.web3 = new Web3();
 		// defineCustomElements([MarebitsPresaleStatus]);
-		_privates.set(this, {});
+		_privates.set(this, { visibilityListener: new VisibilityListener(onVisibilityChange.bind(this)) });
 		_privates.get(this).createDomPromise = createDom.call(this).then(super.createdCallback.bind(this)).catch(console.error);
 	}
 	disconnectedCallback() {
-		browserEvents.deleteMany(_privates.get(this).events);
+		const privates = _privates.get(this);
+		privates.visibilityListener.ignore();
+		browserEvents.deleteMany(privates.events);
 		super.disconnectedCallback();
 	}
 }
