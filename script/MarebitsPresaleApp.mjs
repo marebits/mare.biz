@@ -46,13 +46,13 @@ class MarebitsPresaleApp extends MareCustomElement {
 				new MareEvent(this.web3, "disconnected", updateButtons.bind(this)), 
 				new MareEvent(this.web3, "initialized", updateButtons.bind(this))
 			])
-		})().then(super.connectedCallback).catch(console.error);
+		})().then(super.connectedCallback.bind(this)).catch(console.error);
 	}
 	createdCallback() {
 		this.web3 = new Web3();
 		// defineCustomElements([MarebitsPresaleSale, MarebitsPresaleStatus]);
 		_privates.set(this, {});
-		_privates.get(this).createDomPromise = createDom.call(this).then(super.createdCallback).catch(console.error);
+		_privates.get(this).createDomPromise = createDom.call(this).then(super.createdCallback.bind(this)).catch(console.error);
 	}
 	disconnectedCallback() {
 		browserEvents.deleteMany(_privates.get(this).events);
