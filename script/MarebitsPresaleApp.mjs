@@ -51,7 +51,8 @@ class MarebitsPresaleApp extends MareCustomElement {
 	createdCallback() {
 		this.web3 = new Web3();
 		// defineCustomElements([MarebitsPresaleSale, MarebitsPresaleStatus]);
-		_privates.set(this, { createDomPromise: createDom.call(this).then(super.createdCallback).catch(console.error) });
+		_privates.set(this, {});
+		_privates.get(this).createDomPromise = createDom.call(this).then(super.createdCallback).catch(console.error);
 	}
 	disconnectedCallback() {
 		browserEvents.deleteMany(_privates.get(this).events);
