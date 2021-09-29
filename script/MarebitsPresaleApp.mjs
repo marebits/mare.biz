@@ -38,19 +38,20 @@ function updateButtons() { (async function() { addToMetaMaskButton.disabled = !(
 class MarebitsPresaleApp extends MareCustomElement {
 	connectedCallback() {
 		const privates = _privates.get(this);
-		browserEvents.addMany(privates.events = [
-			new MareEvent(privates.elements.buttons.addToMetamask, "click", onClickAddToMetamask.bind(this), { passive: true }), 
-			new MareEvent(this.web3, "accountsChanged", updateButtons.bind(this)), 
-			new MareEvent(this.web3, "disconnected", updateButtons.bind(this)), 
-			new MareEvent(this.web3, "initialized", updateButtons.bind(this))
-		]);
-		super.connectedCallback();
+		(async () => {
+			await privates.createDomPromise;
+			browserEvents.addMany(privates.events = [
+				new MareEvent(privates.elements.buttons.addToMetamask, "click", onClickAddToMetamask.bind(this), { passive: true }), 
+				new MareEvent(this.web3, "accountsChanged", updateButtons.bind(this)), 
+				new MareEvent(this.web3, "disconnected", updateButtons.bind(this)), 
+				new MareEvent(this.web3, "initialized", updateButtons.bind(this))
+			])
+		})().then(super.connectedCallback).catch(console.error);
 	}
 	createdCallback() {
 		this.web3 = new Web3();
-		_privates.set(this, {});
 		// defineCustomElements([MarebitsPresaleSale, MarebitsPresaleStatus]);
-		createDom.call(this).then(super.createdCallback).catch(console.error);
+		_privates.set(this, { createDomPromise: createDom.call(this).then(super.createdCallback).catch(console.error) });
 	}
 	disconnectedCallback() {
 		browserEvents.deleteMany(_privates.get(this).events);
