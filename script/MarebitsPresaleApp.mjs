@@ -40,6 +40,8 @@ function onVisibilityChange() {
 function updateButtons() { (async function() { addToMetaMaskButton.disabled = !(this.web3.isConnected && await this.web3.isTargetChain); })().catch(console.error); }
 
 class MarebitsPresaleApp extends MareCustomElement {
+	get [self.Symbol.toStringTag]() { return "MarebitsPresaleApp"; }
+
 	connectedCallback() {
 		const privates = _privates.get(this);
 		(async () => {
