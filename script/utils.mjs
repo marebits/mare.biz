@@ -23,6 +23,9 @@ class ScreenMeasure {
 }
 class VisibilityListener {
 	constructor(listener) { _privates.set(this, { event }); }
+
+	get [self.Symbol.toStringTag]() { return "VisibilityListener"; }
+
 	ignore() { self.document.removeEventListener("visibilitychange", _privates.get(this).listener, { passive: true }); }
 	listen() { self.document.addEventListener("visibilitychange", _privates.get(this).listener, { passive: true }); }
 }
