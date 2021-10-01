@@ -9,7 +9,7 @@
 
 import { browserEvents } from "./EventSet.mjs";
 // import { MarebitsPresaleSale } from "./MarebitsPresaleSale.mjs";
-// import { MarebitsPresaleStatus } from "./MarebitsPresaleStatus.mjs";
+import { MarebitsPresaleStatus } from "./MarebitsPresaleStatus.mjs";
 import { MareCustomElement } from "./MareCustomElement.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { defineCustomElements, fetchHtml, preload } from "./utils.mjs";
