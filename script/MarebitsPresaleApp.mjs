@@ -12,7 +12,7 @@ import { browserEvents } from "./EventSet.mjs";
 import { MarebitsPresaleStatus } from "./MarebitsPresaleStatus.mjs";
 import { MareCustomElement } from "./MareCustomElement.mjs";
 import { MareEvent } from "./MareEvent.mjs";
-import { defineCustomElements, fetchHtml, preload } from "./utils.mjs";
+import { VisibilityListener, defineCustomElements, fetchHtml, preload } from "./utils.mjs";
 import { Web3 } from "./Web3.mjs";
 
 // configurable constants 
