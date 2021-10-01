@@ -90,6 +90,7 @@ class MarebitsPresaleStatus extends MareCustomElement {
 	get ethRaised() { return _privates.get(this).elements.outputs.ethRaised.value; }
 	get mareSold() { return _privates.get(this).elements.outputs.mareSold.value; }
 	set app(app) {
+		console.log("initializing presale status");
 		delete this.app;
 		self.Object.defineProperty(this, "app", { get: () => app });
 		createDom.call(this);
@@ -107,6 +108,7 @@ class MarebitsPresaleStatus extends MareCustomElement {
 		super.connectedCallback();
 	}
 	createdCallback() {
+		console.log("creating presale status");
 		// defineCustomElements([MareCountDownClock]);
 		_privates.set(this, { visibilityListener: new VisibilityListener(onVisibilityChange.bind(this)) });
 	}
