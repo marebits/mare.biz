@@ -94,7 +94,6 @@ class MarebitsPresaleStatus extends MareCustomElement {
 		delete this.app;
 		self.Object.defineProperty(this, "app", { get: () => app });
 		createDom.call(this);
-		super.createdCallback();
 	}
 
 	connectedCallback() {
@@ -111,6 +110,7 @@ class MarebitsPresaleStatus extends MareCustomElement {
 		console.log("creating presale status");
 		// defineCustomElements([MareCountDownClock]);
 		_privates.set(this, { visibilityListener: new VisibilityListener(onVisibilityChange.bind(this)) });
+		super.createdCallback();
 	}
 	disconnectedCallback() {
 		const privates = _privates.get(this);
