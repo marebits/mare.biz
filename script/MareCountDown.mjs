@@ -49,6 +49,7 @@ class MareCountDown extends self.EventTarget {
 		const privates = _privates.get(this);
 		const tickEventDetail = { detail: {} };
 		self.Object.defineProperties(tickEventDetail.detail, {
+			isoString: { enumerable: true, get: this.toString.bind(this, true) }, 
 			string: { enumerable: true, get: this.toString.bind(this) }, 
 			value: { enumerable: true, get: this.valueOf.bind(this) }
 		});
