@@ -28,7 +28,7 @@ const CACHE_PREFIX = `${CONSTANTS.PRESALE.CONTRACT_ADDRESS}.`;
 function cacheKey(key) { return `${CACHE_PREFIX}.${key.toString()}`; }
 function createDom() {
 	const privates = _privates.get(this);
-	const template = self.document.getElementById("marebits-presale-status").content.cloneNode(true);
+	const template = this.app.dom.getElementById("marebits-presale-status").content.cloneNode(true);
 	privates.elements = {
 		outputs: {
 			bitsBalance: template.getElementById("bits-balance"), 
@@ -54,28 +54,28 @@ function updateStatus() {
 
 			if (hasClosed)
 				isOpen = false;
-			else if (hasClosed = await privates.app.web3.mare.hasClosed) {
+			else if (hasClosed = await this.app.web3.mare.hasClosed) {
 				isOpen = false;
 				Cache.Typed.persisted.set(cacheKey`hasClosed`, true);
 			} else
-				isOpen = await privates.app.web3.mare.isOpen;
+				isOpen = await this.app.web3.mare.isOpen;
 
 			if (isOpen) {
 				// The pre-sale is open!  Currently sold X MARE out of a total of Y. <progress>  Pre-sale closes in X hours/minutes/countdown
 				const [closingTime, ethRaised, mareSold] = await self.Promise.all([
-					self.Promise.resolve(Cache.Typed.persisted.getOrSet(cacheKey`closingTime`, () => privates.app.web3.mare.closingTime.then(self.Number.parseInt))), 
-					(async () => privates.elements.outputs.ethRaised.value = await privates.app.web3.mare.ethRaised)(), 
-					(async () => privates.elements.outputs.mareSold.value = await privates.app.web3.mare.mareSold)()
+					self.Promise.resolve(Cache.Typed.persisted.getOrSet(cacheKey`closingTime`, () => this.app.web3.mare.closingTime.then(self.Number.parseInt))), 
+					(async () => privates.elements.outputs.ethRaised.value = await this.app.web3.mare.ethRaised)(), 
+					(async () => privates.elements.outputs.mareSold.value = await this.app.web3.mare.mareSold)()
 				]);
 			} else if (hasClosed) {
 				// The pre-sale is closed, we sold X MARE out of a total of Y. <progress> Be sure to withdraw your MARE if you purchased any!
 				const [ethRaised, mareSold] = await self.Promise.all([
-					self.Promise.resolve(Cache.Typed.persisted.getOrSet(cacheKey`ethRaised`, () => privates.app.web3.mare.ethRaised)), 
-					self.Promise.resolve(Cache.Typed.persisted.getOrSet(cacheKey`mareSold`, () => privates.app.web3.mare.mareSold))
+					self.Promise.resolve(Cache.Typed.persisted.getOrSet(cacheKey`ethRaised`, () => this.app.web3.mare.ethRaised)), 
+					self.Promise.resolve(Cache.Typed.persisted.getOrSet(cacheKey`mareSold`, () => this.app.web3.mare.mareSold))
 				]);
 			} else {
 				// The pre-sale is currently closed, but is scheduled to open in X hours/minutes/countdown
-				const openingTime = await self.Promise.resolve(Cache.Typed.persisted.getOrSet(cacheKey`openingTime`, () => privates.app.web3.mare.openingTime.then(self.Number.parseInt)));
+				const openingTime = await self.Promise.resolve(Cache.Typed.persisted.getOrSet(cacheKey`openingTime`, () => this.app.web3.mare.openingTime.then(self.Number.parseInt)));
 			}
 		}
 	})().catch(console.error);
@@ -85,25 +85,30 @@ function updateStatus() {
 
 class MarebitsPresaleStatus extends MareCustomElement {
 	get [self.Symbol.toStringTag]() { return "MarebitsPresaleStatus"; }
+	get app() { return undefined; }
 	get bitsBalance() { return _privates.get(this).elements.outputs.bitsBalance.value; }
 	get ethRaised() { return _privates.get(this).elements.outputs.ethRaised.value; }
 	get mareSold() { return _privates.get(this).elements.outputs.mareSold.value; }
+	set app(app) {
+		delete this.app;
+		self.Object.defineProperty(this, "app", { get: () => app });
+		createDom.call(this);
+		super.createdCallback();
+	}
 
 	connectedCallback() {
 		const privates = _privates.get(this);
 		browserEvents.addMany(privates.events = [
-			new MareEvent(privates.app.web3, "accountsChanged", updateStatus.bind(this)), 
-			new MareEvent(privates.app.web3, "disconnected", updateStatus.bind(this)), 
-			new MareEvent(privates.app.web3, "initialized", updateStatus.bind(this))
+			new MareEvent(this.app.web3, "accountsChanged", updateStatus.bind(this)), 
+			new MareEvent(this.app.web3, "disconnected", updateStatus.bind(this)), 
+			new MareEvent(this.app.web3, "initialized", updateStatus.bind(this))
 		]);
 		privates.visibilityListener.listen();
 		super.connectedCallback();
 	}
-	createdCallback(app) {
+	createdCallback() {
 		// defineCustomElements([MareCountDownClock]);
-		_privates.set(this, { app, visibilityListener: new VisibilityListener(onVisibilityChange.bind(this)) });
-		createDom.call(this);
-		super.createdCallback();
+		_privates.set(this, { visibilityListener: new VisibilityListener(onVisibilityChange.bind(this)) });
 	}
 	disconnectedCallback() {
 		const privates = _privates.get(this);
