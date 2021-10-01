@@ -7,7 +7,7 @@ class MareCustomElement extends self.HTMLElement {
 	connectedCallback() { this.dispatchEvent("elementconnected"); }
 	createdCallback() { this.dispatchEvent("elementcreated"); }
 	disconnectedCallback() { this.dispatchEvent("elementdisconnected"); }
-	dispatchEvent(eventName, eventInit = undefined) { super.dispatchEvent(new self.CustomEvent(eventName, eventInit)); }
+	dispatchEvent(eventName, eventInit = { detail: this }) { super.dispatchEvent(new self.CustomEvent(eventName, eventInit)); }
 	setAttribute(attribute, value) {
 		const isAttributeBoolean = typeof value === "boolean";
 		const currentValue = isAttributeBoolean ? super.hasAttribute(attribute) : super.getAttribute(attribute);
