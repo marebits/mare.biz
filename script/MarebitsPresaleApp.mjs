@@ -31,7 +31,7 @@ async function createDom() {
 	const template = doc.body.querySelector("template").content.cloneNode(true);
 	privates.elements = { buttons: { addToMetamask: template.getElementById("add-to-metamask") } };
 	this.dom = template;
-	template.querySelector("marebits-presale-status").addEventListener("elementcreated", ({ detail: { marebitsPresaleStatus } }) => marebitsPresaleStatus.app = this);
+	template.querySelector("marebits-presale-status").addEventListener("elementcreated", ({ detail: marebitsPresaleStatus }) => marebitsPresaleStatus.app = this);
 	this.attachShadow({ mode: "open" }).appendChild(template);
 }
 function onClickAddToMetamask() { this.web3.mare.watchAsset().catch(console.error); }
