@@ -58,7 +58,7 @@ class MarebitsPresaleApp extends MareCustomElement {
 	}
 	createdCallback() {
 		this.web3 = new Web3();
-		// defineCustomElements([MarebitsPresaleStatus]);
+		defineCustomElements([MarebitsPresaleStatus]);
 		_privates.set(this, { visibilityListener: new VisibilityListener(onVisibilityChange.bind(this)) });
 		_privates.get(this).createDomPromise = createDom.call(this).then(super.createdCallback.bind(this)).catch(console.error);
 	}
