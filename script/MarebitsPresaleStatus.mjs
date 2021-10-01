@@ -15,7 +15,7 @@ import { browserEvents } from "./EventSet.mjs";
 // import { MareCountDownClock } from "./MareCountDownClock.mjs";
 import { MareCustomElement } from "./MareCustomElement.mjs";
 import { MareEvent } from "./MareEvent.mjs";
-import { defineCustomElements } from "./utils.mjs";
+import { VisibilityListener, defineCustomElements } from "./utils.mjs";
 
 // configurable constants 
 const TAG_NAME = "marebits-presale-status";
