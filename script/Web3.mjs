@@ -110,6 +110,7 @@ class MareUtils {
 }
 class Web3 extends self.EventTarget {
 	mare = new Mare(this);
+	__isWeb3ScriptLoaded = self.Promise.resolve(false);
 
 	constructor() {
 		super();
@@ -183,16 +184,25 @@ class Web3 extends self.EventTarget {
 	async __initialize() {
 		console.log("starting initializing");
 		this.__provider = await this.__getProvider();
-		this.__addEvents();
 
-		if (typeof this.provider === "string")
-			return;
-		await loadScriptAsync("script/web3.min.js");
+		if (typeof this.provider === "string") {
+			await this.__loadWeb3Script();
+			this.__provider = new self.Web3.providers.WebsocketProvider(new self.URL(CONSTANTS.INFURA.PROJECT_ID, CONSTANTS.INFURA.ENDPOINT));
+		}
+		this.__addEvents();
+		await this.__loadWeb3Script();
 		this.__web3 = new self.Web3(this.provider);
 		await this.mare.__initialize();
 		console.log("finished initializing");
 		this.dispatchEvent(events.get("initialized"));
 		// this.__onAccountsChanged(await this.accounts);
+	}
+	async __loadWeb3Script() {
+		return this.__isWeb3ScriptLoaded.then(isWeb3ScriptLoaded => {
+			if (isWeb3ScriptLoaded)
+				return;
+			return this.__isWeb3ScriptLoaded = loadScriptAsync("script/web3.min.js").then(() => true);
+		});
 	}
 	__onAccountsChanged(accounts) {
 		console.log("accounts changed", accounts);
