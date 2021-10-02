@@ -37,6 +37,7 @@ function createDom() {
 		}
 	};
 	this.attachShadow({ mode: "open" }).appendChild(template);
+	console.log("dom created");
 }
 function onVisibilityChange() {
 	if (self.document.visibilityState !== "hidden")
@@ -90,9 +91,9 @@ class MarebitsPresaleStatus extends MareCustomElement {
 	get ethRaised() { return _privates.get(this).elements.outputs.ethRaised.value; }
 	get mareSold() { return _privates.get(this).elements.outputs.mareSold.value; }
 	set app(app) {
-		console.log("initializing presale status");
 		delete this.app;
 		self.Object.defineProperty(this, "app", { get: () => app });
+		console.log("app set");
 		createDom.call(this);
 	}
 
@@ -105,12 +106,13 @@ class MarebitsPresaleStatus extends MareCustomElement {
 		]);
 		privates.visibilityListener.listen();
 		super.connectedCallback();
+		console.log("element connected");
 	}
 	createdCallback() {
-		console.log("creating presale status");
 		// defineCustomElements([MareCountDownClock]);
 		_privates.set(this, { visibilityListener: new VisibilityListener(onVisibilityChange.bind(this)) });
 		super.createdCallback();
+		console.log("element created");
 	}
 	disconnectedCallback() {
 		const privates = _privates.get(this);
