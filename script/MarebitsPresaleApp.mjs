@@ -32,7 +32,6 @@ async function createDom() {
 	privates.elements = { buttons: { addToMetamask: template.getElementById("add-to-metamask") } };
 	template.querySelector("marebits-presale-status").addEventListener("elementcreated", ({ detail: marebitsPresaleStatus }) => marebitsPresaleStatus.app = this);
 	this.attachShadow({ mode: "open" }).appendChild(template);
-	this.dom = this.shadowRoot;
 }
 function onClickAddToMetamask() { this.web3.mare.watchAsset().catch(console.error); }
 function onVisibilityChange() {
