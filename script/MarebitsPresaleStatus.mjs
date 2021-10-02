@@ -28,8 +28,7 @@ const CACHE_PREFIX = `${CONSTANTS.PRESALE.CONTRACT_ADDRESS}.`;
 function cacheKey(key) { return `${CACHE_PREFIX}.${key.toString()}`; }
 function createDom() {
 	const privates = _privates.get(this);
-	console.log(this.app);
-	const template = this.app.dom.getElementById("marebits-presale-status").content.cloneNode(true);
+	const template = this.app.shadowRoot.getElementById("marebits-presale-status").content.cloneNode(true);
 	privates.elements = {
 		outputs: {
 			bitsBalance: template.getElementById("bits-balance"), 
