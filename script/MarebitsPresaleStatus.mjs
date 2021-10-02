@@ -37,7 +37,6 @@ function createDom() {
 		}
 	};
 	this.attachShadow({ mode: "open" }).appendChild(template);
-	console.log("dom created");
 }
 function onVisibilityChange() {
 	if (self.document.visibilityState !== "hidden")
@@ -45,11 +44,12 @@ function onVisibilityChange() {
 }
 function updateStatus() {
 	(async function() {
-		const currentAccount = await web3.currentAccount;
+		const currentAccount = web3.currentAccount;
+		const isTargetChain = web3.isTargetChain;
 		const privates = _privates.get(this);
 		privates.elements.outputs.bitsBalance.value = privates.elements.outputs.ethRaised.value = privates.elements.outputs.mareBitsSold.value = "0";
 
-		if (web3.isConnected && typeof currentAccount !== "undefined" && await web3.isTargetChain) {
+		if (web3.isConnected && typeof await currentAccount !== "undefined" && await isTargetChain) {
 			let hasClosed = Cache.Typed.persisted.get(cacheKey`hasClosed`);
 			let isOpen;
 
@@ -82,8 +82,6 @@ function updateStatus() {
 	})().catch(console.error);
 }
 
-
-
 class MarebitsPresaleStatus extends MareCustomElement {
 	get [self.Symbol.toStringTag]() { return "MarebitsPresaleStatus"; }
 	get app() { return undefined; }
@@ -105,13 +103,11 @@ class MarebitsPresaleStatus extends MareCustomElement {
 			new MareEvent(this.app.web3, "initialized", updateStatus.bind(this))
 		]);
 		privates.visibilityListener.listen();
-		console.log("element connected");
 		super.connectedCallback();
 	}
 	createdCallback() {
 		// defineCustomElements([MareCountDownClock]);
 		_privates.set(this, { visibilityListener: new VisibilityListener(onVisibilityChange.bind(this)) });
-		console.log("element created");
 		super.createdCallback();
 	}
 	disconnectedCallback() {
