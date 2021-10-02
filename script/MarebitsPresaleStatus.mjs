@@ -105,14 +105,14 @@ class MarebitsPresaleStatus extends MareCustomElement {
 			new MareEvent(this.app.web3, "initialized", updateStatus.bind(this))
 		]);
 		privates.visibilityListener.listen();
-		super.connectedCallback();
 		console.log("element connected");
+		super.connectedCallback();
 	}
 	createdCallback() {
 		// defineCustomElements([MareCountDownClock]);
 		_privates.set(this, { visibilityListener: new VisibilityListener(onVisibilityChange.bind(this)) });
-		super.createdCallback();
 		console.log("element created");
+		super.createdCallback();
 	}
 	disconnectedCallback() {
 		const privates = _privates.get(this);
