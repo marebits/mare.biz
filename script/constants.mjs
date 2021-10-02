@@ -22,6 +22,10 @@ const CONSTANTS = {
 		VALID_CONTRACT_LINK_TYPES: ["address", "token", "tx"]
 	}, 
 	ETH_UNITS: [["wei", "1"], ["kwei", "1000"], ["mwei", "1000000"], ["gwei", "1000000000"], ["szabo", "1000000000000"], ["ether", "1000000000000000000"]], 
+	INFURA: {
+		ENDPOINT: new self.URL("wss://mainnet.infura.io/ws/"), 
+		PROJECT_ID: "4a0b36ab74624a10b3e0a07a405409a6"
+	}, 
 	PRESALE: {
 		CAP: 2, 
 		CONTRACT_ABI: "script/MarebitsPresale.json", 
