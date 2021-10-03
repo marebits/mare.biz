@@ -15,6 +15,7 @@ import { browserEvents } from "./EventSet.mjs";
 // import { MareCountDownClock } from "./MareCountDownClock.mjs";
 import { MareCustomElement } from "./MareCustomElement.mjs";
 import { MareEvent } from "./MareEvent.mjs";
+import { OutputDataMessage } from "./OutputDataMessage.mjs";
 import { VisibilityListener, defineCustomElements } from "./utils.mjs";
 
 // configurable constants 
