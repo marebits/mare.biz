@@ -43,7 +43,7 @@ function onVisibilityChange() {
 		updateStatus.call(this);
 }
 function updateStatus() {
-	(async function() {
+	(async () => {
 		const currentAccount = this.app.web3.currentAccount;
 		const isTargetChain = this.app.web3.isTargetChain;
 		const privates = _privates.get(this);
