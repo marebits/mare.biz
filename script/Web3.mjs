@@ -1,10 +1,12 @@
 import { BetterMap } from "./BetterMap.mjs";
+import { Cache } from "./Cache.mjs";
 import { CONSTANTS } from "./constants.mjs";
 import { EventSet, browserEvents } from "./EventSet.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 // import { TypedCache } from "./TypedCache.mjs";
 import { fetchJson, loadScriptAsync, preload } from "./utils.mjs";
 
+const CACHE_PREFIX = `${CONSTANTS.PRESALE.CONTRACT_ADDRESS}.`;
 const ETH_UNITS = new BetterMap(CONSTANTS.ETH_UNITS);
 const events = new self.Map([
 	["accountsChanged", new self.Event("accountsChanged")], 
@@ -13,6 +15,8 @@ const events = new self.Map([
 	["initialized", new self.Event("initialized")]
 ]);
 
+function cacheKey(key) { return `${CACHE_PREFIX}.${key.toString()}`; }
+
 class Mare {
 	__isInitialized = false;
 
@@ -20,16 +24,57 @@ class Mare {
 
 	get balance() { return this.web3.currentAccount.then(currentAccount => this.__balanceOf(currentAccount)).then(this.web3.mareUtils.fromWei); }
 	get bestPony() { return this.__callMethod("bestPony"); }
-	get capReached() { return this.__callMethod("capReached"); }
-	get closingTime() { return this.__callMethod("closingTime"); }
+	get capReached() {
+		if (Cache.Typed.persisted.get(cacheKey`capReached`))
+			return self.Promise.resolve(true);
+		return this.__callMethod("capReached").then(capReached => {
+			if (capReached)
+				Cache.Typed.persisted.set(cacheKey`capReached`, true);
+			return capReached;
+		});
+	}
+	get closingTime() { return self.Promise.resolve(Cache.Typed.persisted.getOrSet(cacheKey`closingTime`, () => this.__callMethod("closingTime").then(self.Number.parseInt))); }
 	get ethRaised() { return this.weiRaised.then(weiRaised => this.web3.utils.fromWei(weiRaised)); }
-	get hasClosed() { return this.__callMethod("hasClosed"); }
-	get isFinalized() { return this.__callMethod("isFinalized"); }
+	get hasClosed() {
+		if (Cache.Typed.persisted.get(cacheKey`hasClosed`))
+			return self.Promise.resolve(true);
+		return this.__callMethod("hasClosed").then(hasClosed => {
+			if (hasClosed) {
+				Cache.Typed.persisted.set(cacheKey`hasClosed`, true);
+				Cache.Typed.persisted.set(cacheKey`isOpen`, false);
+			}
+			return hasClosed;
+		});
+	}
+	get isFinalized() {
+		if (Cache.Typed.persisted.get(cacheKey`isFinalized`))
+			return self.Promise.resolve(true);
+		return this.__callMethod("isFinalized").then(isFinalized => {
+			if (isFinalized)
+				Cache.Typed.persisted.set(cacheKey`isFinalized`, true);
+			return isFinalized;
+		});
+	}
 	get isInitialized() { return this.__isInitialized; }
-	get isOpen() { return this.__callMethod("isOpen"); }
-	get mareSold() { return this.weiRaised.then(weiRaised => this.web3.mareUtils.fromWei(BigInt(weiRaised) * CONSTANTS.TOKEN.SALE_RATE)); }
-	get openingTime() { return this.__callMethod("openingTime"); }
-	get weiRaised() { return this.__callMethod("weiRaised"); }
+	get isOpen() {
+		if (Cache.Typed.persisted.get(cacheKey`isOpen`) === false)
+			return self.Promise.resolve(false);
+		return this.__callMethod("isOpen");
+	}
+	get mareSold() { return this.weiRaised.then(weiRaised => this.web3.mareUtils.fromWei(self.BigInt(weiRaised) * CONSTANTS.TOKEN.SALE_RATE)); }
+	get openingTime() { return self.Promise.resolve(Cache.Typed.persisted.getOrSet(cacheKey`openingTime`, () => this.__callMethod("openingTime").then(self.Number.parseInt))); }
+	get weiRaised() {
+		const weiRaised = Cache.Typed.persisted.get(cacheKey`weiRaised`);
+
+		if (weiRaised)
+			return self.Promise.resolve(weiRaised);
+		else if (Cache.Typed.persisted.get(cacheKey`hasClosed`) || Cache.Typed.persisted.get(cacheKey`isFinalized`) || Cache.Typed.persisted.get(cacheKey`capReached`))
+			return this.__callMethod("weiRaised").then(weiRaised => {
+				Cache.Typed.persisted.set(cacheKey`weiRaised`, weiRaised);
+				return weiRaised;
+			});
+		return this.__callMethod("weiRaised");
+	}
 
 	buyTokens(amount, onTransactionHash, onReceipt, onConfirmation, onError) {
 		const amountWei = this.web3.utils.toWei(amount);
