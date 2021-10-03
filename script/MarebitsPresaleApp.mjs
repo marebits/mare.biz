@@ -38,7 +38,7 @@ function onVisibilityChange() {
 	if (self.document.visibilityState !== "hidden")
 		updateButtons.call(this);
 }
-function updateButtons() { (async function() { addToMetaMaskButton.disabled = !(this.web3.isConnected && await this.web3.isTargetChain); })().catch(console.error); }
+function updateButtons() { (async function() { _privates.get(this).elements.buttons.addToMetamask.disabled = !(this.web3.isConnected && await this.web3.isTargetChain); })().catch(console.error); }
 
 class MarebitsPresaleApp extends MareCustomElement {
 	get [self.Symbol.toStringTag]() { return "MarebitsPresaleApp"; }
