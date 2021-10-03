@@ -49,7 +49,7 @@ function updateStatus() {
 		const privates = _privates.get(this);
 		privates.elements.outputs.ethRaised.value = privates.elements.outputs.mareSold.value = "0";
 
-		if (this.app.web3.isConnected && await isTargetChain && (this.app.web3.isReadOnly || typeof await currentAccount !== "undefined")) {
+		if (this.app.web3.isConnected && typeof await currentAccount !== "undefined" && await isTargetChain) {
 			let hasClosed = Cache.Typed.persisted.get(cacheKey`hasClosed`);
 			let isOpen;
 
