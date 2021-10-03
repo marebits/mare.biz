@@ -110,8 +110,6 @@ class MareUtils {
 }
 class Web3 extends self.EventTarget {
 	mare = new Mare(this);
-	__isReadOnly = true;
-	__isWeb3ScriptLoaded = self.Promise.resolve(false);
 
 	constructor() {
 		super();
@@ -128,7 +126,6 @@ class Web3 extends self.EventTarget {
 		if (typeof this.__web3 !== "undefined" && typeof this.__web3.eth !== "undefined")
 			return this.__web3.eth;
 	}
-	get isReadOnly() { return this.__isReadOnly; }
 	get isTargetChain() { return this.chainId.then(chainId => chainId === CONSTANTS.TARGET_CHAIN_ID); }
 	get provider() { return this.__provider; }
 	get isConnected() {
@@ -172,7 +169,7 @@ class Web3 extends self.EventTarget {
 					resolve(self.ethereum);
 				else if (typeof self.web3 !== "undefined" && typeof self.web3.currentProvider !== "undefined")
 					resolve(self.web3.currentProvider);
-				resolve("Cannot detect an installed web3 compatible wallet.");
+				reject("Cannot detect an installed web3 compatible wallet.");
 			}
 
 			if (self.ethereum)
@@ -186,28 +183,16 @@ class Web3 extends self.EventTarget {
 	async __initialize() {
 		console.log("starting initializing");
 		this.__provider = await this.__getProvider();
-
-		if (typeof this.provider === "string") {
-			await this.__loadWeb3Script();
-			this.__provider = new self.Web3.providers.HttpProvider((new self.URL(CONSTANTS.INFURA.PROJECT_ID, CONSTANTS.INFURA.ENDPOINT)).toString());
-			this.provider.isConnected = () => true;
-		} else {
-			this.__addEvents();
-			await this.__loadWeb3Script();
-			this.__isReadOnly = false;
-		}
+		
+		if (typeof this.provider === "string")
+			return;
+		this.__addEvents();
+		await loadScriptAsync("script/web3.min.js");
 		this.__web3 = new self.Web3(this.provider);
 		await this.mare.__initialize();
 		console.log("finished initializing");
 		this.dispatchEvent(events.get("initialized"));
 		// this.__onAccountsChanged(await this.accounts);
-	}
-	async __loadWeb3Script() {
-		return this.__isWeb3ScriptLoaded.then(isWeb3ScriptLoaded => {
-			if (isWeb3ScriptLoaded)
-				return;
-			return this.__isWeb3ScriptLoaded = loadScriptAsync("script/web3.min.js").then(() => true);
-		});
 	}
 	__onAccountsChanged(accounts) {
 		console.log("accounts changed", accounts);
