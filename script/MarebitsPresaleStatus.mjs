@@ -44,12 +44,12 @@ function onVisibilityChange() {
 }
 function updateStatus() {
 	(async function() {
-		const currentAccount = web3.currentAccount;
-		const isTargetChain = web3.isTargetChain;
+		const currentAccount = this.app.web3.currentAccount;
+		const isTargetChain = this.app.web3.isTargetChain;
 		const privates = _privates.get(this);
 		privates.elements.outputs.bitsBalance.value = privates.elements.outputs.ethRaised.value = privates.elements.outputs.mareBitsSold.value = "0";
 
-		if (web3.isConnected && typeof await currentAccount !== "undefined" && await isTargetChain) {
+		if (this.app.web3.isConnected && typeof await currentAccount !== "undefined" && await isTargetChain) {
 			let hasClosed = Cache.Typed.persisted.get(cacheKey`hasClosed`);
 			let isOpen;
 
