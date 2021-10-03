@@ -47,8 +47,7 @@ function updateStatus() {
 		const currentAccount = this.app.web3.currentAccount;
 		const isTargetChain = this.app.web3.isTargetChain;
 		const privates = _privates.get(this);
-		console.log(privates.elements.outputs.ethRaised);
-		privates.elements.outputs.ethRaised.value = privates.elements.outputs.mareBitsSold.value = "0";
+		privates.elements.outputs.ethRaised.value = privates.elements.outputs.mareSold.value = "0";
 
 		if (this.app.web3.isConnected && typeof await currentAccount !== "undefined" && await isTargetChain) {
 			let hasClosed = Cache.Typed.persisted.get(cacheKey`hasClosed`);
