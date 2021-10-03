@@ -31,12 +31,10 @@ function createDom() {
 	const template = this.app.shadowRoot.getElementById("marebits-presale-status").content.cloneNode(true);
 	privates.elements = {
 		outputs: {
-			bitsBalance: template.getElementById("bits-balance"), 
 			ethRaised: template.getElementById("eth-raised"), 
 			mareSold: template.getElementById("marebits-sold")
 		}
 	};
-	console.log(privates.elements);
 	this.attachShadow({ mode: "open" }).appendChild(template);
 }
 function onVisibilityChange() {
@@ -48,8 +46,7 @@ function updateStatus() {
 		const currentAccount = this.app.web3.currentAccount;
 		const isTargetChain = this.app.web3.isTargetChain;
 		const privates = _privates.get(this);
-		console.log(privates.elements);
-		privates.elements.outputs.bitsBalance.value = privates.elements.outputs.ethRaised.value = privates.elements.outputs.mareBitsSold.value = "0";
+		privates.elements.outputs.ethRaised.value = privates.elements.outputs.mareBitsSold.value = "0";
 
 		if (this.app.web3.isConnected && typeof await currentAccount !== "undefined" && await isTargetChain) {
 			let hasClosed = Cache.Typed.persisted.get(cacheKey`hasClosed`);
@@ -87,7 +84,6 @@ function updateStatus() {
 class MarebitsPresaleStatus extends MareCustomElement {
 	get [self.Symbol.toStringTag]() { return "MarebitsPresaleStatus"; }
 	get app() { return undefined; }
-	get bitsBalance() { return _privates.get(this).elements.outputs.bitsBalance.value; }
 	get ethRaised() { return _privates.get(this).elements.outputs.ethRaised.value; }
 	get mareSold() { return _privates.get(this).elements.outputs.mareSold.value; }
 	set app(app) {
