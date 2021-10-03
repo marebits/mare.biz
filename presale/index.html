@@ -69,10 +69,37 @@
 			<marebits-presale-sale></marebits-presale-sale>
 
 			<template id="marebits-presale-status">
-				<div hidden id="sale-progress">
-					So far, <output-data-message default="0" id="marebits-sold"></output-data-message> MARE have been sold representing <output-data-message default="0" id="eth-raised"></output-data-message> ETH of the pre-sale cap of 2 ETH.
+				<div id="no-wallet">
+					<h3>No wallet found</h3>
+					You must have a compatible wallet &emdash; such as <a href="//metamask.io/" rel="external noopener" target="_blank">MetaMask</a> &emdash; to participate in this pre-sale.
 				</div>
-				<div class="alert" hidden id="sale-not-yet-open">Sorry, the pre-sale is not yet open.</div>
+				<div hidden id="need-permission">
+					<h3>Connect your wallet</h3>
+					Need permission to display the current pre-sale status, please connect your wallet.
+				</div>
+				<div hidden id="wrong-chain">
+					<h3>Wrong chain selected</h3>
+					Your wallet must be on the <output id="chain-name"></output> chain.
+				</div>
+				<div hidden id="open">
+					<h3>The pre-sale is now open!</h3>
+					<meter class="amount-sold"></meter>
+					<div>
+						<output-data-message default="0" class="sold"></output-data-message> MARE have been sold out of a total of <data class="available"></data> MARE available in the pre-sale.
+					</div>
+					<div>
+						The pre-sale closes in <mare-count-down-clock id="closing"></mare-count-down-clock>.
+					</div>
+				</div>
+				<div hidden id="closed">
+					<h3>The pre-sale is now closed!</h3>
+					<meter class="amount-sold"></meter>
+					Sorry, you missed the sale!  A total of <output-data-message class="sold" default="0"></output-data-message> MARE were sold out of <data class="available"></data> MARE available.
+				</div>
+				<div hidden id="not-yet-open">
+					<h3>The pre-sale is not yet open</h3>
+					Sorry, the pre-sale is not quite yet open, but it will open in <mare-count-down-clock id="opening"></mare-count-down-clock>.
+				</div>
 
 				<template id="mare-count-down-clock"><time></time></template>
 			</template>
