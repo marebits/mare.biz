@@ -106,6 +106,7 @@ class MarebitsPresaleStatus extends MareCustomElement {
 	}
 	createdCallback() {
 		// defineCustomElements([MareCountDownClock]);
+		defineCustomElements([OutputDataMessage]);
 		_privates.set(this, { visibilityListener: new VisibilityListener(onVisibilityChange.bind(this)) });
 		super.createdCallback();
 	}
