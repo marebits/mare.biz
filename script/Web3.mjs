@@ -110,6 +110,7 @@ class MareUtils {
 }
 class Web3 extends self.EventTarget {
 	mare = new Mare(this);
+	__isReadOnly = true;
 	__isWeb3ScriptLoaded = self.Promise.resolve(false);
 
 	constructor() {
@@ -127,6 +128,7 @@ class Web3 extends self.EventTarget {
 		if (typeof this.__web3 !== "undefined" && typeof this.__web3.eth !== "undefined")
 			return this.__web3.eth;
 	}
+	get isReadOnly() { return this.__isReadOnly; }
 	get isTargetChain() { return this.chainId.then(chainId => chainId === CONSTANTS.TARGET_CHAIN_ID); }
 	get provider() { return this.__provider; }
 	get isConnected() {
@@ -192,6 +194,7 @@ class Web3 extends self.EventTarget {
 		} else {
 			this.__addEvents();
 			await this.__loadWeb3Script();
+			this.__isReadOnly = false;
 		}
 		this.__web3 = new self.Web3(this.provider);
 		await this.mare.__initialize();
