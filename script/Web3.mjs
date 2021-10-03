@@ -108,6 +108,7 @@ class MareUtils {
 		return self.BigInt((inputValueSplit[0] + inputValueSplit[1].padEnd(numDecimals, "0")).replace(/^0*/, ""));
 	}
 }
+self.Object.freeze(MareUtils);
 class Web3 extends self.EventTarget {
 	mare = new Mare(this);
 
