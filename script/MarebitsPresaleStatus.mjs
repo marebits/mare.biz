@@ -36,6 +36,7 @@ function createDom() {
 			mareSold: template.getElementById("marebits-sold")
 		}
 	};
+	console.log(privates.elements);
 	this.attachShadow({ mode: "open" }).appendChild(template);
 }
 function onVisibilityChange() {
@@ -47,6 +48,7 @@ function updateStatus() {
 		const currentAccount = this.app.web3.currentAccount;
 		const isTargetChain = this.app.web3.isTargetChain;
 		const privates = _privates.get(this);
+		console.log(privates.elements);
 		privates.elements.outputs.bitsBalance.value = privates.elements.outputs.ethRaised.value = privates.elements.outputs.mareBitsSold.value = "0";
 
 		if (this.app.web3.isConnected && typeof await currentAccount !== "undefined" && await isTargetChain) {
