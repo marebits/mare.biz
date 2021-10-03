@@ -188,6 +188,7 @@ class Web3 extends self.EventTarget {
 		if (typeof this.provider === "string") {
 			await this.__loadWeb3Script();
 			this.__provider = new self.Web3.providers.HttpProvider((new self.URL(CONSTANTS.INFURA.PROJECT_ID, CONSTANTS.INFURA.ENDPOINT)).toString());
+			this.provider.isConnected = () => true;
 		} else {
 			this.__addEvents();
 			await this.__loadWeb3Script();
