@@ -71,7 +71,7 @@
 			<template id="marebits-presale-status">
 				<div aria-hidden="true" hidden id="no-wallet">
 					<h3>No wallet found</h3>
-					You must have a compatible wallet &emdash; such as <a href="//metamask.io/" rel="external noopener" target="_blank">MetaMask</a> &emdash; to participate in this pre-sale.
+					You must have a compatible wallet &mdash; such as <a href="//metamask.io/" rel="external noopener" target="_blank">MetaMask</a> &mdash; to participate in this pre-sale.
 				</div>
 				<div aria-hidden="true" hidden id="need-permission">
 					<h3>Connect your wallet</h3>
@@ -83,7 +83,7 @@
 				</div>
 				<div aria-hidden="true" hidden id="open">
 					<h3>The pre-sale is now open!</h3>
-					<meter class="amount-sold"></meter>
+					<meter class="amount-sold" min="0"></meter>
 					<div>
 						<output-data-message default="0" class="sold"></output-data-message> MARE have been sold out of a total of <data class="available"></data> MARE available in the pre-sale.
 					</div>
@@ -93,7 +93,7 @@
 				</div>
 				<div aria-hidden="true" hidden id="closed">
 					<h3>The pre-sale is now closed!</h3>
-					<meter class="amount-sold"></meter>
+					<meter class="amount-sold" min="0"></meter>
 					Sorry, you missed the sale!  A total of <output-data-message class="sold" default="0"></output-data-message> MARE were sold out of <data class="available"></data> MARE available.
 				</div>
 				<div aria-hidden="true" hidden id="not-yet-open">
