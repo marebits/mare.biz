@@ -164,7 +164,10 @@ class Web3 extends self.EventTarget {
 	}
 
 	get accounts() { return this.eth.getAccounts(); }
-	get chainId() { return this.eth.getChainId(); }
+	get chainId() {
+		if (typeof this.eth !== "undefined")
+			return this.eth.getChainId();
+	}
 	get currentAccount() {
 		if (typeof this.eth !== "undefined")
 			return this.accounts.then(accounts => accounts[0]);
