@@ -12,6 +12,7 @@ const events = new self.Map([
 	["accountsChanged", new self.Event("accountsChanged")], 
 	["connected", new self.Event("connected")], 
 	["disconnected", new self.Event("disconnected")], 
+	["error", new self.Event("error")], 
 	["initialized", new self.Event("initialized")]
 ]);
 
@@ -215,7 +216,7 @@ class Web3 extends self.EventTarget {
 					resolve(self.ethereum);
 				else if (typeof self.web3 !== "undefined" && typeof self.web3.currentProvider !== "undefined")
 					resolve(self.web3.currentProvider);
-				reject("Cannot detect an installed web3 compatible wallet.");
+				resolve(undefined);
 			}
 
 			if (self.ethereum)
@@ -230,8 +231,10 @@ class Web3 extends self.EventTarget {
 		console.log("starting initializing");
 		this.__provider = await this.__getProvider();
 		
-		if (typeof this.provider === "string")
+		if (this.provider === undefined) {
+			his.dispatchEvent(events.get("error"));
 			return;
+		}
 		this.__addEvents();
 		await loadScriptAsync("script/web3.min.js");
 		this.__web3 = new self.Web3(this.provider);
