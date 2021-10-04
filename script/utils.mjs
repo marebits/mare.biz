@@ -88,6 +88,7 @@ async function fetchHtml(url) { return (new self.DOMParser()).parseFromString(aw
 async function fetchJson(url, mimeType = "application/json") { return (await fetchGeneric(url, mimeType)).json(); }
 async function fetchText(url, mimeType = "text/plain", preloadAs = "fetch") { return (await fetchGeneric(url, mimeType, preloadAs)).text(); }
 function getRandomInt(min, max) { return self.Math.floor(self.Math.random() * (max - min + 1)) + min; }
+function hyphenToCamelCase(hyphenated) { return hyphenated.toString().replace(/-([a-z])/g, (match, p1) => p1.toUpperCase()); }
 function loadScriptAsync(scriptPath, type = "text/javascript") {
 	preload(scriptPath, { as: "script", type });
 	const scriptElement = createElement("script", { async: true, defer: true, src: scriptPath.toString() });
@@ -154,6 +155,7 @@ export {
 	fetchJson, 
 	fetchText, 
 	getRandomInt, 
+	hyphenToCamelCase, 
 	loadScriptAsync, 
 	preload, 
 	runInBackground, 
