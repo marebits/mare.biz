@@ -232,7 +232,7 @@ class Web3 extends self.EventTarget {
 		this.__provider = await this.__getProvider();
 		
 		if (this.provider === undefined) {
-			his.dispatchEvent(events.get("error"));
+			this.dispatchEvent(events.get("error"));
 			return;
 		}
 		this.__addEvents();
