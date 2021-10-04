@@ -44,6 +44,8 @@ class MarebitsPresaleApp extends MareCustomElement {
 	get [self.Symbol.toStringTag]() { return "MarebitsPresaleApp"; }
 
 	connectedCallback() {
+		if (!this.isConnected)
+			return;
 		const privates = _privates.get(this);
 		(async () => {
 			await privates.createDomPromise;

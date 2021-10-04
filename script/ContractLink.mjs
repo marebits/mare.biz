@@ -144,6 +144,8 @@ class ContractLink extends MareCustomElement {
 			privates.anchor.textContent = contract;
 	}
 	connectedCallback() {
+		if (!this.isConnected)
+			return;
 		const privates = _privates.get(this);
 		privates.copyContractClickEvent = browserEvents.add(new MareEvent(privates.button, "click", () => onCopyContractClick.call(this).catch(console.error), { passive: true }));
 		super.connectedCallback();
