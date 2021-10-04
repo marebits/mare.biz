@@ -57,11 +57,11 @@ function createDom() {
 			closing: template.getElementById("closing"), 
 			opening: template.getElementById("opening")
 		}, 
-		meters: new MareCommonElements(template.getElementsByClassName("amount-sold")), 
+		meters: new MareCommonElements(template.querySelectorAll(".amount-sold")), 
 		outputs: {
-			available: new MareCommonElements(template.getElementsByClassName("available")), 
+			available: new MareCommonElements(template.querySelectorAll(".available")), 
 			chainName: template.getElementById("chain-name"), 
-			sold: new MareCommonElements(template.getElementsByClassName("sold"))
+			sold: new MareCommonElements(template.querySelectorAll(".sold"))
 		}, 
 		statuses: new MareStatusSectionCollection(template, "closed", "need-permission", "not-yet-open", "no-wallet", "open", "wrong-chain")
 	};
