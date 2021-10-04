@@ -139,6 +139,7 @@ class MarebitsPresaleStatus extends MareCustomElement {
 		browserEvents.addMany(privates.events = [
 			new MareEvent(this.app.web3, "accountsChanged", updateStatus.bind(this)), 
 			new MareEvent(this.app.web3, "disconnected", updateStatus.bind(this)), 
+			new MareEvent(this.app.web3, "error", updateStatus.bind(this)), 
 			new MareEvent(this.app.web3, "initialized", updateStatus.bind(this))
 		]);
 		privates.visibilityListener.listen();
