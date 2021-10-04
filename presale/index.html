@@ -69,19 +69,19 @@
 			<marebits-presale-sale></marebits-presale-sale>
 
 			<template id="marebits-presale-status">
-				<div id="no-wallet">
+				<div aria-hidden="true" hidden id="no-wallet">
 					<h3>No wallet found</h3>
 					You must have a compatible wallet &emdash; such as <a href="//metamask.io/" rel="external noopener" target="_blank">MetaMask</a> &emdash; to participate in this pre-sale.
 				</div>
-				<div hidden id="need-permission">
+				<div aria-hidden="true" hidden id="need-permission">
 					<h3>Connect your wallet</h3>
 					Need permission to display the current pre-sale status, please connect your wallet.
 				</div>
-				<div hidden id="wrong-chain">
+				<div aria-hidden="true" hidden id="wrong-chain">
 					<h3>Wrong chain selected</h3>
 					Your wallet must be on the <output id="chain-name"></output> chain.
 				</div>
-				<div hidden id="open">
+				<div aria-hidden="true" hidden id="open">
 					<h3>The pre-sale is now open!</h3>
 					<meter class="amount-sold"></meter>
 					<div>
@@ -91,12 +91,12 @@
 						The pre-sale closes in <mare-count-down-clock id="closing"></mare-count-down-clock>.
 					</div>
 				</div>
-				<div hidden id="closed">
+				<div aria-hidden="true" hidden id="closed">
 					<h3>The pre-sale is now closed!</h3>
 					<meter class="amount-sold"></meter>
 					Sorry, you missed the sale!  A total of <output-data-message class="sold" default="0"></output-data-message> MARE were sold out of <data class="available"></data> MARE available.
 				</div>
-				<div hidden id="not-yet-open">
+				<div aria-hidden="true" hidden id="not-yet-open">
 					<h3>The pre-sale is not yet open</h3>
 					Sorry, the pre-sale is not quite yet open, but it will open in <mare-count-down-clock id="opening"></mare-count-down-clock>.
 				</div>
