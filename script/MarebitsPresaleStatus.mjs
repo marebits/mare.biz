@@ -28,7 +28,7 @@ const _privates = new self.WeakMap();
 class MareCommonElements extends self.Set {
 	set value(value) { this.forEach(element => element.value = value); }
 	replaceChildren(...nodes) { this.forEach(element => element.replaceChildren(...nodes)); }
-	setAttribute(name, value) { this.forEach(element => element.setAttribute(name.toString(), value); }
+	setAttribute(name, value) { this.forEach(element => element.setAttribute(name.toString(), value)); }
 }
 class MareStatusSection {
 	constructor(element) { _privates.set(this, { element }); }
