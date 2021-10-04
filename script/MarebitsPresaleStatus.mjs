@@ -86,7 +86,7 @@ function updateStatus() {
 		const privates = _privates.get(this);
 		privates.elements.statuses.hide();
 
-		if (this.app.web3.isConnected && typeof await currentAccount !== "undefined" && await isTargetChain) {
+		if (this.app.web3.mare.isInitialized && this.app.web3.isConnected && typeof await currentAccount !== "undefined" && await isTargetChain) {
 			const hasClosed = await this.app.web3.mare.hasClosed;
 			const isOpen = hasClosed ? false : await this.app.web3.mare.isOpen;
 
@@ -109,10 +109,10 @@ function updateStatus() {
 		// } else if (!this.app.web3.isConnected) {
 			// no web3 wallet found, page will need to be reloaded or wallet connected
 			// privates.elements.statuses.noWallet.show();
-		} else if (!(await isTargetChain)) {
+		} else if (this.app.web3.isInitialized && !(await isTargetChain)) {
 			// wrong chain
 			privates.elements.statuses.wrongChain.show();
-		} else if (typeof await currentAccount === "undefined") {
+		} else if (this.app.web3.isInitialized && typeof await currentAccount === "undefined") {
 			// wallet detected and connected, but we need permission to use it
 			privates.elements.statuses.needPermission.show();
 		} else
