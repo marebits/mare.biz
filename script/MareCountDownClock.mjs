@@ -20,11 +20,6 @@ function createDom() {
 function onTick({ detail }) { self.requestAnimationFrame(() => ({ isoString: this.value, string: this.textContent } = detail)); }
 
 class MareCountDownClock extends MareCustomElement {
-	get [self.Symbol.toPrimitive](hint) {
-		if (hint === "number")
-			return this.valueOf();
-		return this.toString();
-	}
 	get [self.Symbol.toStringTag]() { return "MareCountDownClock"; }
 	get endTime() { return self.Number(this.getAttribute("end-time")); }
 	get hasEndTime() { return self.Boolean(this.endTime); }
@@ -35,6 +30,11 @@ class MareCountDownClock extends MareCustomElement {
 	set textContent(textContent) { _privates.get(this).elements.time.replaceChildren(self.document.createTextNode(textContent.toString())); }
 	set value(value) { _privates.get(this).elements.time.dateTime = value.toString(); }
 
+	[self.Symbol.toPrimitive](hint) {
+		if (hint === "number")
+			return this.valueOf();
+		return this.toString();
+	}
 	connectedCallback() {
 		if (!this.isConnected)
 			return;
