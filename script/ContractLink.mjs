@@ -134,6 +134,7 @@ class ContractLink extends MareCustomElement {
 		return CONSTANTS.CONTRACT_LINK.DEFAULT_CONTRACT_LINK_TYPE;
 	}
 	get href() { return new self.URL(this.contract, new self.URL(`${this.contractLinkType}/`, _privates.get(this).chainInfo.bexHrefBase)); }
+	get textContent() { return _privates.get(this).anchor.textContent; }
 	get title() { return CONSTANTS.CONTRACT_LINK.ANCHOR_TITLE_TAG(_privates.get(this).chainInfo.bexName); }
 	set contract(contract) {
 		console.log("setting contract to " + contract);
@@ -142,9 +143,10 @@ class ContractLink extends MareCustomElement {
 		super.setAttribute("contract", contract);
 		privates.anchor.href = this.href;
 
-		if (privates.anchor.textContent.length === 0)
-			privates.anchor.replaceChildren(self.document.createTextNode(contract));
+		if (this.textContent.length === 0)
+			this.textContent = contract;
 	}
+	set textContent(textContent) { _privates.get(this).anchor.replaceChildren(self.document.createTextNode(textContent.toString())); }
 	connectedCallback() {
 		if (!this.isConnected)
 			return;
