@@ -71,7 +71,7 @@ function createDom() {
 	privates.elements.meters.setAttribute("low", self.Math.floor(meterMax * 0.33));
 	privates.elements.meters.setAttribute("high", self.Math.floor(meterMax * 0.75));
 	privates.elements.meters.setAttribute("optimum", self.Math.floor(meterMax * 0.9));
-	privates.elements.outputs.available.replaceChildren(self.document.createTextNode(meterMax.toString()));
+	privates.elements.outputs.available.replaceChildren(self.document.createTextNode(meterMax.toLocaleString("en-US")));
 	privates.elements.outputs.available.value = meterMax;
 	this.attachShadow({ mode: "open" }).appendChild(template);
 }
