@@ -29,7 +29,12 @@ class OutputDataMessage extends MareCustomElement {
 
 		if (value.length === 0)
 			value = this.default;
-		super.setAttribute("value", dataElement.value = dataElement.textContent = value);
+		value = self.Number(value);
+
+		if (self.Number.isNaN(value))
+			value = this.default;
+		super.setAttribute("value", dataElement.value = value);
+		dataElement.textContent = value.toLocaleString("en-US");
 		return true;
 	}
 	createdCallback(value) {
