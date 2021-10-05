@@ -82,7 +82,7 @@ function onConnectWalletClick() {
 	const connectWallet = _privates.get(this).elements.buttons.connectWallet;
 	connectWallet.disabled = true;
 	this.app.web3.connect()
-		.then(connectWallet.disabled = false)
+		.then(() => connectWallet.disabled = false)
 		.catch(error => {
 			connectWallet.disabled = false;
 			console.error(error);
