@@ -97,3 +97,5 @@ class MareCountDown extends self.EventTarget {
 	toString(isISO = false) { this.toDuration().toString(isISO); }
 	valueOf() { return this.value; }
 }
+
+export { MareCountDown };
