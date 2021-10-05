@@ -111,8 +111,14 @@ class Mare {
 	__balanceOf(account) { return this.__callMethod("balanceOf", account); }
 	__callMethod(methodName, ...params) { return this.web3.currentAccount.then(currentAccount => this.contract.methods[methodName](...params).call({ from: currentAccount })); }
 	async __initialize() {
-		const marebitsPresale = await fetchJson(CONSTANTS.PRESALE.CONTRACT_ABI);
-		this.abi = marebitsPresale.abi;
+		const marebitsPresale = Cache.get(cacheKey`ABI`);
+
+		if (marebitsPresale)
+			this.abi = self.JSON.parse(marebitsPresale);
+		else {
+			this.abi = (await fetchJson(CONSTANTS.PRESALE.CONTRACT_ABI)).abi;
+			Cache.set(cacheKey`ABI`, self.JSON.stringify(this.abi));
+		}
 		this.contract = new this.web3.eth.Contract(this.abi, CONSTANTS.PRESALE.CONTRACT_ADDRESS, { from: await this.web3.currentAccount });
 		this.__isInitialized = true;
 	}
