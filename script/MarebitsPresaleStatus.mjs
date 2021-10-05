@@ -53,6 +53,9 @@ function createDom() {
 	const privates = _privates.get(this);
 	const template = this.app.shadowRoot.getElementById("marebits-presale-status").content.cloneNode(true);
 	privates.elements = {
+		buttons: {
+			connectWallet: template.getElementById("connect-wallet")
+		}, 
 		clocks: {
 			closing: template.getElementById("closing"), 
 			opening: template.getElementById("opening")
@@ -74,6 +77,16 @@ function createDom() {
 	privates.elements.outputs.available.replaceChildren(self.document.createTextNode(meterMax.toLocaleString("en-US")));
 	privates.elements.outputs.available.value = meterMax;
 	this.attachShadow({ mode: "open" }).appendChild(template);
+}
+function onConnectWalletClick() {
+	const connectWallet = _privates.get(this).elements.buttons.connectWallet;
+	connectWallet.disabled = true;
+	this.app.web3.connect()
+		.then(connectWallet.disabled = false)
+		.catch(error => {
+			connectWallet.disabled = false;
+			console.error(error);
+		});
 }
 function onVisibilityChange() {
 	if (self.document.visibilityState !== "hidden")
@@ -136,6 +149,7 @@ class MarebitsPresaleStatus extends MareCustomElement {
 			return;
 		const privates = _privates.get(this);
 		browserEvents.addMany(privates.events = [
+			new MareEvent(privates.elements.buttons.connectWallet, "click", onConnectWalletClick.bind(this), { passive: true }), 
 			new MareEvent(this.app.web3, "accountsChanged", updateStatus.bind(this)), 
 			new MareEvent(this.app.web3, "disconnected", updateStatus.bind(this)), 
 			new MareEvent(this.app.web3, "error", updateStatus.bind(this)), 
