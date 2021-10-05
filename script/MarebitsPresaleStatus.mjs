@@ -109,12 +109,12 @@ function updateStatus() {
 		// } else if (!this.app.web3.isConnected) {
 			// no web3 wallet found, page will need to be reloaded or wallet connected
 			// privates.elements.statuses.noWallet.show();
-		} else if (isInitialized && !(await isTargetChain)) {
-			// wrong chain
-			privates.elements.statuses.wrongChain.show();
 		} else if (isInitialized && typeof await currentAccount === "undefined") {
 			// wallet detected and connected, but we need permission to use it
 			privates.elements.statuses.needPermission.show();
+		} else if (isInitialized && !(await isTargetChain)) {
+			// wrong chain
+			privates.elements.statuses.wrongChain.show();
 		} else
 			privates.elements.statuses.noWallet.show();
 	})().catch(console.error);
