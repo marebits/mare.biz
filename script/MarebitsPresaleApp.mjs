@@ -7,6 +7,7 @@
 	sale area
 */
 
+import { CONSTANTS } from "./constants.mjs";
 import { browserEvents } from "./EventSet.mjs";
 // import { MarebitsPresaleSale } from "./MarebitsPresaleSale.mjs";
 import { MarebitsPresaleStatus } from "./MarebitsPresaleStatus.mjs";
@@ -29,8 +30,16 @@ async function createDom() {
 	const privates = _privates.get(this);
 	const doc = await fetchHtml(HTML_FILE);
 	const template = doc.body.querySelector("template").content.cloneNode(true);
-	privates.elements = { buttons: { addToMetamask: template.getElementById("add-to-metamask") } };
+	privates.elements = {
+		buttons: { addToMetamask: template.getElementById("add-to-metamask") }, 
+		contracts: {
+			presale: template.getElementById("presale"), 
+			token: template.getElementById("token")
+		}
+	};
 	template.querySelector("marebits-presale-status").addEventListener("elementcreated", ({ detail: marebitsPresaleStatus }) => marebitsPresaleStatus.app = this);
+	privates.elements.contract.presale.contract = CONSTANTS.PRESALE.CONTRACT_ADDRESS;
+	privates.elements.contract.token.contract = CONSTANTS.TOKEN.CONTRACT_ADDRESS;
 	this.attachShadow({ mode: "open" }).appendChild(template);
 }
 function onClickAddToMetamask() { this.web3.mare.watchAsset().catch(console.error); }
@@ -38,7 +47,12 @@ function onVisibilityChange() {
 	if (self.document.visibilityState !== "hidden")
 		updateButtons.call(this);
 }
-function updateButtons() { (async () => { _privates.get(this).elements.buttons.addToMetamask.disabled = !(this.web3.isConnected && await this.web3.isTargetChain); })().catch(console.error); }
+function updateButtons() {
+	(async () => {
+		const privates = _privates.get(this);
+		privates.elements.buttons.addToMetamask.disabled = !(this.app.web3.mare.isInitialized && this.web3.isConnected && await this.web3.isTargetChain); 
+	})().catch(console.error);
+}
 
 class MarebitsPresaleApp extends MareCustomElement {
 	get [self.Symbol.toStringTag]() { return "MarebitsPresaleApp"; }
