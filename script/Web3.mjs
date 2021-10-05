@@ -6,7 +6,7 @@ import { MareEvent } from "./MareEvent.mjs";
 // import { TypedCache } from "./TypedCache.mjs";
 import { fetchJson, loadScriptAsync, preload } from "./utils.mjs";
 
-const CACHE_PREFIX = `${CONSTANTS.PRESALE.CONTRACT_ADDRESS}.`;
+const CACHE_PREFIX = `${CONSTANTS.PRESALE.CONTRACT_ADDRESS}`;
 const ETH_UNITS = new BetterMap(CONSTANTS.ETH_UNITS);
 const events = new self.Map([
 	["accountsChanged", new self.Event("accountsChanged")], 
