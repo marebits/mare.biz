@@ -1,12 +1,3 @@
-/*
-	static content, including contract addresses, etc.
-		-- include button to add MARE token to wallet
-
-	sale status
-	
-	sale area
-*/
-
 import { CONSTANTS } from "./constants.mjs";
 import { ContractLink } from "./ContractLink.mjs";
 import { browserEvents } from "./EventSet.mjs";
