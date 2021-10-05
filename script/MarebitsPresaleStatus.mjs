@@ -1,18 +1,8 @@
-/*
-	sale status (is it open, is it finalized, when it opens, when it closes, how much MARE sold, how much ETH raised)
-		The pre-sale is currently closed, but is scheduled to open in X hours/minutes/countdown
-		The pre-sale is open!  Currently sold X MARE out of a total of Y. <progress>  Pre-sale closes in X hours/minutes/countdown
-		The pre-sale is closed, we sold X MARE out of a total of Y. <progress> Be sure to withdraw your MARE if you purchased any!
-
-	public properties: 
-	public methods: 
-	emitted events: 
-*/
-
 import { BetterMap } from "./BetterMap.mjs";
 import { CONSTANTS } from "./constants.mjs";
+import { ContractLink } from "./ContractLink.mjs";
 import { browserEvents } from "./EventSet.mjs";
-// import { MareCountDownClock } from "./MareCountDownClock.mjs";
+import { MareCountDownClock } from "./MareCountDownClock.mjs";
 import { MareCustomElement } from "./MareCustomElement.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { OutputDataMessage } from "./OutputDataMessage.mjs";
@@ -103,31 +93,23 @@ function updateStatus() {
 			const isOpen = hasClosed ? false : await this.app.web3.mare.isOpen;
 
 			if (isOpen) {
-				// The pre-sale is open!  Currently sold X MARE out of a total of Y. <progress>  Pre-sale closes in X hours/minutes/countdown
 				await self.Promise.all([
 					(async () => privates.elements.clocks.closing.endTime = await this.app.web3.mare.closingTime * 1000)(), 
 					(async () => privates.elements.meters.value = privates.elements.outputs.sold.value = (await this.app.web3.mare.mareSold).replace(/,/g, ""))()
 				]);
 				privates.elements.statuses.open.show();
 			} else if (hasClosed) {
-				// The pre-sale is closed, we sold X MARE out of a total of Y. <progress> Be sure to withdraw your MARE if you purchased any!
 				privates.elements.meters.value = privates.elements.outputs.sold.value = (await this.app.web3.mare.mareSold).replace(/,/g, "");
 				privates.elements.statuses.closed.show();
 			} else {
-				// The pre-sale is currently closed, but is scheduled to open in X hours/minutes/countdown
 				privates.elements.clocks.opening.endTime = await this.app.web3.mare.openingTime * 1000;
 				privates.elements.statuses.notYetOpen.show();
 			}
-		// } else if (!this.app.web3.isConnected) {
-			// no web3 wallet found, page will need to be reloaded or wallet connected
-			// privates.elements.statuses.noWallet.show();
-		} else if (isInitialized && typeof await currentAccount === "undefined") {
-			// wallet detected and connected, but we need permission to use it
+		} else if (isInitialized && typeof await currentAccount === "undefined")
 			privates.elements.statuses.needPermission.show();
-		} else if (isInitialized && !(await isTargetChain)) {
-			// wrong chain
+		else if (isInitialized && !(await isTargetChain))
 			privates.elements.statuses.wrongChain.show();
-		} else
+		else
 			privates.elements.statuses.noWallet.show();
 	})().catch(console.error);
 }
@@ -158,8 +140,7 @@ class MarebitsPresaleStatus extends MareCustomElement {
 		super.connectedCallback();
 	}
 	createdCallback() {
-		// defineCustomElements([MareCountDownClock]);
-		defineCustomElements([OutputDataMessage]);
+		defineCustomElements([ContractLink, MareCountDownClock, OutputDataMessage]);
 		_privates.set(this, { visibilityListener: new VisibilityListener(onVisibilityChange.bind(this)) });
 		super.createdCallback();
 	}
