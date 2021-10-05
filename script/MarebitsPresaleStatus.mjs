@@ -143,6 +143,7 @@ class MarebitsPresaleStatus extends MareCustomElement {
 			new MareEvent(this.app.web3, "initialized", updateStatus.bind(this))
 		]);
 		privates.visibilityListener.listen();
+		updateStatus.call(this);
 		super.connectedCallback();
 	}
 	createdCallback() {
