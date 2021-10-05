@@ -136,7 +136,9 @@ class ContractLink extends MareCustomElement {
 	get href() { return new self.URL(this.contract, new self.URL(`${this.contractLinkType}/`, _privates.get(this).chainInfo.bexHrefBase)); }
 	get title() { return CONSTANTS.CONTRACT_LINK.ANCHOR_TITLE_TAG(_privates.get(this).chainInfo.bexName); }
 	set contract(contract) {
+		console.log("setting contract to " + contract);
 		const privates = _privates.get(this);
+		contract = contract.toString();
 		super.setAttribute("contract", contract);
 		privates.anchor.href = this.href;
 
