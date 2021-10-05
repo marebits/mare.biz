@@ -85,6 +85,7 @@ function updateStatus() {
 		const isTargetChain = this.app.web3.isTargetChain;
 		const privates = _privates.get(this);
 		privates.elements.statuses.hide();
+		console.log({ isInitialized: this.app.web3.mare.isInitialized, isConnected: this.app.web3.isConnected, currentAccount: await currentAccount, isTargetChain: await isTargetChain });
 
 		if (this.app.web3.mare.isInitialized && this.app.web3.isConnected && typeof await currentAccount !== "undefined" && await isTargetChain) {
 			const hasClosed = await this.app.web3.mare.hasClosed;
@@ -99,6 +100,7 @@ function updateStatus() {
 				privates.elements.statuses.open.show();
 			} else if (hasClosed) {
 				// The pre-sale is closed, we sold X MARE out of a total of Y. <progress> Be sure to withdraw your MARE if you purchased any!
+				console.log(await this.app.web3.mare.mareSold);
 				privates.elements.meters.value = privates.elements.outputs.sold.value = await this.app.web3.mare.mareSold;
 				privates.elements.statuses.closed.show();
 			} else {
