@@ -8,6 +8,7 @@
 */
 
 import { CONSTANTS } from "./constants.mjs";
+import { ContractLink } from "./ContractLink.mjs";
 import { browserEvents } from "./EventSet.mjs";
 // import { MarebitsPresaleSale } from "./MarebitsPresaleSale.mjs";
 import { MarebitsPresaleStatus } from "./MarebitsPresaleStatus.mjs";
@@ -37,6 +38,7 @@ async function createDom() {
 			token: template.getElementById("token")
 		}
 	};
+	console.log(privates.elements.contracts);
 	template.querySelector("marebits-presale-status").addEventListener("elementcreated", ({ detail: marebitsPresaleStatus }) => marebitsPresaleStatus.app = this);
 	privates.elements.contracts.presale.contract = CONSTANTS.PRESALE.CONTRACT_ADDRESS;
 	privates.elements.contracts.token.contract = CONSTANTS.TOKEN.CONTRACT_ADDRESS;
@@ -75,7 +77,7 @@ class MarebitsPresaleApp extends MareCustomElement {
 	}
 	createdCallback() {
 		this.web3 = new Web3();
-		defineCustomElements([MarebitsPresaleStatus]);
+		defineCustomElements([ContractLink, MarebitsPresaleStatus]);
 		_privates.set(this, { visibilityListener: new VisibilityListener(onVisibilityChange.bind(this)) });
 		_privates.get(this).createDomPromise = createDom.call(this).then(super.createdCallback.bind(this)).catch(console.error);
 	}
