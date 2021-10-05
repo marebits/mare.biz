@@ -97,7 +97,6 @@ function updateStatus() {
 		const [currentAccount, isConnected, isInitialized, isTargetChain] = [this.app.web3.currentAccount, this.app.web3.isConnected, this.app.web3.mare.isInitialized, this.app.web3.isTargetChain];
 		const privates = _privates.get(this);
 		privates.elements.statuses.hide();
-		console.log({ isInitialized, isConnected, currentAccount: await currentAccount, isTargetChain: await isTargetChain });
 
 		if (isInitialized && isConnected && typeof await currentAccount !== "undefined" && await isTargetChain) {
 			const hasClosed = await this.app.web3.mare.hasClosed;
