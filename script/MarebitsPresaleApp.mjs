@@ -51,7 +51,7 @@ function onVisibilityChange() {
 function updateButtons() {
 	(async () => {
 		const privates = _privates.get(this);
-		privates.elements.buttons.addToMetamask.disabled = !(this.app.web3.mare.isInitialized && this.web3.isConnected && await this.web3.isTargetChain); 
+		privates.elements.buttons.addToMetamask.disabled = !(this.web3.mare.isInitialized && this.web3.isConnected && await this.web3.isTargetChain); 
 	})().catch(console.error);
 }
 
