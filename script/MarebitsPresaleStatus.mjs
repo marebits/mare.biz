@@ -101,7 +101,7 @@ function updateStatus() {
 			} else if (hasClosed) {
 				// The pre-sale is closed, we sold X MARE out of a total of Y. <progress> Be sure to withdraw your MARE if you purchased any!
 				console.log((await this.app.web3.mare.mareSold).replace(/,/g, ""));
-				privates.elements.meters.value = privates.elements.outputs.sold.value = (await this.app.web3.mare.mareSold).replace(",", "");
+				privates.elements.meters.value = privates.elements.outputs.sold.value = (await this.app.web3.mare.mareSold).replace(/,/g, "");
 				privates.elements.statuses.closed.show();
 			} else {
 				// The pre-sale is currently closed, but is scheduled to open in X hours/minutes/countdown
