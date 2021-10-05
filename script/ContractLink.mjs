@@ -141,7 +141,7 @@ class ContractLink extends MareCustomElement {
 		privates.anchor.href = this.href;
 
 		if (privates.anchor.textContent.length === 0)
-			privates.anchor.textContent = contract;
+			privates.anchor.replaceChildren(self.document.createTextNode(contract));
 	}
 	connectedCallback() {
 		if (!this.isConnected)
