@@ -56,11 +56,6 @@ class MareCountDown extends self.EventTarget {
 		privates.events = new self.Map([...events, ["tick", new self.CustomEvent("tick", tickEventDetail)]]);
 	}
 
-	get [self.Symbol.toPrimitive](hint) {
-		if (hint === "number")
-			return this.valueOf();
-		return this.toString();
-	}
 	get [self.Symbol.toStringTag]() { return "MareCountDown"; }
 	get endTime() { return _privates.get(this).endTime; }
 	get isEnded() { return _privates.get(this).isEnded; }
@@ -74,6 +69,11 @@ class MareCountDown extends self.EventTarget {
 		return undefined;
 	}
 
+	[self.Symbol.toPrimitive](hint) {
+		if (hint === "number")
+			return this.valueOf();
+		return this.toString();
+	}
 	pause() {
 		if (!this.isStarted || this.isEnded)
 			return;
