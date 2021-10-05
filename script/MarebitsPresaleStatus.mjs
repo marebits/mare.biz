@@ -81,13 +81,12 @@ function onVisibilityChange() {
 }
 function updateStatus() {
 	(async () => {
-		const currentAccount = this.app.web3.currentAccount;
-		const isTargetChain = this.app.web3.isTargetChain;
+		const [currentAccount, isConnected, isInitialized, isTargetChain] = [this.app.web3.currentAccount, this.app.web3.isConnected, this.app.web3.mare.isInitialized, this.app.web3.isTargetChain];
 		const privates = _privates.get(this);
 		privates.elements.statuses.hide();
-		console.log({ isInitialized: this.app.web3.mare.isInitialized, isConnected: this.app.web3.isConnected, currentAccount: await currentAccount, isTargetChain: await isTargetChain });
+		console.log({ isInitialized, isConnected, currentAccount: await currentAccount, isTargetChain: await isTargetChain });
 
-		if (this.app.web3.mare.isInitialized && this.app.web3.isConnected && typeof await currentAccount !== "undefined" && await isTargetChain) {
+		if (isInitialized && isConnected && typeof await currentAccount !== "undefined" && await isTargetChain) {
 			const hasClosed = await this.app.web3.mare.hasClosed;
 			const isOpen = hasClosed ? false : await this.app.web3.mare.isOpen;
 
@@ -95,7 +94,7 @@ function updateStatus() {
 				// The pre-sale is open!  Currently sold X MARE out of a total of Y. <progress>  Pre-sale closes in X hours/minutes/countdown
 				await self.Promise.all([
 					(async () => privates.elements.clocks.closing.endTime = await this.app.web3.mare.closingTime * 1000)(), 
-					(async () => privates.elements.meters.value = privates.elements.outputs.sold.value = (await this.app.web3.mare.mareSold).replace(",", ""))()
+					(async () => privates.elements.meters.value = privates.elements.outputs.sold.value = (await this.app.web3.mare.mareSold).replace(/,/g, ""))()
 				]);
 				privates.elements.statuses.open.show();
 			} else if (hasClosed) {
@@ -110,10 +109,10 @@ function updateStatus() {
 		// } else if (!this.app.web3.isConnected) {
 			// no web3 wallet found, page will need to be reloaded or wallet connected
 			// privates.elements.statuses.noWallet.show();
-		} else if (this.app.web3.isInitialized && !(await isTargetChain)) {
+		} else if (isInitialized && !(await isTargetChain)) {
 			// wrong chain
 			privates.elements.statuses.wrongChain.show();
-		} else if (this.app.web3.isInitialized && typeof await currentAccount === "undefined") {
+		} else if (isInitialized && typeof await currentAccount === "undefined") {
 			// wallet detected and connected, but we need permission to use it
 			privates.elements.statuses.needPermission.show();
 		} else
