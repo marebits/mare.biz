@@ -69,3 +69,5 @@ class MareCountDownClock extends MareCustomElement {
 	valueOf() { return this.value; }
 }
 MareCountDownClock.TAG_NAME = TAG_NAME;
+
+export { MareCountDownClock };
