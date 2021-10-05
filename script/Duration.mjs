@@ -58,11 +58,6 @@ class Duration {
 		}
 	}
 
-	get [self.Symbol.toPrimitive](hint) {
-		if (hint === "number")
-			return this.valueOf();
-		return this.toString();
-	}
 	get [self.Symbol.toStringTag]() { return "Duration"; }
 	get years() { return _privates.get(this).duration.years; }
 	get months() { return _privates.get(this).duration.months; }
@@ -73,6 +68,11 @@ class Duration {
 	get seconds() { return _privates.get(this).duration.seconds; }
 	get value() { return _privates.get(this).value; }
 
+	[self.Symbol.toPrimitive](hint) {
+		if (hint === "number")
+			return this.valueOf();
+		return this.toString();
+	}
 	toString(isISO = true) {
 		if (isISO) {
 			const result = DurationValue.properties.reduce((designatedValues, properties) => {
