@@ -38,8 +38,8 @@ async function createDom() {
 		}
 	};
 	template.querySelector("marebits-presale-status").addEventListener("elementcreated", ({ detail: marebitsPresaleStatus }) => marebitsPresaleStatus.app = this);
-	privates.elements.contract.presale.contract = CONSTANTS.PRESALE.CONTRACT_ADDRESS;
-	privates.elements.contract.token.contract = CONSTANTS.TOKEN.CONTRACT_ADDRESS;
+	privates.elements.contracts.presale.contract = CONSTANTS.PRESALE.CONTRACT_ADDRESS;
+	privates.elements.contracts.token.contract = CONSTANTS.TOKEN.CONTRACT_ADDRESS;
 	this.attachShadow({ mode: "open" }).appendChild(template);
 }
 function onClickAddToMetamask() { this.web3.mare.watchAsset().catch(console.error); }
