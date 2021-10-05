@@ -3,6 +3,7 @@
 import { browserEvents } from "./EventSet.mjs";
 import { CONSTANTS } from "./constants.mjs";
 import { ContractLink } from "./ContractLink.mjs";
+import { MarebitsPresaleApp } from "./MarebitsPresaleApp.mjs";
 import { MareEvent } from "./MareEvent.mjs";
 import { OutputDataMessage } from "./OutputDataMessage.mjs";
 import { Cache } from "./Cache.mjs";
@@ -25,7 +26,7 @@ const tokenContractLink = self.document.getElementById("token-contract");
 const walletConnectButton = self.document.getElementById("wallet-connect");
 const walletMessageOutput = self.document.getElementById("wallet-message");
 const withdrawButton = self.document.getElementById("withdraw");
-defineCustomElements([ContractLink, OutputDataMessage]);
+defineCustomElements([ContractLink, MarebitsPresaleApp, OutputDataMessage]);
 // browserEvents.addMany([
 // 	new MareEvent(addToMetaMaskButton, "click", onAddToMetaMaskClick, { passive: true }), 
 // 	new MareEvent(purchaseAmountInput, "input", onPurchaseAmountInput, { passive: true }), 
