@@ -1,0 +1,21 @@
+{
+	"name": "MARE Bits — A decentralized crypto bit token for everypony",
+	"short_name": "$MARE",
+	"categories": ["finance", "business", "crypto"],
+	"description": "$MARE: A decentralized MARE financial ecosystem built on our community's love of mares and memes. /)",
+	"background_color": "#6e3d95",
+	"developer": {
+		"name": "Twifag",
+		"url": "https://twitter.com/MareBits"
+	},
+	"display": "browser",
+	"icons": [
+		{ "sizes": "192x192", "src": "/marebits/icon-192.png", "type": "image/png" }, 
+		{ "sizes": "512x512", "src": "/marebits/icon-512.png", "type": "image/png" }, 
+		{ "src": "/marebits/marebits.svg", "type": "image/svg+xml" }
+	],
+	"orientation": "portrait",
+	"scope": "/",
+	"start_url": "https://mare.biz/",
+	"theme_color": "#b689c8"
+}

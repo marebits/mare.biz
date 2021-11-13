@@ -12,7 +12,7 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link crossorigin rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://mare.biz/" rel="home index" type="text/html">
-		<!-- <link href="/manifest.jsonmanifest" rel="manifest" type="application/manifest+json"> -->
+		<link href="/manifest.jsonmanifest" rel="manifest" type="application/manifest+json">
 		<!-- <link href="/sitemap.xml" rel="sitemap" type="text/xml"> -->
 		<!-- <meta content="/browserconfig.xml" name="msapplication-config"> -->
 		<meta content="MARE Bits — A decentralized crypto bit token for everypony" name="title" property="og:title">
@@ -91,8 +91,9 @@
 				]
 			}
 		</script>
-		<link href="favicon.svg" rel="shortcut icon" sizes="any" type="image/svg+xml">
-		<link href="favicon.ico" rel="alternate icon shortcut" sizes="256x256 192x192 128x128 96x96 64x64 48x48 40x40 32x32 24x24 16x16" type="image/vnd.microsoft.icon">
+		<link href="favicon.svg" rel="shortcut icon" type="image/svg+xml">
+		<link href="favicon.ico" rel="alternate icon shortcut" sizes="any" type="image/vnd.microsoft.icon">
+		<link href="marebits/icon-192.png" rel="apple-touch-icon">
 		<title>MARE Bits — A decentralized crypto bit token for everypony</title>
 		<link href="index.css" rel="stylesheet">
 		<script src="script/stars.mjs" type="module"></script>
@@ -143,7 +144,7 @@
 				<dl id="briefing-details">
 					<dt>Token Symbol</dt><dd>$MARE</dd>
 					<dt>Max Supply</dt><dd><data value="233666428910.958452213243697852">233,666,428,911.958452213243697852</data></dd>
-					<dt>Presale Starts</dt><dd><!-- <time datetime="2021-09-16T00:00:00Z"> -->Soon, I hope<!-- </time> --></dd>
+					<dt>Liquidity</dt><dd><!-- <time datetime="2021-09-16T00:00:00Z"> -->Soon, I hope<!-- </time> --></dd>
 					<dt>Contract Address</dt><dd>
 						<contract-link button-color="white" contract="0xc5a1973e1f736e2ad991573f3649f4f4a44c3028" contract-link-type="token">0xc5a1973e1f736e2ad991573f3649f4f4a44c3028</contract-link>
 					</dd>
@@ -252,17 +253,8 @@
 					</ul>
 				</nav>
 			</section>
-			<h2 class="big-header detail">Pre-Sale</h2>
-			<marebits-presale-app class="card detail twilight"></marebits-presale-app>
+			<h2 class="big-header detail">How To Get $MARE</h2>
 			<section class="card detail twilight">
-				<h3>This application is not yet in production, this is a user-facing test</h3>
-				<div><span class="alert">In Testing</span>: The pre-sale is currently running on the Ropsten Test Network.</div>
-				<div>Presale contract address: <contract-link chain-name="ropsten" contract="" id="presale-contract"></contract-link>
-				<div>
-					Token contract address: <contract-link chain-name="ropsten" contract="" contract-link-type="token" id="token-contract"></contract-link>
-					<button class="action-button" disabled id="add-to-metamask">Add MARE to MetaMask</button>
-				</div>
-				<hr>
 				<div>
 					<details>
 						<summary><h3 class="super-important">Please read this carefully before proceeding</h3></summary>
@@ -311,49 +303,6 @@
 							<li>In order for this presale to work, you <em class="super-important">must enable JavaScript</em> and it is highly recommended you use a <a href="//metamask.io/" rel="external noopener" target="_blank">MetaMask wallet</a> on an up-to-date version of either a <a href="//www.chromium.org/getting-involved/download-chromium" rel="external noopener" target="_blank">Chromium</a> (including <a href="//www.google.com/chrome/" rel="external noopener" target="_blank">Google Chrome</a>) or <a href="//www.mozilla.org/en-US/firefox/new/" rel="external noopener" target="_blank">Firefox</a> browser</li>
 						</ol>
 					</details>
-				</div>
-				<!-- <hr>
-				<div>
-					<noscript>
-						<strong>If you want to participate in the pre-sale, you <em>must enable JavaScript</em>!</strong>
-						<hr>
-					</noscript>
-					<strong>If you'd like to participate in our <span class="alert">TEST</span> pre-sale, follow these easy instructions:</strong>
-					<ol>
-						<li>Make sure your wallet is currently pointing at the Ropsten Test Network</li>
-						<li>Click the button below to connect your wallet to this page</li>
-						<li>Enter the number of Mare Bits you want to buy</li>
-						<li>Click Purchase MARE, sign the transaction, and you're set!</li>
-						<li>Once the pre-sale is finalized, follow the steps above but instead click the Withdraw MARE button to receive your MARE</li>
-					</ol>
-				</div> -->
-				<hr>
-				<div>
-					<button class="action-button" disabled id="wallet-connect">Connect Wallet</button>
-					<div>
-						<output id="wallet-message">
-							You must have a <a href="//metamask.io/" rel="external noopener" target="_blank">MetaMask</a> compatible wallet to participate.
-						</output>
-					</div>
-				</div>
-				<hr>
-				<div hidden id="sale-progress">
-					So far, <output-data-message default="0" id="marebits-sold"></output-data-message> MARE have been sold representing <output-data-message default="0" id="eth-raised"></output-data-message> ETH of the pre-sale cap of 2 ETH.
-				</div>
-				<div class="alert" hidden id="sale-not-yet-open">Sorry, the pre-sale is not yet open.</div>
-				<hr hidden id="sale-progress-hr">
-				<div>
-					<input autocomplete="off" autocorrect="off" id="purchase-amount" inputmode="number" max="2" min="0.000000001" placeholder="1 ETH = 60,753,271,517 MARE" step="0.000000000000000001" type="number" value="">
-					<button class="action-button" disabled id="purchase">Purchase MARE</button>
-					<div>
-						You will receive <output-data-message default="0" id="purchase-balance"></output-data-message> MARE.
-					</div>
-					<div hidden id="purchase-result"></div>
-				</div>
-				<hr>
-				<button class="action-button" disabled id="withdraw">Withdraw MARE</button>
-				<div>
-					You currently have <output-data-message default="0" id="bits-balance"></output-data-message> MARE pre-ordered.  Once the pre-sale is over, you will be able to withdraw them by using the button above.
 				</div>
 			</section>
 		</main>
