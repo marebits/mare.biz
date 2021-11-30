@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta content="default-src 'self'; connect-src 'self' *.infura.io; font-src 'self' fonts.gstatic.com; img-src 'self' data:; script-src 'self' 'sha512-ZwlmMMxYc0jBLA6Vpyoh64qcG0yhBvqb6l42vpg/3KqLcGu2V992vulZzcmn5VVSztpYAxi25OGddSkd+AZNLQ=='; style-src 'self' 'unsafe-inline' fonts.googleapis.com; upgrade-insecure-requests" http-equiv="content-security-policy">
 		<meta content="width=device-width, initial-scale=1" name="viewport">
-		<!-- <base href="https://mare.biz/"> -->
+		<base href=".">
 		<link href="https://mare.biz/" rel="canonical" type="text/html">
 		<link as="style" rel="preload" href="index.css" importance="high" type="text/css">
 		<link as="style" rel="preload" href="common.css" importance="high" type="text/css">
@@ -28,6 +28,7 @@
 		<meta content="@MareBits" name="twitter:site">
 		<link href="//iwtcits.com" importance="high" rel="bestpony" type="text/html">
 		<link href="//donutsteal.pl" rel="code-license content-license license" type="text/html">
+		<link href="//plusnigger.autism.exposed" rel="code-license content-license license" type="text/html">
 		<script type="application/ld+json">
 			{
 				"@context": {
@@ -100,6 +101,20 @@
 	</head>
 	<body data-is-js-disabled>
 		<script>if ("noModule" in self.HTMLScriptElement.prototype) delete self.document.body.dataset.isJsDisabled;</script>
+		<section id="top-nav">
+			<span><a href="." rel="home index">$MARE</a></span>
+			<nav>
+				<ul>
+					<li><a href="#section-vision">Vision</a></li>
+					<li><a href="#section-community">Community</a></li>
+					<li><a href="#section-bananas">Bananas</a></li>
+					<li><a href="#section-portability">Portability</a></li>
+					<li><a href="#section-contracts">Contracts</a></li>
+					<li><a href="#section-social">Social</a></li>
+					<li><a href="#section-get">GET $MARE</a></li>
+				</ul>
+			</nav>
+		</section>
 		<svg role="presentation">
 			<defs>
 				<filter id="darken-mare">
@@ -136,7 +151,7 @@
 		</header>
 		<main>
 			<h1 class="big-header card header">
-				<a href="//etherscan.io/token/0xc5a1973e1f736e2ad991573f3649f4f4a44c3028" rel="external noopener" target="_blank">$MARE</a>: A decentralized MARE financial ecosystem built on our community's love of mares and memes.
+				<a href="//etherscan.io/token/0xc5a1973e1f736e2ad991573f3649f4f4a44c3028" rel="external noopener">$MARE</a>: A decentralized MARE financial ecosystem built on our community's love of mares and memes.
 				<dfn title="brohoof /)">/)</dfn>
 			</h1>
 			<h2 class="big-header detail"><dfn><abbr title="too long; didn't read">tl;dr</abbr></dfn></h2>
@@ -144,15 +159,13 @@
 				<dl id="briefing-details">
 					<dt>Token Symbol</dt><dd>$MARE</dd>
 					<dt>Max Supply</dt><dd><data value="233666428910.958452213243697852">233,666,428,911.958452213243697852</data></dd>
-					<dt>Liquidity</dt><dd><!-- <time datetime="2021-09-16T00:00:00Z"> -->Soon, I hope<!-- </time> --></dd>
-					<dt>Contract Address</dt><dd>
-						<contract-link button-color="white" contract="0xc5a1973e1f736e2ad991573f3649f4f4a44c3028" contract-link-type="token">0xc5a1973e1f736e2ad991573f3649f4f4a44c3028</contract-link>
-					</dd>
+					<dt>Liquidity</dt><dd><a href="//quickswap.exchange/#/swap?outputCurrency=0xb362a97ad06c907c4b575d3503fb9dc474498480" rel="external">Live on Polygon!</a></dd>
+					<dt>ETH Contract Address</dt><dd><a href="#section-contracts">See below</a></dd>
 				</dl>
 			</section>
 			<h2 class="big-header detail">Details</h2>
 			<section>
-				<h3 class="card detail header">
+				<h3 class="card detail header" id="section-vision">
 					<picture>
 						<source sizes="3.75rem" srcset="cutie_marks/TS-1x.avif 1x, cutie_marks/TS-3x.avif 2x, cutie_marks/TS-3x.avif 3x, cutie_marks/TS.avif" type="image/avif">
 						<source sizes="3.75rem" srcset="cutie_marks/TS-1x.webp 1x, cutie_marks/TS-3x.webp 2x, cutie_marks/TS-3x.webp 3x" type="image/webp">
@@ -165,7 +178,7 @@
 				</div>
 			</section>
 			<section>
-				<h3 class="card detail header">
+				<h3 class="card detail header" id="section-community">
 					Community
 					<picture>
 						<source sizes="3.75rem" srcset="cutie_marks/RD-1x.avif 1x, cutie_marks/RD-3x.avif 2x, cutie_marks/RD-3x.avif 3x, cutie_marks/RD.avif" type="image/avif">
@@ -177,26 +190,26 @@
 				</div>
 			</section>
 			<section>
-				<h3 class="card detail header">
+				<h3 class="card detail header" id="section-bananas">
 					<picture>
 						<source sizes="3.75rem" srcset="cutie_marks/FS-1x.avif 1x, cutie_marks/FS-3x.avif 2x, cutie_marks/FS-3x.avif 3x, cutie_marks/FS.avif" type="image/avif">
 						<img class="cutie-mark" loading="lazy" role="presentation" sizes="3.75rem" src="cutie_marks/FS.webp" srcset="cutie_marks/FS-1x.webp 1x, cutie_marks/FS-3x.webp 2x, cutie_marks/FS-3x.webp 3x" type="image/webp">
 					</picture>
-					The Token
+					Do you like bananas?
 				</h3>
 				<div class="card detail flutter">
 					<div>
 						Supply itself is limited to approximately <data value="233666428910.958452213243697852">233,666,428,911</data> tokens. <b>No new tokens will ever be minted</b>, and the contract itself does not support minting.  This means there is a <em>limited supply</em>, making these some <em>hot</em> Mare Bits.
 					</div>
 					<div>
-						These Mare Bits are also moister than an oyster!  Our goal is to squirt at least <data value="210299786019.8626069919193280668">90% of tokens</data> into presale and liquidity provider contracts with various exchanges; the resulting LP tokens will be <b>locked for at least <time datetime="PT4Y">5 years</time></b>
+						These Mare Bits are also moister than an oyster!  Our goal is to squirt at least <data value="210299786019.8626069919193280668">90% of tokens</data> into presale and liquidity provider contracts with various exchanges; the resulting LP tokens will be <b>locked for at least <time datetime="PT3Y">3 years</time></b>
 					</div>
 					<div>
-						Only about <data value="23366642891.0958452213243697852">10% of tokens</data> will initially be held by the dev, and if we can find a suitable vesting platform (or if we find the time to develop our own) they will only be released on a certain schedule, helping to <b>guarantee the developer won't pull out early</b> (no mare likes that, details TBD)
+						Only about <data value="23366642891.0958452213243697852">10% of tokens</data> will initially be held by the dev, and if you know him, you know he's never pulling out of these Mare Bits.
 					</div>
 				</div>
 			</section>
-			<section>
+<!-- 			<section>
 				<h3 class="card detail header">
 					Reducing Arbitrage Risks
 					<picture>
@@ -205,74 +218,97 @@
 					</picture>
 				</h3>
 				<div class="card detail rarity">
-					In order to mitigate the risks of <q>impermanent</q> loss due to arbitrage, at least <data value="105149893009.9313034959596640334">50% of the tokens set aside for liquidity</data> will immediately be issued to a single exchange (likely <a href="//uniswap.org/" target="_blank">Uniswap</a>) with the remaining distributed amongst other liquidity providers.
+					In order to mitigate the risks of <q>impermanent</q> loss due to arbitrage, at least <data value="105149893009.9313034959596640334">50% of the tokens set aside for liquidity</data> will immediately be issued to a single exchange (likely <a href="//uniswap.org/">Uniswap</a>) with the remaining distributed amongst other liquidity providers.
 				</div>
-			</section>
-<!-- 			<section>
-				<h3 class="card detail header">
+			</section> -->
+			<section>
+				<h3 class="card detail header" id="section-portability">
+					Blockchain Portability
 					<picture>
 						<source sizes="3.75rem" srcset="cutie_marks/PP-1x.avif 1x, cutie_marks/PP-3x.avif 2x, cutie_marks/PP-3x.avif 3x, cutie_marks/PP.avif" type="image/avif">
 						<img class="cutie-mark" loading="lazy" role="presentation" sizes="3.75rem" src="cutie_marks/PP.webp" srcset="cutie_marks/PP-1x.webp 1x, cutie_marks/PP-3x.webp 2x, cutie_marks/PP-3x.webp 3x" type="image/webp">
 					</picture>
-					Airdrops
 				</h3>
 				<div class="card detail pinkie">
-					We may donate some of the <data value="23366642891.0958452213243697852">10% of dev tokens</data> held back for airdrops/giveaways in order to help promote Mare Bits.  We want everyone talking about these juicy bits, so we'll be trying <em>hard</em> to come up with some way to reward shills
+					<a href="//polygon.technology/" rel="external noopener">Polygon</a> has provided a <a href="//wallet.matic.network/bridge" rel="external noopener">PoS bridge</a> between Mare Bits on Ethereum and the Matic blockchain; this means <b>you can easily move your Mare Bits to and from Matic to take advantage of lower transaction fees</b>.  We will be looking to provide liquidity on Matic as well.  <a href="//polygonscan.com/token/0xb362A97aD06C907c4b575D3503fB9DC474498480" rel="external">See the contract on Polygonscan</a><copy-button>0xb362A97aD06C907c4b575D3503fB9DC474498480</copy-button>.
 				</div>
-			</section> -->
+			</section>
 			<section>
-				<h3 class="card detail header">
-					Blockchain Portability
+				<h3 class="card detail header" id="section-contracts">
 					<picture>
 						<source sizes="3.75rem" srcset="cutie_marks/AJ-1x.avif 1x, cutie_marks/AJ-3x.avif 2x, cutie_marks/AJ-3x.avif 3x, cutie_marks/AJ.avif" type="image/avif">
 						<img class="cutie-mark" loading="lazy" role="presentation" sizes="3.75rem" src="cutie_marks/AJ.webp" srcset="cutie_marks/AJ-1x.webp 1x, cutie_marks/AJ-3x.webp 2x, cutie_marks/AJ-3x.webp 3x" type="image/webp">
 					</picture>
+					Contracts
 				</h3>
 				<div class="card detail apple">
-					<a href="//polygon.technology/" rel="external noopener" target="_blank">Polygon</a> has provided a <a href="//wallet.matic.network/bridge" rel="external noopener" target="_blank">PoS bridge</a> between Mare Bits on Ethereum and the Matic blockchain; this means <b>you can easily move your Mare Bits to and from Matic to take advantage of lower transaction fees</b>.  We will be looking to provide liquidity on Matic as well.  <contract-link chain-name="matic" contract="0xb362A97aD06C907c4b575D3503fB9DC474498480" contract-link-type="token">See the contract on Polygonscan</contract-link>
+					<h4>Important contract related links for (You):</h4>
+					<dl id="contract-detail-list">
+						<dt>Ethereum Token</dt><dd><a href="//etherscan.io/token/0xc5a1973e1f736e2ad991573f3649f4f4a44c3028" rel="external">0xc5a1973e1f736e2ad991573f3649f4f4a44c3028</a><copy-button>0xc5a1973e1f736e2ad991573f3649f4f4a44c3028</copy-button></dd>
+						<dt>Ethereum ETH/MARE Liquidity Token</dt><dd>In progress</dd>
+						<dt>Ethereum ETH/MARE Liquidity Lock</dt><dd>On Unicrypt (in progress)</dd>
+						<dt>Polygon Token</dt><dd><a href="//polygonscan.com/token/0xb362a97ad06c907c4b575d3503fb9dc474498480" rel="external">0xb362a97ad06c907c4b575d3503fb9dc474498480</a><copy-button>0xb362a97ad06c907c4b575d3503fb9dc474498480</copy-button></dd>
+						<dt>Polygon ETH/MARE Liquidity Token</dt><dd><a href="//polygonscan.com/token/0x438c93f9db0714cd6c029e1e435b0a3f2ad23ffa" rel="external">0x438c93f9db0714cd6c029e1e435b0a3f2ad23ffa</a><copy-button>0x438c93f9db0714cd6c029e1e435b0a3f2ad23ffa</copy-button></dd>
+						<dt>Polygon ETH/MARE Liquidity Lock</dt><dd><a href="//app.unicrypt.network/amm/quickswap-v1/pair/0x438c93f9db0714cd6c029e1e435b0a3f2ad23ffa" rel="external">On Unicrypt</a></dd>
+						<dt>Polygon MATIC/MARE Liquidity Token</dt><dd><a href="//polygonscan.com/token/0xdc2d6a362ddd6dd08192f3fc20dc6fb7d18f1de1" rel="external">0xdc2d6a362ddd6dd08192f3fc20dc6fb7d18f1de1</a><copy-button>0xdc2d6a362ddd6dd08192f3fc20dc6fb7d18f1de1</copy-button></dd>
+						<dt>Polygon MATIC/MARE Liquidity Lock</dt><dd><a href="//app.unicrypt.network/amm/quickswap-v1/pair/0xdc2d6a362ddd6dd08192f3fc20dc6fb7d18f1de1" rel="external">On Unicrypt</a></dd>
+					</dl>
 				</div>
 			</section>
-			<h2 class="big-header detail">Join Us</h2>
+			<h2 class="big-header detail" id="section-social">Join Us</h2>
 			<section class="card nav">
 				If you also believe in mares and want to make this project a success, please reach out and lend a hoof.
 				<nav>
 					<ul class="social">
 						<li>
-							<a href="//pone.social/@mare" rel="external me noopener" title="Mastodon" target="_blank"><img src="mastodon.svg" type="image/svg+xml"></a>
+							<a href="//pone.social/@mare" rel="me" title="Mastodon"><img src="mastodon.svg" type="image/svg+xml"></a>
 						</li>
 						<li>
-							<a href="//goto.mlp.chat/#/#mare-bits:mlp.chat" rel="external noopener" title="Matrix" target="_blank">
+							<a href="//goto.mlp.chat/#/#mare-bits:mlp.chat" rel="external noopener" title="Matrix">
 								<img src="matrix.svg" type="image/svg+xml">
 							</a>
 						</li>
-						<li><a href="//t.me/marebits" rel="external noopener" title="Telegram" target="_blank"><img src="telegram.svg" type="image/svg+xml"></a></li>
+						<li><a href="//t.me/marebits" rel="external noopener" title="Telegram"><img src="telegram.svg" type="image/svg+xml"></a></li>
 						<li>
-							<a href="//twitter.com/MareBits" rel="external me noopener" title="Twitter" target="_blank"><img src="twitter.svg" type="image/svg+xml"></a>
+							<a href="//twitter.com/MareBits" rel="external noopener" title="Twitter"><img src="twitter.svg" type="image/svg+xml"></a>
 						</li>
-						<li><a href="mailto:iwtcits@mare.biz" rel="external noopener" title="E-mail" target="_blank"><img src="email.svg" type="image/svg+xml"></a></li>
+						<li><a href="mailto:iwtcits@mare.biz" rel="external noopener" title="E-mail"><img src="email.svg" type="image/svg+xml"></a></li>
 					</ul>
 				</nav>
 			</section>
-			<h2 class="big-header detail">Get $MARE</h2>
-			<section class="card detail twilight">
+			<h2 class="big-header detail" id="section-get">Get $MARE</h2>
+			<section class="card detail twilight wide">
 				<div>
 					<h3 class="super-important">Please read this carefully before proceeding</h3>
 					<ol>
-						<li><strong>MARE is not an investment vehicle</strong>, there is <em>nothing</em> backing MARE, it is an extremely risky meme coin and its value could fall at any time</li>
-						<li>There are <strong>no guarantees</strong> that the price of your MARE will increase or decrease</li>
-						<li>The above being understood, <strong>we do personally vow to abide by these terms as closely as possible</strong> and will provide evidence on the site of all contracts and transactions relating to liquidity, burns, donations, and locking of assets.  Please contact us at one of the links above and ask if you think there is some documentation we are missing</li>
-						<li>Please note, since exchanges are volatile, there is <em class="super-important">no guarantee</em> your MARE will retain its value</li>
+						<li>MARE is an extremely risky meme coin and its value could fall at any time; don't invest any money in MARE that you aren't willing to lose</li>
 						<li><em class="super-important">MARE is not an investment vehicle, there is no company backing MARE</em></li>
-						<li>As a meme token, MARE is <em>extremely risky</em> and there is <strong>no guarantee it will hold value</strong>, so please don't invest any money in MARE that you aren't willing to lose</li>
-						<li>
+						<li>There are <em class="super-important">no guarantees</em> that the price of your MARE will increase or decrease</li>
+						<li>The above being understood, <strong>we do personally vow to abide by these terms as closely as possible</strong> and will provide evidence on the site of all <a href="#section-contracts">contracts and transactions</a> relating to liquidity, burns, donations, and locking of assets.  Please contact us at one of the links above and ask if you think there is some documentation we are missing</li>
+<!-- 						<li>
 							How liquidity will be distributed:
 							<ol>
-								<li>We will create liquidity smart contracts on select Ethereum and Matic <a href="//en.wikipedia.org/wiki/Decentralized_exchange" rel="external noopener" target="_blank">decentralized exchanges</a>, in an as yet to be determined split (open to input on this, probably a mix of <a href="//app.1inch.io/" rel="external noopener" target="_blank">1inch</a>, <a href="//app.uniswap.org/" rel="external noopener" target="_blank">Uniswap</a>, <a href="//app.sushi.com/" rel="external noopener" target="_blank">SushiSwap</a>, <a href="//quickswap.exchange/" rel="external noopener" target="_blank">QuickSwap</a>, and/or any others suggested)</li>
-								<li>The liquidity smart contracts will be configured so that the initial rate for 1 MARE on the exchanges will be valued at approximately <data value="0.000000000021398024625633416156272099549501">0.0000000000214 ETH</data>; or 1 ETH for <data value="46733285782">46,733,285,782 MARE</data> (meaning you get approximately <data value="0.30000000000855920985025336646251">30%</data> more MARE per ETH during the pre-sale)</li>
-								<li>Each of these liquidity contracts will be <strong>locked for at least 5 years</strong> and pertinent contracts will be posted here</li>
+								<li>We will create liquidity smart contracts on select Ethereum and Matic <a href="//en.wikipedia.org/wiki/Decentralized_exchange" rel="external noopener">decentralized exchanges</a>, in an as yet to be determined split (open to input on this, probably a mix of <a href="//app.1inch.io/" rel="external noopener">1inch</a>, <a href="//app.uniswap.org/" rel="external noopener">Uniswap</a>, <a href="//app.sushi.com/" rel="external noopener">SushiSwap</a>, <a href="//quickswap.exchange/" rel="external noopener">QuickSwap</a>, and/or any others suggested)</li>
+								<li>The liquidity smart contracts will be configured so that the initial rate for 1 MARE on the exchanges will be valued at approximately <data value="0.000000000021398024625633416156272099549501">0.0000000000214 ETH</data>; or 1 ETH for <data value="46733285782">46,733,285,782 MARE</data></li>
+								<li>Each of these liquidity contracts will be <strong>locked for at least 3 years</strong> and pertinent contracts will be posted here</li>
 							</ol>
-						</li>
+						</li> -->
 					</ol>
+				</div>
+				<div>
+					<strong>$MARE is now available for purchase on <a href="//quickswap.exchange/#/swap?outputCurrency=0xb362a97ad06c907c4b575d3503fb9dc474498480" rel="external">QuickSwap</a>.  Use the links on this page to quickly find the trading pair, or enter our Polygon token contract<copy-button>0xb362a97ad06c907c4b575d3503fb9dc474498480</copy-button> (address listed <a href="#section-contracts">above</a>).</strong>
+				</div>
+				<hr>
+				<div>
+					<h3>How to MARE on Polygon</h3>
+					<div>
+						The fees to swap on Polygon are far lower than on the Ethereum chain, so you may want to make your purchases there to save some cash.  Since Polygon isn't as widely adopted yet, here are some steps you'd take to make your MARE purchase.
+						<ol>
+							<li>Download <a href="//metamask.io/" rel="external">Metamask</a>: Unfortunately, most of the web3 world isn't yet very standardized, but Metamask seems to be the most widely supported wallet</li>
+							<li>You are going to need something on Polygon with which to make your purchase.  I'm not sure if an exchange exists where you can buy MATIC from them directly on the Polygon network, but the way most people get money on Polygon is by bridging it from Ethereum.  This can be expensive.  ETH is going to be the cheapest to bridge, since it requires no approval.  The <a href="//wallet.polygon.technology/bridge" rel="external">Polygon bridge</a> is probably the easiest to use</li>
+							<li>If you haven't yet added the Polygon network to your Metamask, the <a href="//wallet.polygon.technology/bridge" rel="external">Polygon bridge</a> can do it for you by clicking the <q>Switch to Polygon</q> button in the upper right</li>
+							<li>Go to <a href="//quickswap.exchange/#/swap?outputCurrency=0xb362a97ad06c907c4b575d3503fb9dc474498480" rel="external">QuickSwap</a> by using this link and convert whatever you bridged over to MARE.  You will need MATIC to pay the swap fees (they tend to be very low, think pennies).  The <a href="//matic.supply/">Polygon Faucet</a> might be able to provide you enough to cover these fees (no guarantee)</li>
+						</ol>
 				</div>
 			</section>
 		</main>

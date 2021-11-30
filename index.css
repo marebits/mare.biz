@@ -14,6 +14,7 @@ footer, header {
 	display: flex;
 	justify-content: center;
 }
+h3:not(.header), h4 { color: var(--twilight-blue); }
 header {
 	height: var(--moon-width);
 	margin: 1rem;
@@ -30,7 +31,7 @@ main {
 	display: flex;
 	flex-direction: column;
 }
-main > * { width: 65%; }
+main > * { width: var(--content-width); }
 dfn[title="brohoof /)"] {
 	display: block;
 	font-family: monospace;
@@ -59,6 +60,7 @@ dfn[title="brohoof /)"] {
 .action-button[disabled] { filter: brightness(1.4) grayscale(0.6) brightness(0.7); }
 .alert, .super-important, #briefing-details > dt { font-weight: 700; }
 .alert { color: #d95252 !important; }
+.apple a { color: var(--twilight-purple); }
 .big-header {
 	font-family: WoodrowW00-Reg, cursive;
 	font-weight: normal;
@@ -162,6 +164,7 @@ dfn[title="brohoof /)"] {
 	z-index: -100;
 }
 .super-important { text-transform: uppercase; }
+.wide { width: 95%; }
 #briefing-details {
 	display: grid;
 	grid-template-columns: repeat(4, 25%);
@@ -185,6 +188,21 @@ dfn[title="brohoof /)"] {
 #briefing-details > * > * {
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+#contract-detail-list {
+	align-items: center;
+	column-gap: 1rem;
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	row-gap: 0.5rem;
+}
+#contract-detail-list > dd {
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+}
+#contract-detail-list > dt {
+	font-weight: 700;
+	justify-self: end;
 }
 #ground { width: 102%; }
 #mare-covered-in-bits {
@@ -219,6 +237,7 @@ dfn[title="brohoof /)"] {
 	z-index: -2;
 }
 #purchase-amount { width: 100%; }
+#top-nav { display: none; }
 @keyframes blink {
 	from { opacity: 0; }
 	to { opacity: 100%; }
@@ -263,9 +282,40 @@ dfn[title="brohoof /)"] {
 		animation-name: moon-glow;
 		animation-timing-function: linear;
 	}
+	#top-nav {
+		backdrop-filter: saturate(180%) blur(1rem);
+		background-color: var(--twilight-blue-transparent);
+		border-radius: 0.5rem;
+		color: var(--twilight-background);
+		display: grid;
+		font-family: WoodrowW00-Reg, cursive;
+		font-size: xx-large;
+		gap: 0.5rem;
+		grid-template-columns: minmax(6.25rem, 1fr) 3fr;
+		height: 3.75rem;
+		left: calc(calc(100% - var(--content-width)) / 2);
+		margin: 1rem;
+		max-height: 3.75rem;
+		overflow: hidden;
+		padding: 0.5rem;
+		position: absolute;
+		width: var(--content-width);
+		z-index: 1000;
+	}
+	#top-nav a {
+		color: unset;
+		text-decoration: none;
+	}
+	#top-nav li { margin: 0; }
+	#top-nav ul {
+		display: flex;
+		flex-wrap: wrap-reverse;
+		justify-content: space-evenly;
+		list-style: none;
+	}
 }
 @media (prefers-reduced-motion) { .stars { transform: none; } }
-@media (max-width: 635px) {
+@media (max-width: 1440px) {
 	.big-header.detail { font-size: 2rem; }
 	.card {
 		margin: 1rem 0.25rem;
@@ -280,4 +330,9 @@ dfn[title="brohoof /)"] {
 	#briefing-details > *:nth-child(2n) { border-left: none; }
 	#briefing-details > dd { grid-column-start: span 2; }
 	#briefing-details > dt { grid-column-start: 1; }
+	#top-nav {
+		font-size: large;
+		grid-template-columns: 1rem 3fr;
+		height: 2.25rem;
+	}
 }

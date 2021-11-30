@@ -11,6 +11,7 @@
 	--big-header-flare-size: 5rem;
 	--black: #000002;
 	--card-header-font-size: 1.5rem;
+	--content-width: 85%;
 	--moon-width: 25vw;
 	--scroll-speed: -1px;
 	--scroll-y: 0;
@@ -23,6 +24,7 @@
 	--star-size-offset: 0;
 	--star-twinkle-offset: 0;
 	--twilight-blue: #263773;
+	--twilight-blue-transparent: rgba(38, 55, 115, 0.5);
 	--twilight-orange: #f47735;
 	--twilight-pink: #ed438a;
 	--twilight-pink-transparent: rgba(237, 67, 138, 0.5);
@@ -47,10 +49,10 @@
 	margin: 0;
 }
 a {
+	color: var(--link-color);
 	text-decoration: underline;
 	text-decoration-style: dotted;
 }
-a:link { color: var(--link-color); }
 a:visited { color: var(--link-visited-color); }
 a:focus, a:hover { background-color: var(--link-focus-background-color); }
 a:active {
@@ -78,11 +80,11 @@ svg[role=presentation] {
 		transition: none !important;
 	}
 }
-@media (max-width: 635px) {
+@media (max-width: 1440px) {
 	:root {
 		--big-header-flare-size: 2.5rem;
+		--content-width: 95%;
 		--moon-width: 40vw;
 		--social-button-size: 3rem;
 	}
-	main > * { width: 95%; }
 }

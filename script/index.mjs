@@ -2,14 +2,15 @@
 
 import { browserEvents } from "./EventSet.mjs";
 import { CONSTANTS } from "./constants.mjs";
-import { ContractLink } from "./ContractLink.mjs";
+// import { ContractLink } from "./ContractLink.mjs";
+import { CopyButton } from "./CopyButton.mjs";
 // import { MarebitsPresaleApp } from "./MarebitsPresaleApp.mjs";
 // import { MareEvent } from "./MareEvent.mjs";
 // import { OutputDataMessage } from "./OutputDataMessage.mjs";
 // import { Cache } from "./Cache.mjs";
 import { VisibilityListener, defineCustomElements } from "./utils.mjs";
 
-defineCustomElements([ContractLink]);
+defineCustomElements([CopyButton]);
 // browserEvents.addMany([
 // 	new MareEvent(addToMetaMaskButton, "click", onAddToMetaMaskClick, { passive: true }), 
 // 	new MareEvent(purchaseAmountInput, "input", onPurchaseAmountInput, { passive: true }), 
@@ -20,7 +21,7 @@ defineCustomElements([ContractLink]);
 // 	new MareEvent(web3, "initialized", updateButtons), 
 // 	new MareEvent(withdrawButton, "click", onWithdrawClick, { passive: true })
 // ]);
-// browserEvents.startListening();
+browserEvents.startListening();
 
 function onVisibilityChange() {
 	if (self.document.visibilityState === "hidden")

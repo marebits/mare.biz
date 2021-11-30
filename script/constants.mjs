@@ -8,18 +8,12 @@ const chainsBase = [
 const CONSTANTS = {
 	CHAINS: new self.Map(chainsBase), 
 	COLOR_MASKS: [0xff0000, 0xffff00, 0xff], 
-	CONTRACT_LINK: {
-		ANCHOR_TITLE_TAG: function(bexName) { return `View contract on ${bexName}`; }, 
-		ATTRIBUTES: new self.Map([["buttonColor", "button-color"], ["chainName", "chain-name"], ["contract", "contract"], ["contractLinkType", "contract-link-type"]]), 
-		BUTTON_IMAGE_TAG: function(buttonColor) { return `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><g fill='none' stroke='${self.encodeURIComponent(buttonColor)}' stroke-linejoin='round'><path d='M2 5h9v9H2z'/><path d='M5 5V2h9v9h-3'/></g></svg>`; }, 
+	COPY_BUTTON: {
+		BUTTON_IMAGE_SUCCESS_URL: function(buttonColor) { return `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path stroke='${self.encodeURIComponent(buttonColor)}' d='m9 16-4-4-2 1 6 6L21 7l-1-1L9 16z'/></svg>`; }, 
+		BUTTON_IMAGE_URL: function(buttonColor) { return `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><g fill='none' stroke='${self.encodeURIComponent(buttonColor)}' stroke-linejoin='round'><path d='M2 5h9v9H2z'/><path d='M5 5V2h9v9h-3'/></g></svg>`; }, 
 		BUTTON_TITLE: "Copy contract address", 
 		COPY_MESSAGE: "Copied!", 
-		DEFAULT_BUTTON_COLOR: "black", 
-		DEFAULT_CHAIN_NAME: "eth", 
-		DEFAULT_CONTRACT_LINK_TYPE: "address", 
-		REL: "external noopener", 
-		TARGET: "_blank", 
-		VALID_CONTRACT_LINK_TYPES: ["address", "token", "tx"]
+		DEFAULT_BUTTON_COLOR: "black"
 	}, 
 	ETH_UNITS: [["wei", "1"], ["kwei", "1000"], ["mwei", "1000000"], ["gwei", "1000000000"], ["szabo", "1000000000000"], ["ether", "1000000000000000000"]], 
 	INFURA: {
