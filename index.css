@@ -9,6 +9,7 @@ body {
 	font-family: "Open Sans", sans-serif;
 }
 body[data-is-js-disabled] { background-image: url(stars.webp); }
+body[data-is-copy-button-hidden] copy-button { display: none; }
 footer { min-height: 25vw; }
 footer, header {
 	display: flex;
@@ -190,8 +191,10 @@ dfn[title="brohoof /)"] {
 	text-overflow: ellipsis;
 }
 #buy-now {
+	--border-radius-size: 1rem;
+	--buy-now-width: 60rem;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(calc(var(--buy-now-width) / 2), 1fr));
 	place-content: stretch;
 	place-items: stretch;
 }
@@ -208,29 +211,36 @@ dfn[title="brohoof /)"] {
 }
 #buy-now > section:nth-child(1) {
 	background-color: var(--twilight-background);
-	border-radius: 1rem 0 0 1rem;
+	border-radius: var(--border-radius-size) 0 0 var(--border-radius-size);
 }
 #buy-now > section:nth-child(2) {
 	background-color: var(--twilight-pink);
-	border-radius: 0 1rem 1rem 0;
+	border-radius: 0 var(--border-radius-size) var(--border-radius-size) 0;
 }
 #buy-now > section > section:nth-child(4) {
-	display: flex;
+	display: none;
 	flex-direction: row;
 	flex-wrap: wrap;
+	justify-content: center;
 }
 #buy-now > section > section:nth-child(4) > a {
+	border-color: var(--twilight-purple);
 	border-radius: 0.5rem;
-	margin: 1rem;
+	border-style: solid;
+	font-weight: 700;
+	margin: 0.5rem;
 	padding: 1rem;
 }
-#buy-now > section > section:nth-child(4) > a:hover { background-color: unset; }
-#buy-now > section > section:nth-child(4) > a:first-child {
-	border-color: var(--twilight-purple);
-	border-style: solid;
+#buy-now > section > section:nth-child(4) > a:first-child:hover {
+	background-color: var(--twilight-purple);
+	color: var(--twilight-pink);
 }
 #buy-now > section > section:nth-child(4) > a:not(:first-child) {
 	background-color: var(--twilight-purple);
+}
+#buy-now > section > section:nth-child(4) > a:not(:first-child):hover {
+	background-color: unset;
+	color: var(--twilight-purple);
 }
 #contract-detail-list {
 	align-items: center;
@@ -320,6 +330,7 @@ dfn[title="brohoof /)"] {
 		transform: translateY(calc(var(--scroll-y) * var(--scroll-speed)));
 		transition: all 0.2s linear;
 	}
+	#buy-now > section > section:nth-child(4) { display: flex; }
 	#moon-background {
 		animation-duration: 10s;
 		animation-name: moon-glow;
@@ -357,7 +368,6 @@ dfn[title="brohoof /)"] {
 		list-style: none;
 	}
 }
-@media (prefers-reduced-motion) { .stars { transform: none; } }
 @media (max-width: 1440px) {
 	.big-header.detail { font-size: 2rem; }
 	.card {
@@ -379,3 +389,10 @@ dfn[title="brohoof /)"] {
 		height: 2.25rem;
 	}
 }
+@media (max-width: 60rem) {
+	#buy-now { margin: 1rem 0; }
+	#buy-now > section { margin: 0; }
+	#buy-now > section:nth-child(1) { border-radius: var(--border-radius-size) var(--border-radius-size) 0 0; }
+	#buy-now > section:nth-child(2) { border-radius: 0 0 var(--border-radius-size) var(--border-radius-size); }
+}
+@media (prefers-reduced-motion) { .stars { transform: none; } }

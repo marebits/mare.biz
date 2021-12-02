@@ -112,6 +112,7 @@ class CopyButton extends MareCustomElement {
 			return;
 		const privates = _privates.get(this);
 		privates.copyContractClickEvent = browserEvents.add(new MareEvent(privates.button, "click", () => onCopyContractClick.call(this).catch(console.error), { passive: true }));
+		delete self.document.body.dataset.isCopyButtonHidden;
 		super.connectedCallback();
 	}
 	createdCallback(options) {
