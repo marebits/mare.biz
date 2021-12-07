@@ -15,7 +15,9 @@ footer, header {
 	display: flex;
 	justify-content: center;
 }
-h3:not(.header), h4 { color: var(--twilight-blue); }
+h3:not(.header), h4, h5 { color: var(--twilight-blue); }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
 header {
 	height: var(--moon-width);
 	margin: 1rem;
@@ -27,6 +29,15 @@ hr {
 	border-top-color: var(--twilight-blue);
 	margin: 0.25rem 0;
 }
+li.emote-marker::marker, .emote {
+	display: inline-block;
+	font-family: emoji;
+	font-style: unset;
+	text-align: center;
+	width: 1.2rem;
+}
+li.emote-marker.droplet { list-style-type: "💧 "; }
+li.emote-marker.fire { list-style-type: "🔥 "; }
 main {
 	align-items: center;
 	display: flex;
@@ -144,10 +155,6 @@ dfn[title="brohoof /)"] {
 	vertical-align: middle;
 	width: 3.75rem;
 }
-.emote {
-	font-family: emoji;
-	font-style: unset;
-}
 .star {
 	--star-blur: blur(calc(2px + var(--star-blur-offset)));
 	--star-size: calc(var(--star-size-base) + var(--star-size-offset));
@@ -257,6 +264,7 @@ dfn[title="brohoof /)"] {
 	font-weight: 700;
 	justify-self: end;
 }
+#transaction-detail-list { font-weight: 700; }
 #ground { width: 102%; }
 #mare-covered-in-bits {
 	filter: url(#darken-mare) drop-shadow(1px 4px 3px #000002);
